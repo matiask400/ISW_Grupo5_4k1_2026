@@ -5,20 +5,20 @@ Repositorio del Grupo 5 de la asignatura **Ingeniería y Calidad de Software**, 
 ## Integrantes del grupo
 
 | Nombre | Legajo | Mail |
-| --- | ---: | --- |
-| Gaspar Brocanelli | 400989 | [gaspibroca@gmail.com](mailto:gaspibroca@gmail.com) |
-| Matías Adolfo Koroch | 96369 | [96369@sistemas.frc.utn.edu.ar](mailto:96369@sistemas.frc.utn.edu.ar) |
-| Baltasar Gaitán Acevedo | 401077 | [baltasargaitan12@gmail.com](mailto:baltasargaitan12@gmail.com) |
-| Felipe Vilchez | 95178 | [vilchez320@gmail.com](mailto:vilchez320@gmail.com) |
-| Lautaro Comas | 96586 | [lautaroacomas@gmail.com](mailto:lautaroacomas@gmail.com) |
-| Abril Salinas | 94243 | [abrilsalinas2003@gmail.com](mailto:abrilsalinas2003@gmail.com) |
-| Mateo Sanchez | 91785 | [sanchezmateo090@gmail.com](mailto:sanchezmateo090@gmail.com) |
-| Mayra Morellato | 97325 | [mayra.m2230@gmail.com](mailto:mayra.m2230@gmail.com) |
-| Manuel Fassi | 98518 | [fassimanu@gmail.com](mailto:fassimanu@gmail.com) |
-| Luciano Tissera | 99236 | [ltissera17@gmail.com](mailto:ltissera17@gmail.com) |
-| María Lucía Romero Peñaloza | 95694 | [romeropenalozal26@gmail.com](mailto:romeropenalozal26@gmail.com) |
-| Martín Imoberdorf | 91570 | [tinchoimo@gmail.com](mailto:tinchoimo@gmail.com) |
-| Bianca Xiomara Hermoza | 95578 | [biancaxiomarah@gmail.com](mailto:biancaxiomarah@gmail.com) |
+| --- | --- | --- |
+| Brocanelli, Gaspar | 400989 | [gaspibroca@gmail.com](mailto:gaspibroca@gmail.com) |
+| Comas, Lautaro | 96586 | [lautaroacomas@gmail.com](mailto:lautaroacomas@gmail.com) |
+| Fassi, Manuel | 98518 | [fassimanu@gmail.com](mailto:fassimanu@gmail.com) |
+| Gaitán Acevedo, Baltasar | 401077 | [baltasargaitan12@gmail.com](mailto:baltasargaitan12@gmail.com) |
+| Hermoza, Bianca Xiomara | 95578 | [biancaxiomarah@gmail.com](mailto:biancaxiomarah@gmail.com) |
+| Imoberdorf, Martín José | 91570 | [tinchoimo@gmail.com](mailto:tinchoimo@gmail.com) |
+| Koroch, Matías Adolfo | 96369 | [96369@sistemas.frc.utn.edu.ar](mailto:96369@sistemas.frc.utn.edu.ar) |
+| Morellato, Mayra | 97325 | [mayra.m2230@gmail.com](mailto:mayra.m2230@gmail.com) |
+| Romero Peñaloza, María Lucía | 95694 | [romeropenalozal26@gmail.com](mailto:romeropenalozal26@gmail.com) |
+| Salinas, Abril | 94243 | [abrilsalinas2003@gmail.com](mailto:abrilsalinas2003@gmail.com) |
+| Sanchez, Mateo | 91785 | [sanchezmateo090@gmail.com](mailto:sanchezmateo090@gmail.com) |
+| Tissera, Luciano | 99236 | [ltissera17@gmail.com](mailto:ltissera17@gmail.com) |
+| Vilchez, Felipe | 95178 | [vilchez320@gmail.com](mailto:vilchez320@gmail.com) |
 
 ## Estructura del repositorio
 
