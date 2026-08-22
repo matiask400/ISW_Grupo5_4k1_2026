@@ -1,0 +1,11 @@
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos temporales de Microsoft Office
+~$*
+
+# Archivos temporales y de respaldo
+*.tmp
+*.bak
+*.swp
