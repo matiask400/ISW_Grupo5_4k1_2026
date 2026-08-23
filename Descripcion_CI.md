@@ -20,7 +20,21 @@ Este documento define los ítems de configuración (CI) del repositorio, su ubic
 | Documento de estructura SCM | Archivo | `README.md` | `.md` | Raíz del repositorio | Documento de gestión |
 | Tabla de ítems de configuración | Archivo | `Descripcion_CI.md` | `.md` | Raíz del repositorio | Documento de gestión |
 
-## Glosario de nomenclatura
+## 🔁 Flujo de los trabajos prácticos
+
+Cada `TP_<NN>_<Tema>/` conserva las siguientes entradas y salidas:
+
+| Directorio | Contenido | Rol |
+| --- | --- | --- |
+| `00_Enunciado/` | Consigna, guía, aclaraciones y material provisto por la cátedra | Entrada |
+| `01_Produccion/` | Artefactos de trabajo del grupo, incluyendo código fuente si corresponde | Trabajo en curso |
+| `02_Entrega/` | Versión final presentada | Salida formal |
+| `03_Retroalimentacion/` | Correcciones, calificaciones y devoluciones recibidas | Entrada posterior |
+| `04_Evidencias_Repositorio/` | Capturas, reportes de Git, tags y pruebas de actualización | Evidencia de gestión |
+
+Las carpetas se mantienen incluso cuando un TP no requiere contenido en alguna de ellas; así se preserva la consistencia entre entregas.
+
+## Glosario
 
 - `<NN>`: número de dos dígitos del TP, parcial o secuencia; por ejemplo, `04` o `05`.
 - `<Tema>`: título corto del material; se utiliza `_` como separador de palabras.
@@ -29,9 +43,3 @@ Este documento define los ítems de configuración (CI) del repositorio, su ubic
 - `<AAAA-MM-DD>`: fecha en formato ISO 8601.
 - `<ext>`: extensión permitida para el ítem de configuración.
 - `v<MAJOR>.<MINOR>`: versión del archivo. `MAJOR` cambia ante una nueva entrega o modificación estructural relevante; `MINOR`, ante ajustes dentro de la misma entrega.
-
-## Criterio para líneas base
-
-Se definirá una nueva línea base después de cada parcial evaluativo. Este criterio se adopta porque los parciales constituyen hitos de referencia que permiten evaluar y comparar el progreso del grupo a lo largo de la asignatura.
-
-Antes de crearla se verifica que los ítems del período estén ubicados correctamente, respeten las reglas de nombrado, estén completos y hayan sido revisados por el grupo. La línea base se identifica mediante un tag con el formato `LB-P<NN>-v<N>`; por ejemplo, `LB-P01-v1`.

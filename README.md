@@ -63,19 +63,6 @@ Los ítems de configuración, su ubicación y reglas de nombrado se detallan en 
 | Retroalimentación | Archivo | `TP_<NN>_Retroalimentacion_<AAAA-MM-DD>.<ext>` | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
 | Evidencia del repositorio | Archivo | `TP_<NN>_Evidencia_<Descripcion>_<AAAA-MM-DD>.<ext>` | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
 
-## 🔁 Flujo de los trabajos prácticos
-
-Cada `TP_<NN>_<Tema>/` conserva las siguientes entradas y salidas:
-
-| Directorio | Contenido | Rol |
-| --- | --- | --- |
-| `00_Enunciado/` | Consigna, guía, aclaraciones y material provisto por la cátedra | Entrada |
-| `01_Produccion/` | Artefactos de trabajo del grupo, incluyendo código fuente si corresponde | Trabajo en curso |
-| `02_Entrega/` | Versión final presentada | Salida formal |
-| `03_Retroalimentacion/` | Correcciones, calificaciones y devoluciones recibidas | Entrada posterior |
-| `04_Evidencias_Repositorio/` | Capturas, reportes de Git, tags y pruebas de actualización | Evidencia de gestión |
-
-Las carpetas se mantienen incluso cuando un TP no requiere contenido en alguna de ellas; así se preserva la consistencia entre entregas.
 
 ### Glosario
 
@@ -87,7 +74,12 @@ Las carpetas se mantienen incluso cuando un TP no requiere contenido en alguna d
 - `v<MAJOR>.<MINOR>`: versión del artefacto. `MAJOR` aumenta ante una entrega nueva o un cambio estructural importante; `MINOR`, ante ajustes dentro de la misma entrega.
 
 ## Líneas base
-
-Se definirá una nueva línea base después de cada parcial evaluativo.
-
+Se definirá una nueva línea base después de cada parcial evaluativo. 
 Este criterio se adopta porque los parciales constituyen hitos de referencia que permiten evaluar y comparar el progreso del grupo a lo largo de la asignatura.
+Cada línea base tiene un nombre con la siguiente nomenclatura: v[MAJOR].[MINOR]
+
+| Nombre | Fecha | Descripción |
+| --- | --- | --- |
+| v1.0 | 05/09/2026 | Primer Parcial rendido el 03/09/2026  |
+| v2.0 | 03/10/2026 | Segundo Parcial rendido el 31/10/2026 |
+| v3.0 | 30/11/2026 | Recuperatorio rendido el 28/11/2026   |
