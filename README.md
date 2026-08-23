@@ -90,7 +90,7 @@ Cada `TP_<NN>_<Tema>/` conserva las siguientes entradas y salidas:
 
 - `<NN>`: número de dos dígitos del TP, por ejemplo `04` o `05`.
 - `<Tema>`: título breve usando `_` como separador. 
-- `<Artefacto>`: tipo de documento, por ejemplo `Resolucion`, `Informe`, `Cronograma`.
+- `<Artefacto>`: tipo de documento, por ejemplo `Resolución`, `Informe`, `Cronograma`.
 - `<AAAA-MM-DD>`: fecha en formato ISO 8601.
 - `<ext>`:  extensión permitida para el ítem de configuración.
 - `v<MAJOR>.<MINOR>`: versión del artefacto. `MAJOR` aumenta ante una entrega nueva o un cambio estructural importante; `MINOR`, ante ajustes dentro de la misma entrega.
