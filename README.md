@@ -50,7 +50,20 @@ ISW_Grupo5_4k1_2026/
 * `Notas/` es un directorio donde se encuentran las anotaciones realizadas en clases por los estudiantes.
 * `Trabajos_Practicos/` es un directorio contenedor: cada TP evaluable se registra en un subdirectorio independiente y todos comparten la misma estructura interna. Esto permite incorporar nuevos TPs sin cambiar el criterio de organización.
 
-## Flujo de los trabajos prácticos
+
+## ⚙ Configuración del repositorio
+
+Los ítems de configuración, su ubicación y reglas de nombrado se detallan en `Descripcion_CI.md`. Como criterio general:
+
+| Ítem de configuración | Unidad de control | Regla de nombrado | Extensiones permitidas |
+| --- | --- | --- | --- |
+| Material provisto por cátedra | Archivo dentro de su directorio temático | Se conserva el nombre oficial | `.pdf`, `.docx`, `.xlsx`, `.pptx` |
+| Resumen grupal | Archivo | `Resumen_<Tema>_v<MAJOR>.<MINOR>.md` | `.md`, `.pdf` |
+| Artefacto de TP | Archivo | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
+| Retroalimentación | Archivo | `TP_<NN>_Retroalimentacion_<AAAA-MM-DD>.<ext>` | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
+| Evidencia del repositorio | Archivo | `TP_<NN>_Evidencia_<Descripcion>_<AAAA-MM-DD>.<ext>` | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
+
+## 🔁 Flujo de los trabajos prácticos
 
 Cada `TP_<NN>_<Tema>/` conserva las siguientes entradas y salidas:
 
@@ -63,18 +76,6 @@ Cada `TP_<NN>_<Tema>/` conserva las siguientes entradas y salidas:
 | `04_Evidencias_Repositorio/` | Capturas, reportes de Git, tags y pruebas de actualización | Evidencia de gestión |
 
 Las carpetas se mantienen incluso cuando un TP no requiere contenido en alguna de ellas; así se preserva la consistencia entre entregas.
-
-## Configuración del repositorio
-
-Los ítems de configuración, su ubicación y reglas de nombrado se detallan en `Descripcion_CI.md`. Como criterio general:
-
-| Ítem de configuración | Unidad de control | Regla de nombrado | Extensiones permitidas |
-| --- | --- | --- | --- |
-| Material provisto por cátedra | Archivo dentro de su directorio temático | Se conserva el nombre oficial | `.pdf`, `.docx`, `.xlsx`, `.pptx` |
-| Resumen grupal | Archivo | `Resumen_<Tema>_v<MAJOR>.<MINOR>.md` | `.md`, `.pdf` |
-| Artefacto de TP | Archivo | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
-| Retroalimentación | Archivo | `TP_<NN>_Retroalimentacion_<AAAA-MM-DD>.<ext>` | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
-| Evidencia del repositorio | Archivo | `TP_<NN>_Evidencia_<Descripcion>_<AAAA-MM-DD>.<ext>` | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
 
 ### Glosario
 
