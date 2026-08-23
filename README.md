@@ -91,7 +91,7 @@ Cada `TP_<NN>_<Tema>/` conserva las siguientes entradas y salidas:
 - `<ext>`:  extensión permitida para el ítem de configuración.
 - `v<MAJOR>.<MINOR>`: versión del artefacto. `MAJOR` aumenta ante una entrega nueva o un cambio estructural importante; `MINOR`, ante ajustes dentro de la misma entrega.
 
-## Líneas base
+## 🏷️ Líneas base
 Se definirá una nueva línea base después de cada parcial evaluativo. 
 Utilizaremos cada examen parcial como un hito clave dentro de la gestión de configuración de software, lo que nos permitirá medir avances, consolidar cambios y garantizar la estabilidad de la versión en el repositorio.
 Cada línea base tiene un nombre con la siguiente nomenclatura: v[MAJOR].[MINOR]
