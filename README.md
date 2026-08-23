@@ -32,7 +32,7 @@ ISW_Grupo5_4k1_2026/
 │   ├── Presentaciones_Teoricas/
 │   ├── Resumenes/
 │   └── Templates/
-│   └── Link Clases Grabadas/
+│   └── Link_Clases_Grabadas//
 ├── Notas/
 │   ├── Teorico/
 │   └── Practico/
