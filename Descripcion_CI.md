@@ -1,6 +1,6 @@
 # Descripción de ítems de configuración
 
-Este documento define los ítems de configuración (CI) del repositorio, su ubicación física, las extensiones admitidas y las reglas de nombrado. Se aplica a los materiales disponibles durante el cursado de Ingeniería y Calidad de Software.
+Este documento define los ítems de configuración (CI) del repositorio, su ubicación física, las extensiones admitidas y las reglas de nombrado.
 
 | Ítem de configuración | Unidad de control | Regla de nombrado | Extensiones permitidas | Ubicación | Tipo |
 | --- | --- | --- | --- | --- | --- |
