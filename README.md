@@ -53,22 +53,21 @@ ISW_Grupo5_4k1_2026/
 
 ## ⚙ Ítems de configuración
 
-| Ítem de configuración | Unidad de control | Regla de nombrado | Extensiones permitidas | Ubicación | Tipo |
-| --- | --- | --- | --- | --- | --- |
-| **Bibliografía** | Directorio y archivos contenidos | Se conserva el nombre oficial provisto | `.pdf` | `Material_de_Clase/Bibliografia/` | Recurso de cátedra |
-| **Guías de ejercicios** | Directorio y archivos contenidos | Se conserva el nombre oficial provisto | `.pdf`, `.docx` | `Material_de_Clase/Guias/` | Recurso de cátedra |
-| **Planificación** | Directorio y archivos contenidos | `Planificacion_<Tema>.<ext>` para material del grupo; nombre oficial para material de cátedra | `.md`, `.pdf`, `.xlsx` | `Material_de_Clase/Planificacion/` | Recurso de cátedra / material propio |
-| **Presentaciones teóricas** | Directorio y archivos contenidos | Se conserva el nombre oficial provisto | `.pdf`, `.pptx` | `Material_de_Clase/Presentaciones_Teoricas/` | Recurso de cátedra |
-| **Resúmenes** | Archivo | `Resumen_<Tema>_v<MAJOR>.<MINOR>.<ext>` | `.md`, `.pdf` | `Material_de_Clase/Resumenes/` | Material propio |
-`Material_de_Clase/Templates/` | Recurso de cátedra |
-| **Trabajo práctico** | Directorio | `TP_<NN>_<Tema>/` | No aplica | `Trabajos_Practicos/` | Material propio |
-| **Enunciado de TP** | Archivo | Se conserva el nombre oficial provisto | `.pdf`, `.docx` | `Trabajos_Practicos/TP_<NN>_<Tema>/00_Enunciado/` | Recurso de cátedra |
-| **Producción de TP** | Archivo | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` | `Trabajos_Practicos/TP_<NN>_<Tema>/01_Produccion/` | Material propio |
-| **Código fuente** | Directorio y archivos contenidos | Convenciones propias del lenguaje o tecnología | Según tecnología | `Trabajos_Practicos/TP_<NN>_<Tema>/01_Produccion/Codigo_Fuente/` | Material propio |
-| **Entrega de TP** | Archivo | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` | `Trabajos_Practicos/TP_<NN>_<Tema>/02_Entrega/` | Material propio |
-| **Retroalimentación** | Archivo | `TP_<NN>_Retroalimentacion_<AAAA-MM-DD>.<ext>` | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` | `Trabajos_Practicos/TP_<NN>_<Tema>/03_Retroalimentacion/` | Recurso de cátedra |
-| **Evidencia de repositorio** | Archivo | `TP_<NN>_Evidencia_<Descripcion>_<AAAA-MM-DD>.<ext>` | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` | `Trabajos_Practicos/TP_<NN>_<Tema>/04_Evidencias_Repositorio/` | Material propio |
-| **Documento de estructura SCM** | Archivo | `README.md` | `.md` | Raíz del repositorio | Documento de gestión |
+| Ítem de configuración | Regla de nombrado | Ubicación | Tipo de Ítem | Extensiones permitidas |
+| --- | --- | --- | --- | --- |
+| **Bibliografía** | Se conserva el nombre oficial provisto | `Material_de_Clase/Bibliografia/` | Recurso de cátedra | `.pdf` |
+| **Guías de ejercicios** | Se conserva el nombre oficial provisto | `Material_de_Clase/Guias/` | Recurso de cátedra | `.pdf`, `.docx` |
+| **Planificación** | `Planificacion_<Tema>.<ext>` para material del grupo; nombre oficial para material de cátedra | `Material_de_Clase/Planificacion/` | Recurso de cátedra / material propio | `.md`, `.pdf`, `.xlsx` |
+| **Presentaciones teóricas** | Se conserva el nombre oficial provisto | `Material_de_Clase/Presentaciones_Teoricas/` | Recurso de cátedra | `.pdf`, `.pptx` |
+| **Resúmenes** | `Resumen_<Tema>_v<MAJOR>.<MINOR>.<ext>` | `Material_de_Clase/Resumenes/` | Material propio | `.md`, `.pdf` |
+| **Trabajo práctico** | `TP_<NN>_<Tema>/` | `Trabajos_Practicos/` | Material propio | No aplica |
+| **Enunciado de TP** | Se conserva el nombre oficial provisto | `Trabajos_Practicos/TP_<NN>_<Tema>/00_Enunciado/` | Recurso de cátedra | `.pdf`, `.docx` |
+| **Producción de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/01_Produccion/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
+| **Código fuente** | Convenciones propias del lenguaje o tecnología | `Trabajos_Practicos/TP_<NN>_<Tema>/01_Produccion/Codigo_Fuente/` | Material propio | Según tecnología |
+| **Entrega de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/02_Entrega/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
+| **Retroalimentación** | `TP_<NN>_Retroalimentacion_<AAAA-MM-DD>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/03_Retroalimentacion/` | Recurso de cátedra | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
+| **Evidencia de repositorio** | `TP_<NN>_Evidencia_<Descripcion>_<AAAA-MM-DD>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/04_Evidencias_Repositorio/` | Material propio | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
+| **Documento de estructura SCM** | `README.md` | Raíz del repositorio | Documento de gestión | `.md` |
 
 
 ## 🔁 Flujo de los trabajos prácticos
