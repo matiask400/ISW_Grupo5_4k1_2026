@@ -1,6 +1,7 @@
 # ISW_Grupo5_4k1_2026
 
-Repositorio del Grupo 5 de la asignatura **Ingeniería y Calidad de Software**, año 2026, curso 4K1.
+Repositorio del Grupo 5 dedicado para gestionar la materia **Ingeniería y Calidad de Software**, del año 2026, segundo cuatrimestre, curso 4K1.
+
 
 ## 👥 Integrantes del grupo
 
@@ -92,9 +93,7 @@ Cada `TP_<NN>_<Tema>/` conserva las siguientes entradas y salidas:
 - `v<MAJOR>.<MINOR>`: versión del artefacto. `MAJOR` aumenta ante una entrega nueva o un cambio estructural importante; `MINOR`, ante ajustes dentro de la misma entrega.
 
 ## 🏷️ Líneas base
-Se definirá una nueva línea base después de cada parcial evaluativo. 
-Utilizaremos cada examen parcial como un hito clave dentro de la gestión de configuración de software, lo que nos permitirá medir avances, consolidar cambios y garantizar la estabilidad de la versión en el repositorio.
-Cada línea base tiene un nombre con la siguiente nomenclatura: v[MAJOR].[MINOR]
+Como grupo, hemos establecido que el criterio para definir una nueva línea base estará dado por cada instancia parcial evaluativa, es decir, luego de cada parcial realizado. De esta forma, utilizaremos cada examen parcial como un hito clave dentro de la gestión de configuración de software, lo que nos permitirá medir avances, consolidar cambios y garantizar la estabilidad de la versión en el repositorio. Cada línea base tiene un nombre con la siguiente nomenclatura: v[MAJOR].[MINOR]
 
 | Nombre | Fecha | Descripción |
 | --- | --- | --- |
