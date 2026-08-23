@@ -80,6 +80,6 @@ Cada línea base tiene un nombre con la siguiente nomenclatura: v[MAJOR].[MINOR]
 
 | Nombre | Fecha | Descripción |
 | --- | --- | --- |
-| v1.0 | 05/09/2026 | Primer Parcial rendido el 03/09/2026  |
-| v2.0 | 03/10/2026 | Segundo Parcial rendido el 31/10/2026 |
-| v3.0 | 30/11/2026 | Recuperatorio rendido el 28/11/2026   |
+| v1.0 | 05/09/2026 | Fecha primer parcial 03/09/2026  |
+| v2.0 | 03/10/2026 | Fecha segundo parcial 31/10/2026 |
+| v3.0 | 30/11/2026 | Fecha recuperatorio 28/11/2026   |
