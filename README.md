@@ -2,7 +2,7 @@
 
 Repositorio del Grupo 5 de la asignatura **Ingeniería y Calidad de Software**, año 2026, curso 4K1.
 
-## Integrantes del grupo
+## 👥 Integrantes del grupo
 
 | Nombre | Legajo | Mail |
 | --- | --- | --- |
@@ -20,7 +20,7 @@ Repositorio del Grupo 5 de la asignatura **Ingeniería y Calidad de Software**, 
 | Tissera, Luciano | 99236 | [ltissera17@gmail.com](mailto:ltissera17@gmail.com) |
 | Vilchez, Felipe | 95178 | [vilchez320@gmail.com](mailto:vilchez320@gmail.com) |
 
-## Estructura del repositorio
+## 📝 Estructura del repositorio
 
 ```text
 ISW_Grupo5_4k1_2026/
@@ -41,8 +41,14 @@ ISW_Grupo5_4k1_2026/
 ├── README.md
 └── .gitignore
 ```
-
-`Material_de_Clase/Planificacion/` es un directorio que agrupa el cronograma, programa de la asignatura y material de seguimiento. `Trabajos_Practicos/` también es un directorio contenedor: cada TP evaluable se registra en un subdirectorio independiente y todos comparten la misma estructura interna. Esto permite incorporar nuevos TPs sin cambiar el criterio de organización.
+## Criterios de Organizacion
+* `Material_de_Clase/Bibliografia/` es un directorio donde se encuentra la bibliografia para cada unidad de la asignatura.
+* `Material_de_Clase/Guias/` es un directorio donde se encuetran las guias de ejercicios practicos y sus soluciones.
+* `Material_de_Clase/Planificacion/` es un directorio que agrupa el cronograma, programa de la asignatura y material de seguimiento. 
+* `Material_de_Clase/Presentaciones_Teoricas/` es un directorio donde se encuentran las presentaciones power point del desarrollo de la asginatura.
+* `Material_de_Clase/Resumenes/` es un directorio donde se encuentran los resumenes para el estudio de la asignatura realizados por los estudiantes.
+* `Notas/` es un directorio donde se encuentran las anotaciones realizadas en clases por los estudiantes.
+* `Trabajos_Practicos/` es un directorio contenedor: cada TP evaluable se registra en un subdirectorio independiente y todos comparten la misma estructura interna. Esto permite incorporar nuevos TPs sin cambiar el criterio de organización.
 
 ## Flujo de los trabajos prácticos
 
@@ -58,11 +64,11 @@ Cada `TP_<NN>_<Tema>/` conserva las siguientes entradas y salidas:
 
 Las carpetas se mantienen incluso cuando un TP no requiere contenido en alguna de ellas; así se preserva la consistencia entre entregas.
 
-## Ítems de configuración y nomenclatura
+## Configuración del repositorio
 
 Los ítems de configuración, su ubicación y reglas de nombrado se detallan en `Descripcion_CI.md`. Como criterio general:
 
-| Ítem | Unidad de control | Nombre | Extensiones permitidas |
+| Ítem de configuración | Unidad de control | Regla de nombrado | Extensiones permitidas |
 | --- | --- | --- | --- |
 | Material provisto por cátedra | Archivo dentro de su directorio temático | Se conserva el nombre oficial | `.pdf`, `.docx`, `.xlsx`, `.pptx` |
 | Resumen grupal | Archivo | `Resumen_<Tema>_v<MAJOR>.<MINOR>.md` | `.md`, `.pdf` |
