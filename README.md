@@ -49,8 +49,11 @@ ISW_Grupo5_4k1_2026/
 * `Material_de_Clase/Presentaciones_Teoricas/` es un directorio donde se encuentran las presentaciones power point del desarrollo de la asginatura.
 * `Material_de_Clase/Resumenes/` es un directorio donde se encuentran los resumenes para el estudio de la asignatura realizados por los estudiantes.
 * `Notas/` es un directorio donde se encuentran las anotaciones realizadas en clases por los estudiantes.
+* `Notas/Teorico/` es un directorio donde se encuentran las anotaciones realizadas en clases teóricas por los estudiantes los días martes.
+* `Notas/Practico/` es un directorio donde se encuentran las anotaciones realizadas en clases prácticas por los estudiantes los días miércoles.
 * `Trabajos_Practicos/` es un directorio contenedor: cada TP evaluable se registra en un subdirectorio independiente y todos comparten la misma estructura interna. Esto permite incorporar nuevos TPs sin cambiar el criterio de organización.
-
+* `Trabajos_Practicos/Investigacion/` es un directorio donde se encuentran los trabajos prácticos de investigación realizados hasta el momento.
+* `Trabajos_Practicos/Evaluables/` es un directorio donde se encuentran los trabajos prácticos evaluables realizados hasta el momento.
 
 ## ⚙ Ítems de configuración
 
