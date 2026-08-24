@@ -87,56 +87,7 @@ ISW_Grupo5_4k1_2026/
 │   │   ├── TIG_1/
 │   │   └── TIG_2/
 │   └── Evaluables/
-│       ├── TP_04_SCM_Herramientas/
-│       │   ├── 00_Enunciado/
-│       │   ├── 01_Produccion/
-│       │   │   └── Codigo_Fuente/
-│       │   ├── 02_Entrega/
-│       │   ├── 03_Retroalimentacion/
-│       │   └── 04_Evidencias_Repositorio/
-│       ├── TP_05/
-│       │   ├── 00_Enunciado/
-│       │   ├── 01_Produccion/
-│       │   │   └── Codigo_Fuente/
-│       │   ├── 02_Entrega/
-│       │   ├── 03_Retroalimentacion/
-│       │   └── 04_Evidencias_Repositorio/
-│       ├── TP_06/
-│       │   ├── 00_Enunciado/
-│       │   ├── 01_Produccion/
-│       │   │   └── Codigo_Fuente/
-│       │   ├── 02_Entrega/
-│       │   ├── 03_Retroalimentacion/
-│       │   └── 04_Evidencias_Repositorio/
-│       ├── TP_07/
-│       │   ├── 00_Enunciado/
-│       │   ├── 01_Produccion/
-│       │   │   └── Codigo_Fuente/
-│       │   ├── 02_Entrega/
-│       │   ├── 03_Retroalimentacion/
-│       │   └── 04_Evidencias_Repositorio/
-│       ├── TP_11/
-│       │   ├── 00_Enunciado/
-│       │   ├── 01_Produccion/
-│       │   │   └── Codigo_Fuente/
-│       │   ├── 02_Entrega/
-│       │   ├── 03_Retroalimentacion/
-│       │   └── 04_Evidencias_Repositorio/
-│       ├── TP_12/
-│       │   ├── 00_Enunciado/
-│       │   ├── 01_Produccion/
-│       │   │   └── Codigo_Fuente/
-│       │   ├── 02_Entrega/
-│       │   ├── 03_Retroalimentacion/
-│       │   └── 04_Evidencias_Repositorio/
-│       ├── TP_14/
-│       │   ├── 00_Enunciado/
-│       │   ├── 01_Produccion/
-│       │   │   └── Codigo_Fuente/
-│       │   ├── 02_Entrega/
-│       │   ├── 03_Retroalimentacion/
-│       │   └── 04_Evidencias_Repositorio/
-│       └── TP_15/
+│       └── TP_<NN>_<Tema>/
 │           ├── 00_Enunciado/
 │           ├── 01_Produccion/
 │           │   └── Codigo_Fuente/
