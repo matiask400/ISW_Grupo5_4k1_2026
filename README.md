@@ -73,15 +73,15 @@ ISW_Grupo5_4k1_2026/
 │   └── Link_Clases_Grabadas/
 ├── Notas/
 │   ├── Teorico/
-│   │   ├── Unidad 1/
-│   │   ├── Unidad 2/
-│   │   ├── Unidad 3/
-│   │   └── Unidad 4/
+│   │   ├── Unidad_1/
+│   │   ├── Unidad_2/
+│   │   ├── Unidad_3/
+│   │   └── Unidad_4/
 │   └── Practico/
-│       ├── Unidad 1/
-│       ├── Unidad 2/
-│       ├── Unidad 3/
-│       └── Unidad 4/
+│       ├── Unidad_1/
+│       ├── Unidad_2/
+│       ├── Unidad_3/
+│       └── Unidad_4/
 ├── Trabajos_Practicos/
 │   ├── Investigacion/
 │   │   ├── TIG_1/
