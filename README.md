@@ -1,9 +1,11 @@
 # ISW_Grupo5_4k1_2026
 
 
-## Objetivo 
+## Información general
 
-El presente repositorio tiene como objetivo centralizar, organizar y versionar el material de estudio, documentación, trabajos prácticos y demás artefactos utilizados por el grupo 5 durante el cursado de la asignatura **Ingeniería y Calidad de Software**, en el año 2026, segundo cuatrimestre, curso 4K1 de la UTN. 
+Repositorio del Grupo N.° 5 destinado a centralizar, organizar y versionar el material de estudio, la documentación, los trabajos prácticos y los demás artefactos utilizados durante el cursado de **Ingeniería y Calidad de Software** en la Universidad Tecnológica Nacional, Facultad Regional Córdoba.
+
+Corresponde al curso **4K1**, segundo cuatrimestre del ciclo lectivo **2026**. La estructura de directorios y las reglas de nombrado buscan facilitar el trabajo colaborativo y la gestión de configuración del contenido.
 
 
 ## Instalación
@@ -63,7 +65,7 @@ ISW_Grupo5_4k1_2026/
 │   │   ├── Pensamiento Ágil/
 │   │   ├── SCM/
 │   │   └── Testing/
-│   ├── Guias_de_ejercicios/
+│   ├── Guias/
 │   ├── Planificacion/
 │   ├── Presentaciones_Teoricas/
 │   ├── Resumenes/
@@ -85,21 +87,20 @@ ISW_Grupo5_4k1_2026/
 │   │   ├── TIG_1/
 │   │   └── TIG_2/
 │   └── Evaluables/
-│       ├── TP_4/
-│       ├── TP_5/
-│       ├── TP_6/
-│       ├── TP_7/
-│       ├── TP_11/
-│       ├── TP_12/
-│       ├── TP_14/
-│       └── TP_15/
+│       └── TP_04_SCM_Herramientas/
+│           ├── 00_Enunciado/
+│           ├── 01_Produccion/
+│           │   └── Codigo_Fuente/
+│           ├── 02_Entrega/
+│           ├── 03_Retroalimentacion/
+│           └── 04_Evidencias_Repositorio/
 ├── .gitignore
 └── README.md
 ```
-## Criterios de Organizacion
+## Criterios de organización
 * `Material_de_Clase/` es un directorio donde se encuentran los diferentes materiales teóricos y prácticos que se utilizan a lo largo de la materia.
 * `Material_de_Clase/Bibliografia/` es un directorio donde se encuentra la bibliografia para cada unidad de la asignatura.
-* `Material_de_Clase/Guias_de_ejercicios/` es un directorio donde se encuentran las guias de ejercicios practicos y sus soluciones.
+* `Material_de_Clase/Guias/` es un directorio donde se encuentran las guías de ejercicios prácticos y sus soluciones.
 * `Material_de_Clase/Planificacion/` es un directorio que agrupa el cronograma, programa de la asignatura y material de seguimiento. 
 * `Material_de_Clase/Presentaciones_Teoricas/` es un directorio donde se encuentran las presentaciones power point del desarrollo de la asginatura.
 * `Material_de_Clase/Resumenes/` es un directorio donde se encuentran los resumenes para el estudio de la asignatura realizados por los estudiantes.
@@ -117,7 +118,7 @@ ISW_Grupo5_4k1_2026/
 | Ítem de Configuración | Regla de Nombrado | Ubicación | Tipo de Ítem | Extensiones Permitidas |
 | :--- | :--- | :--- | :--- | :--- |
 | **Bibliografía** | `<Nombre_Material>-<Nombre_Autor>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Bibliografia/` | Recurso de cátedra | `.pdf` |
-| **Guías de ejercicios** | `Guia_<Tema>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Guias_de_ejercicios/` | Recurso de cátedra | `.pdf`, `.docx` |
+| **Guías de ejercicios** | `Guia_<Tema>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Guias/` | Recurso de cátedra | `.pdf`, `.docx` |
 | **Planificación** | `Planificacion_<AAAA>-<Tema>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Planificacion/` | Recurso de cátedra | `.md`, `.pdf`, `.xlsx` |
 | **Presentaciones teóricas** | `<N>_<Tema>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Presentaciones_Teoricas/` | Recurso de cátedra | `.pdf`, `.pptx` |
 | **Resúmenes** | `Resumen_<Tema>_v<MAJOR>.<MINOR>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Resumenes/` | Material propio | `.md`, `.pdf` |
@@ -125,14 +126,14 @@ ISW_Grupo5_4k1_2026/
 | **Link Clases Grabadas** | `Link_Clases_Grabadas.md` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Link_Clases_Grabadas/` | Recurso de cátedra | `.txt`, `.md` |
 | **Notas teóricas** | `Nota_Teorico_<Tema>_<Apellido>.<ext>` | `ISW_Grupo5_4k1_2026/Notas/Teorico/` | Material propio | `.md`, `.pdf` |
 | **Notas prácticas** | `Nota_Practico_<Tema>_<Apellido>.<ext>` | `ISW_Grupo5_4k1_2026/Notas/Practico/` | Material propio | `.md`, `.pdf` |
-| **Trabajo práctico de Investigación** | `TIG_<NN>_<Tema>_<G5>.pdf` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Investigacion/` | Material propio | `.pdf` |
-| **Trabajo práctico evaluable** | `TP_<NN>_<Tema>_<G5>.pdf` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Evaluables/` | Material propio | `.pdf` |
-| **Enunciado de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/00_Enunciado/` | Recurso de cátedra | `.pdf`, `.docx` |
-| **Producción de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/01_Produccion/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
-| **Código fuente** | Convenciones propias del lenguaje/tecnología | `Trabajos_Practicos/TP_<NN>_<Tema>/01_Produccion/Codigo_Fuente/` | Material propio | Según tecnología |
-| **Entrega de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/02_Entrega/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
-| **Retroalimentación** | `TP_<NN>_Retroalimentacion_<AAAA-MM-DD>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/03_Retroalimentacion/` | Recurso de cátedra | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
-| **Evidencia de repositorio** | `TP_<NN>_Evidencia_<Descripcion>_<AAAA-MM-DD>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/04_Evidencias_Repositorio/` | Material propio | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
+| **Trabajo de investigación grupal** | `TIG_<NN>_<Tema>_G5.pdf` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Investigacion/TIG_<NN>/` | Material propio | `.pdf` |
+| **Trabajo práctico evaluable** | `TP_<NN>_<Tema>_G5.pdf` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Evaluables/TP_<NN>_<Tema>/` | Material propio | `.pdf` |
+| **Enunciado de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>_<Tema>/00_Enunciado/` | Recurso de cátedra | `.pdf`, `.docx` |
+| **Producción de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>_<Tema>/01_Produccion/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
+| **Código fuente** | Convenciones propias del lenguaje/tecnología | `Trabajos_Practicos/Evaluables/TP_<NN>_<Tema>/01_Produccion/Codigo_Fuente/` | Material propio | Según tecnología |
+| **Entrega de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>_<Tema>/02_Entrega/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
+| **Retroalimentación** | `TP_<NN>_Retroalimentacion_<AAAA-MM-DD>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>_<Tema>/03_Retroalimentacion/` | Recurso de cátedra | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
+| **Evidencia de repositorio** | `TP_<NN>_Evidencia_<Descripcion>_<AAAA-MM-DD>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>_<Tema>/04_Evidencias_Repositorio/` | Material propio | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
 | **Documento de estructura SCM** | `README.md` | Raíz del repositorio | Documento de gestión | `.md` |
 
 
@@ -163,10 +164,19 @@ Cada `TP_<NN>_<Tema>/` mantiene una estructura estandarizada para gestionar sus 
 - `v<MAJOR>.<MINOR>`: versión del artefacto. `MAJOR` aumenta ante una entrega nueva o un cambio estructural importante; `MINOR`, ante ajustes dentro de la misma entrega.
 
 ## Líneas base
-Como grupo, hemos establecido que el criterio para definir una nueva línea base estará dado por cada instancia parcial evaluativa, es decir, luego de cada parcial realizado. De esta forma, utilizaremos cada examen parcial como un hito clave dentro de la gestión de configuración de software, lo que nos permitirá medir avances, consolidar cambios y garantizar la estabilidad de la versión en el repositorio. Cada línea base tiene un nombre con la siguiente nomenclatura: v[MAJOR].[MINOR]
 
-| Nombre | Fecha | Descripción |
+### Criterio de creación
+
+Como grupo, hemos establecido que se definirá una nueva línea base después de cada instancia parcial evaluativa. Cada examen parcial funcionará como un hito de la gestión de configuración para consolidar los cambios y garantizar la estabilidad de la versión del repositorio.
+
+### Identificación
+
+Las líneas base se identificarán mediante etiquetas con la nomenclatura `LB-G5-<NroLineaBase>`.
+
+### Historial de líneas base
+
+| Línea base | Fecha prevista | Descripción |
 | --- | --- | --- |
-| v1.0 | 05/09/2026 | Fecha primer parcial 03/09/2026  |
-| v2.0 | 03/10/2026 | Fecha segundo parcial 31/10/2026 |
-| v3.0 | 30/11/2026 | Fecha recuperatorio 28/11/2026   |
+| `LB-G5-1` | 05/09/2026 | Consolidación posterior al primer parcial del 03/09/2026. |
+| `LB-G5-2` | 03/11/2026 | Consolidación posterior al segundo parcial del 31/10/2026. |
+| `LB-G5-3` | 30/11/2026 | Consolidación posterior al recuperatorio del 28/11/2026. |
