@@ -84,8 +84,8 @@ ISW_Grupo5_4k1_2026/
 │       └── Unidad_4/
 ├── Trabajos_Practicos/
 │   ├── Investigacion/
-│   │   ├── TIG_1/
-│   │   └── TIG_2/
+│   │   ├── TIG_01/
+│   │   └── TIG_02/
 │   └── Evaluables/
 │       └── TP_04_SCM_Herramientas/
 │           ├── 00_Enunciado/
