@@ -88,7 +88,7 @@ ISW_Grupo5_4k1_2026/
 ## Criterios de Organizacion
 * `Material_de_Clase/` es un directorio donde se encuentran los diferentes materiales teóricos y prácticos que se utilizan a lo largo de la materia.
 * `Material_de_Clase/Bibliografia/` es un directorio donde se encuentra la bibliografia para cada unidad de la asignatura.
-* `Material_de_Clase/Guias/` es un directorio donde se encuentran las guias de ejercicios practicos y sus soluciones.
+* `Material_de_Clase/Guias_de_ejercicios/` es un directorio donde se encuentran las guias de ejercicios practicos y sus soluciones.
 * `Material_de_Clase/Planificacion/` es un directorio que agrupa el cronograma, programa de la asignatura y material de seguimiento. 
 * `Material_de_Clase/Presentaciones_Teoricas/` es un directorio donde se encuentran las presentaciones power point del desarrollo de la asginatura.
 * `Material_de_Clase/Resumenes/` es un directorio donde se encuentran los resumenes para el estudio de la asignatura realizados por los estudiantes.
