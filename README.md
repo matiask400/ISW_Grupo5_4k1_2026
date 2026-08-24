@@ -51,7 +51,6 @@ Sigue estos pasos para clonar y trabajar el proyecto localmente:
 ## Estructura del repositorio
 
 ```text
-```text
 ISW_Grupo5_4k1_2026/
 ├── Material_de_Clase/
 │   ├── Bibliografia/
