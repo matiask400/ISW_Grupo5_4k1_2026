@@ -114,15 +114,15 @@ ISW_Grupo5_4k1_2026/
 | **Link Clases Grabadas** | `Link_Clases_Grabadas.md` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Link_Clases_Grabadas/` | Recurso de cátedra | `.txt`, `.md` |
 | **Notas teóricas** | `Nota_Teorico_<Tema>_<Apellido>.<ext>` | `ISW_Grupo5_4k1_2026/Notas/Teorico/` | Material propio | `.md`, `.pdf` |
 | **Notas prácticas** | `Nota_Practico_<Tema>_<Apellido>.<ext>` | `ISW_Grupo5_4k1_2026/Notas/Practico/` | Material propio | `.md`, `.pdf` |
-| **Trabajo práctico de Investigación** | `TIG_<NN>_<Tema><G5>.pdf` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Investigacion/` | Material propio | `.pdf` |
-| **Trabajo práctico evaluable** | `TIG_<NN>_<Tema><G5>.pdf` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Evaluables/` | Material propio | `.pdf` |
+| **Trabajo práctico de Investigación** | `TIG_<NN>_<Tema>_<G5>.pdf` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Investigacion/` | Material propio | `.pdf` |
+| **Trabajo práctico evaluable** | `TIG_<NN>_<Tema>_<G5>.pdf` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Evaluables/` | Material propio | `.pdf` |
 | **Enunciado de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/00_Enunciado/` | Recurso de cátedra | `.pdf`, `.docx` |
 | **Producción de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/01_Produccion/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
-| **Código fuente** | *Convenciones propias del lenguaje/tecnología* | `Trabajos_Practicos/TP_<NN>_<Tema>/01_Produccion/Codigo_Fuente/` | Material propio | Según tecnología |
+| **Código fuente** | Convenciones propias del lenguaje/tecnología | `Trabajos_Practicos/TP_<NN>_<Tema>/01_Produccion/Codigo_Fuente/` | Material propio | Según tecnología |
 | **Entrega de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/02_Entrega/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
 | **Retroalimentación** | `TP_<NN>_Retroalimentacion_<AAAA-MM-DD>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/03_Retroalimentacion/` | Recurso de cátedra | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
 | **Evidencia de repositorio** | `TP_<NN>_Evidencia_<Descripcion>_<AAAA-MM-DD>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/04_Evidencias_Repositorio/` | Material propio | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
-| **Documento de estructura SCM** | `README.md` | *Raíz del repositorio* | Documento de gestión | `.md` |
+| **Documento de estructura SCM** | `README.md` | Raíz del repositorio | Documento de gestión | `.md` |
 
 
 ## Flujo de los trabajos prácticos
