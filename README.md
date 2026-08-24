@@ -76,7 +76,7 @@ ISW_Grupo5_4k1_2026/
 * `Material_de_Clase/Planificacion/` es un directorio que agrupa el cronograma, programa de la asignatura y material de seguimiento. 
 * `Material_de_Clase/Presentaciones_Teoricas/` es un directorio donde se encuentran las presentaciones power point del desarrollo de la asginatura.
 * `Material_de_Clase/Resumenes/` es un directorio donde se encuentran los resumenes para el estudio de la asignatura realizados por los estudiantes.
-* `Material_de_Clase/Templates/` es un directorio donde se encuentran los resumenes para el estudio de la asignatura realizados por los estudiantes.
+* `Material_de_Clase/Templates/` es un directorio donde se encuentran ##CAMBIAR.
 * `Material_de_Clase/Link_Clases_Grabadas/` es un directorio donde se encuentran los links a las diferentes clases grabadas dispuestas por los profesores.
 * `Notas/` es un directorio donde se encuentran las anotaciones realizadas en clases por los estudiantes.
 * `Notas/Teorico/` es un directorio donde se encuentran las anotaciones realizadas en clases teóricas por los estudiantes los días martes.
