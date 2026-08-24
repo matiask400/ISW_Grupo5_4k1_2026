@@ -21,7 +21,7 @@ Repositorio del Grupo 5 dedicado para gestionar la materia **Ingeniería y Calid
 | Tissera, Luciano | 99236 | [ltissera17@gmail.com](mailto:ltissera17@gmail.com) |
 | Vilchez, Felipe | 95178 | [vilchez320@gmail.com](mailto:vilchez320@gmail.com) |
 
-## 📝 Estructura del repositorio
+## Estructura del repositorio
 
 ```text
 ISW_Grupo5_4k1_2026/
@@ -55,7 +55,7 @@ ISW_Grupo5_4k1_2026/
 * `Trabajos_Practicos/Investigacion/` es un directorio donde se encuentran los trabajos prácticos de investigación realizados hasta el momento.
 * `Trabajos_Practicos/Evaluables/` es un directorio donde se encuentran los trabajos prácticos evaluables realizados hasta el momento.
 
-## ⚙ Ítems de configuración
+## Ítems de configuración
 
 | Ítem de configuración | Regla de nombrado | Ubicación | Tipo de Ítem | Extensiones permitidas |
 | --- | --- | --- | --- | --- |
@@ -76,7 +76,7 @@ ISW_Grupo5_4k1_2026/
 | **Documento de estructura SCM** | `README.md` | Raíz del repositorio | Documento de gestión | `.md` |
 
 
-## 🔁 Flujo de los trabajos prácticos
+## Flujo de los trabajos prácticos
 
 Cada `TP_<NN>_<Tema>/` conserva las siguientes entradas y salidas:
 
@@ -88,7 +88,7 @@ Cada `TP_<NN>_<Tema>/` conserva las siguientes entradas y salidas:
 | `03_Retroalimentacion/` | Correcciones, calificaciones y devoluciones recibidas | Entrada posterior |
 | `04_Evidencias_Repositorio/` | Capturas, reportes de Git, tags y pruebas de actualización | Evidencia de gestión |
 
-### 🗒️ Glosario
+### Glosario
 
 - `<NN>`: número de dos dígitos del TP, por ejemplo `04` o `05`.
 - `<Tema>`: título breve usando `_` como separador. 
@@ -97,7 +97,7 @@ Cada `TP_<NN>_<Tema>/` conserva las siguientes entradas y salidas:
 - `<ext>`:  extensión permitida para el ítem de configuración.
 - `v<MAJOR>.<MINOR>`: versión del artefacto. `MAJOR` aumenta ante una entrega nueva o un cambio estructural importante; `MINOR`, ante ajustes dentro de la misma entrega.
 
-## 🏷️ Líneas base
+## Líneas base
 Como grupo, hemos establecido que el criterio para definir una nueva línea base estará dado por cada instancia parcial evaluativa, es decir, luego de cada parcial realizado. De esta forma, utilizaremos cada examen parcial como un hito clave dentro de la gestión de configuración de software, lo que nos permitirá medir avances, consolidar cambios y garantizar la estabilidad de la versión en el repositorio. Cada línea base tiene un nombre con la siguiente nomenclatura: v[MAJOR].[MINOR]
 
 | Nombre | Fecha | Descripción |
