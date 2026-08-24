@@ -1,6 +1,10 @@
 # ISW_Grupo5_4k1_2026
 
-Repositorio del Grupo 5 dedicado para gestionar la materia **Ingeniería y Calidad de Software**, del año 2026, segundo cuatrimestre, curso 4K1.
+
+## Objetivo 
+
+El presente repositorio tiene como objetivo centralizar, organizar y versionar el material de estudio, documentación, trabajos prácticos y demás artefactos utilizados por el grupo 5 durante el cursado de la asignatura **Ingeniería y Calidad de Software**, en el año 2026, segundo cuatrimestre, curso 4K1 de la UTN. 
+
 
 ## Instalación
 
