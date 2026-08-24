@@ -2,6 +2,33 @@
 
 Repositorio del Grupo 5 dedicado para gestionar la materia **Ingeniería y Calidad de Software**, del año 2026, segundo cuatrimestre, curso 4K1.
 
+## Instalación
+
+Sigue estos pasos para clonar y trabajar el proyecto localmente:
+
+### Requisitos previos
+* **Git:** Asegúrate de tener instalado Git en tu computadora ([Descargar Git](https://git-scm.com/)).
+
+### Pasos
+
+1. **Abre la terminal:**
+  * **Windows:** PowerShell o CMD
+  * **macOS / Linux:** Terminal
+
+2. **Navega al directorio donde deseas clonar el proyecto:**
+  ```bash
+  cd ruta/del/directorio
+  ```
+
+3. **Clona el repositorio:**
+  ```bash
+  git clone https://github.com/matiask400/ISW_Grupo5_4k1_2026.git
+  ```
+
+4. **Entra a la carpeta del proyecto:**
+  ```bash
+  cd ISW_Grupo5_4k1_2026
+  ```
 
 ## Integrantes del grupo
 
