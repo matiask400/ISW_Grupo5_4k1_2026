@@ -4,10 +4,10 @@ Repositorio del Grupo 5 dedicado para gestionar la materia **Ingeniería y Calid
 
 ## Instalación
 
-Sigue estos pasos para clonar y trabajar el proyecto localmente:
+Pasos para clonar y trabajar el proyecto localmente:
 
 ### Requisitos previos
-* **Git:** Asegúrate de tener instalado Git en tu computadora ([Descargar Git](https://git-scm.com/)).
+* **Git:** Revisa tener instalado Git en tu computadora ([Descargar Git](https://git-scm.com/)).
 
 ### Pasos
 
@@ -114,7 +114,7 @@ ISW_Grupo5_4k1_2026/
 | :--- | :--- | :--- | :--- | :--- |
 | **Bibliografía** | `<Nombre_Material>-<Nombre_Autor>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Bibliografia/` | Recurso de cátedra | `.pdf` |
 | **Guías de ejercicios** | `Guia_<Tema>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Guias_de_ejercicios/` | Recurso de cátedra | `.pdf`, `.docx` |
-| **Planificación** | `Planificacion_<AAAA-MM-DD>-<Tema>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Planificacion/` | Recurso de cátedra | `.md`, `.pdf`, `.xlsx` |
+| **Planificación** | `Planificacion_<AAAA>-<Tema>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Planificacion/` | Recurso de cátedra | `.md`, `.pdf`, `.xlsx` |
 | **Presentaciones teóricas** | `<N>_<Tema>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Presentaciones_Teoricas/` | Recurso de cátedra | `.pdf`, `.pptx` |
 | **Resúmenes** | `Resumen_<Tema>_v<MAJOR>.<MINOR>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Resumenes/` | Material propio | `.md`, `.pdf` |
 | **Templates** | `Template_<Tema>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Templates/` | Recurso de cátedra | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
