@@ -137,12 +137,12 @@ ISW_Grupo5_4k1_2026/
 │       │   ├── 03_Retroalimentacion/
 │       │   └── 04_Evidencias_Repositorio/
 │       └── TP_15/
-│          ├── 00_Enunciado/
-│          ├── 01_Produccion/
-│          │   └── Codigo_Fuente/
-│          ├── 02_Entrega/
-│          ├── 03_Retroalimentacion/
-│          └── 04_Evidencias_Repositorio/
+│           ├── 00_Enunciado/
+│           ├── 01_Produccion/
+│           │   └── Codigo_Fuente/
+│           ├── 02_Entrega/
+│           ├── 03_Retroalimentacion/
+│           └── 04_Evidencias_Repositorio/
 ├── .gitignore
 └── README.md
 ```
