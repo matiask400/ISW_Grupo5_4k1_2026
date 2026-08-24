@@ -1,13 +1,17 @@
 # ISW_Grupo5_4k1_2026
 
-Repositorio del Grupo 5 dedicado para gestionar la materia **Ingeniería y Calidad de Software**, del año 2026, segundo cuatrimestre, curso 4K1.
+
+## Objetivo 
+
+El presente repositorio tiene como objetivo centralizar, organizar y versionar el material de estudio, documentación, trabajos prácticos y demás artefactos utilizados por el grupo 5 durante el cursado de la asignatura **Ingeniería y Calidad de Software**, en el año 2026, segundo cuatrimestre, curso 4K1 de la UTN. 
+
 
 ## Instalación
 
-Sigue estos pasos para clonar y trabajar el proyecto localmente:
+Pasos para clonar y trabajar el proyecto localmente:
 
 ### Requisitos previos
-* **Git:** Asegúrate de tener instalado Git en tu computadora ([Descargar Git](https://git-scm.com/)).
+* **Git:** Revisa tener instalado Git en tu computadora ([Descargar Git](https://git-scm.com/)).
 
 ### Pasos
 
@@ -114,7 +118,7 @@ ISW_Grupo5_4k1_2026/
 | :--- | :--- | :--- | :--- | :--- |
 | **Bibliografía** | `<Nombre_Material>-<Nombre_Autor>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Bibliografia/` | Recurso de cátedra | `.pdf` |
 | **Guías de ejercicios** | `Guia_<Tema>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Guias_de_ejercicios/` | Recurso de cátedra | `.pdf`, `.docx` |
-| **Planificación** | `Planificacion_<AAAA-MM-DD>-<Tema>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Planificacion/` | Recurso de cátedra | `.md`, `.pdf`, `.xlsx` |
+| **Planificación** | `Planificacion_<AAAA>-<Tema>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Planificacion/` | Recurso de cátedra | `.md`, `.pdf`, `.xlsx` |
 | **Presentaciones teóricas** | `<N>_<Tema>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Presentaciones_Teoricas/` | Recurso de cátedra | `.pdf`, `.pptx` |
 | **Resúmenes** | `Resumen_<Tema>_v<MAJOR>.<MINOR>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Resumenes/` | Material propio | `.md`, `.pdf` |
 | **Templates** | `Template_<Tema>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Templates/` | Recurso de cátedra | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
@@ -122,7 +126,7 @@ ISW_Grupo5_4k1_2026/
 | **Notas teóricas** | `Nota_Teorico_<Tema>_<Apellido>.<ext>` | `ISW_Grupo5_4k1_2026/Notas/Teorico/` | Material propio | `.md`, `.pdf` |
 | **Notas prácticas** | `Nota_Practico_<Tema>_<Apellido>.<ext>` | `ISW_Grupo5_4k1_2026/Notas/Practico/` | Material propio | `.md`, `.pdf` |
 | **Trabajo práctico de Investigación** | `TIG_<NN>_<Tema>_<G5>.pdf` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Investigacion/` | Material propio | `.pdf` |
-| **Trabajo práctico evaluable** | `TIG_<NN>_<Tema>_<G5>.pdf` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Evaluables/` | Material propio | `.pdf` |
+| **Trabajo práctico evaluable** | `TP_<NN>_<Tema>_<G5>.pdf` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Evaluables/` | Material propio | `.pdf` |
 | **Enunciado de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/00_Enunciado/` | Recurso de cátedra | `.pdf`, `.docx` |
 | **Producción de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/01_Produccion/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
 | **Código fuente** | Convenciones propias del lenguaje/tecnología | `Trabajos_Practicos/TP_<NN>_<Tema>/01_Produccion/Codigo_Fuente/` | Material propio | Según tecnología |
@@ -134,7 +138,7 @@ ISW_Grupo5_4k1_2026/
 
 ## Flujo de los trabajos prácticos
 
-Cada `TP_<NN>_<Tema>/` conserva las siguientes entradas y salidas:
+Cada `TP_<NN>_<Tema>/` mantiene una estructura estandarizada para gestionar sus entradas, productos y evidencias:
 
 | Directorio | Contenido | Rol |
 | --- | --- | --- |
