@@ -51,10 +51,16 @@ Sigue estos pasos para clonar y trabajar el proyecto localmente:
 ## Estructura del repositorio
 
 ```text
+```text
 ISW_Grupo5_4k1_2026/
 ├── Material_de_Clase/
 │   ├── Bibliografia/
-│   ├── Guias/
+│   │   ├── Ingeniería de Software/
+│   │   ├── Lean y Kanban/
+│   │   ├── Pensamiento Ágil/
+│   │   ├── SCM/
+│   │   └── Testing/
+│   ├── Guias_de_ejercicios/
 │   ├── Planificacion/
 │   ├── Presentaciones_Teoricas/
 │   ├── Resumenes/
@@ -65,9 +71,19 @@ ISW_Grupo5_4k1_2026/
 │   └── Practico/
 ├── Trabajos_Practicos/
 │   ├── Investigacion/
+│   │   ├── TIG_1/
+│   │   └── TIG_2/
 │   └── Evaluables/
-├── README.md
-└── .gitignore
+│       ├── TP_4/
+│       ├── TP_5/
+│       ├── TP_6/
+│       ├── TP_7/
+│       ├── TP_11/
+│       ├── TP_12/
+│       ├── TP_14/
+│       └── TP_15/
+├── .gitignore
+└── README.md
 ```
 ## Criterios de Organizacion
 * `Material_de_Clase/` es un directorio donde se encuentran los diferentes materiales teóricos y prácticos que se utilizan a lo largo de la materia.
@@ -87,25 +103,26 @@ ISW_Grupo5_4k1_2026/
 
 ## Ítems de configuración
 
-| Ítem de configuración | Regla de nombrado | Ubicación | Tipo de Ítem | Extensiones permitidas |
-| --- | --- | --- | --- | --- |
-| **Bibliografía** | Se conserva el nombre oficial provisto | `Material_de_Clase/Bibliografia/` | Recurso de cátedra | `.pdf` |
-| **Guías de ejercicios** | Se conserva el nombre oficial provisto | `Material_de_Clase/Guias/` | Recurso de cátedra | `.pdf`, `.docx` |
-| **Planificación** | `Planificacion_<Tema>.<ext>` para material del grupo; nombre oficial para material de cátedra | `Material_de_Clase/Planificacion/` | Recurso de cátedra / material propio | `.md`, `.pdf`, `.xlsx` |
-| **Presentaciones teóricas** | Se conserva el nombre oficial provisto | `Material_de_Clase/Presentaciones_Teoricas/` | Recurso de cátedra | `.pdf`, `.pptx` |
-| **Resumenes** | `Resumen_<Tema>_v<MAJOR>.<MINOR>.<ext>` | `Material_de_Clase/Resumenes/` | Material propio | `.md`, `.pdf` |
-| **Templates** | `Se conserva el nombre oficial / Template_<Tipo>.<ext>` | `Material_de_Clase/Templates/` | Recurso de cátedra/Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
-| **Link_Clases_Grabadas** | `Link_Clases_Grabadas.md` (nombre fijo) | `Material_de_Clase/` | Material propio | `.txt`, `.md` |
-| **Notas teóricas** | `Nota_Teorico_<Tema>_<AAAA-MM-DD>.<ext>`| `Notas/Teorico/` | Material propio | `.md`, `.pdf` |
-| **Notas prácticas** | `Nota_Practico_<Tema>_<AAAA-MM-DD>.<ext>`| `Notas/Practico/` | Material propio | `.md`, `.pdf` |
-| **Trabajo práctico** | `TP_<NN>_<Tema>/` | `Trabajos_Practicos/` | Material propio | No aplica |
-| **Enunciado de TP** | Se conserva el nombre oficial provisto | `Trabajos_Practicos/TP_<NN>_<Tema>/00_Enunciado/` | Recurso de cátedra | `.pdf`, `.docx` |
+| Ítem de Configuración | Regla de Nombrado | Ubicación | Tipo de Ítem | Extensiones Permitidas |
+| :--- | :--- | :--- | :--- | :--- |
+| **Bibliografía** | `<Nombre_Material>-<Nombre_Autor>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Bibliografia/` | Recurso de cátedra | `.pdf` |
+| **Guías de ejercicios** | `Guia_<Tema>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Guias_de_ejercicios/` | Recurso de cátedra | `.pdf`, `.docx` |
+| **Planificación** | `Planificacion_<AAAA-MM-DD>-<Tema>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Planificacion/` | Recurso de cátedra | `.md`, `.pdf`, `.xlsx` |
+| **Presentaciones teóricas** | `<N>_<Tema>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Presentaciones_Teoricas/` | Recurso de cátedra | `.pdf`, `.pptx` |
+| **Resúmenes** | `Resumen_<Tema>_v<MAJOR>.<MINOR>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Resumenes/` | Material propio | `.md`, `.pdf` |
+| **Templates** | `Template_<Tema>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Templates/` | Recurso de cátedra | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
+| **Link Clases Grabadas** | `Link_Clases_Grabadas.md` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Link_Clases_Grabadas/` | Recurso de cátedra | `.txt`, `.md` |
+| **Notas teóricas** | `Nota_Teorico_<Tema>_<Apellido>.<ext>` | `ISW_Grupo5_4k1_2026/Notas/Teorico/` | Material propio | `.md`, `.pdf` |
+| **Notas prácticas** | `Nota_Practico_<Tema>_<Apellido>.<ext>` | `ISW_Grupo5_4k1_2026/Notas/Practico/` | Material propio | `.md`, `.pdf` |
+| **Trabajo práctico de Investigación** | `TIG_<NN>_<Tema><G5>.pdf` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Investigacion/` | Material propio | `.pdf` |
+| **Trabajo práctico evaluable** | `TIG_<NN>_<Tema><G5>.pdf` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Evaluables/` | Material propio | `.pdf` |
+| **Enunciado de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/00_Enunciado/` | Recurso de cátedra | `.pdf`, `.docx` |
 | **Producción de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/01_Produccion/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
-| **Código fuente** | Convenciones propias del lenguaje o tecnología | `Trabajos_Practicos/TP_<NN>_<Tema>/01_Produccion/Codigo_Fuente/` | Material propio | Según tecnología |
+| **Código fuente** | *Convenciones propias del lenguaje/tecnología* | `Trabajos_Practicos/TP_<NN>_<Tema>/01_Produccion/Codigo_Fuente/` | Material propio | Según tecnología |
 | **Entrega de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/02_Entrega/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
 | **Retroalimentación** | `TP_<NN>_Retroalimentacion_<AAAA-MM-DD>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/03_Retroalimentacion/` | Recurso de cátedra | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
 | **Evidencia de repositorio** | `TP_<NN>_Evidencia_<Descripcion>_<AAAA-MM-DD>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/04_Evidencias_Repositorio/` | Material propio | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
-| **Documento de estructura SCM** | `README.md` | Raíz del repositorio | Documento de gestión | `.md` |
+| **Documento de estructura SCM** | `README.md` | *Raíz del repositorio* | Documento de gestión | `.md` |
 
 
 ## Flujo de los trabajos prácticos
@@ -122,11 +139,16 @@ Cada `TP_<NN>_<Tema>/` conserva las siguientes entradas y salidas:
 
 ### Glosario
 
-- `<NN>`: número de dos dígitos del TP, por ejemplo `04` o `05`.
-- `<Tema>`: título breve que lo identifique usando `_` como separador. 
+* **ISW:** Ingeniería y Calidad de Software.
+* **TP:** Trabajo Práctico.
+* **TIG:** Trabajo de Investigación Grupal.
+* **SCM:** *Software Configuration Management* (Gestión de Configuración de Software).
+* **G5:** Grupo 5.
+* **ext:** Extensión del archivo (ej. `.pdf`, `.md`, `.docx`).
+- `<NN>`: número de dos dígitos del trabajo practico (ej. `04`, `05`).
+- `<Tema>`: título breve que identifique el documento usando `_` como separador de palabras. 
 - `<Artefacto>`: tipo de documento, por ejemplo `Resolución`, `Informe`, `Cronograma`.
-- `<AAAA-MM-DD>`: fecha en formato ISO 8601.
-- `<ext>`:  extensión permitida para el ítem de configuración.
+- `<AAAA-MM-DD>`: Fecha formateada bajo la norma ISO 8601 (Año-Mes-Día).
 - `v<MAJOR>.<MINOR>`: versión del artefacto. `MAJOR` aumenta ante una entrega nueva o un cambio estructural importante; `MINOR`, ante ajustes dentro de la misma entrega.
 
 ## Líneas base
