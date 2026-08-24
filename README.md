@@ -126,7 +126,7 @@ ISW_Grupo5_4k1_2026/
 | **Notas teóricas** | `Nota_Teorico_<Tema>_<Apellido>.<ext>` | `ISW_Grupo5_4k1_2026/Notas/Teorico/` | Material propio | `.md`, `.pdf` |
 | **Notas prácticas** | `Nota_Practico_<Tema>_<Apellido>.<ext>` | `ISW_Grupo5_4k1_2026/Notas/Practico/` | Material propio | `.md`, `.pdf` |
 | **Trabajo práctico de Investigación** | `TIG_<NN>_<Tema>_<G5>.pdf` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Investigacion/` | Material propio | `.pdf` |
-| **Trabajo práctico evaluable** | `TIG_<NN>_<Tema>_<G5>.pdf` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Evaluables/` | Material propio | `.pdf` |
+| **Trabajo práctico evaluable** | `TP_<NN>_<Tema>_<G5>.pdf` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Evaluables/` | Material propio | `.pdf` |
 | **Enunciado de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/00_Enunciado/` | Recurso de cátedra | `.pdf`, `.docx` |
 | **Producción de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/TP_<NN>_<Tema>/01_Produccion/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
 | **Código fuente** | Convenciones propias del lenguaje/tecnología | `Trabajos_Practicos/TP_<NN>_<Tema>/01_Produccion/Codigo_Fuente/` | Material propio | Según tecnología |
@@ -138,7 +138,7 @@ ISW_Grupo5_4k1_2026/
 
 ## Flujo de los trabajos prácticos
 
-Cada `TP_<NN>_<Tema>/` conserva las siguientes entradas y salidas:
+Cada `TP_<NN>_<Tema>/` mantiene una estructura estandarizada para gestionar sus entradas, productos y evidencias:
 
 | Directorio | Contenido | Rol |
 | --- | --- | --- |
