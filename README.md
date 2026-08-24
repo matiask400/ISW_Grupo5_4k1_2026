@@ -3,7 +3,7 @@
 Repositorio del Grupo 5 dedicado para gestionar la materia **Ingeniería y Calidad de Software**, del año 2026, segundo cuatrimestre, curso 4K1.
 
 
-## 👥 Integrantes del grupo
+## Integrantes del grupo
 
 | Nombre | Legajo | Mail |
 | --- | --- | --- |
