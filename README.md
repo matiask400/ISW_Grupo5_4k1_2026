@@ -64,7 +64,7 @@ ISW_Grupo5_4k1_2026/
 | **Planificación** | `Planificacion_<Tema>.<ext>` para material del grupo; nombre oficial para material de cátedra | `Material_de_Clase/Planificacion/` | Recurso de cátedra / material propio | `.md`, `.pdf`, `.xlsx` |
 | **Presentaciones teóricas** | Se conserva el nombre oficial provisto | `Material_de_Clase/Presentaciones_Teoricas/` | Recurso de cátedra | `.pdf`, `.pptx` |
 | **Resumenes** | `Resumen_<Tema>_v<MAJOR>.<MINOR>.<ext>` | `Material_de_Clase/Resumenes/` | Material propio | `.md`, `.pdf` |
-| **Templates** | `Se conserva el nombre oficial / Template_<Tipo>.<ext>` | `Material_de_Clase/Templates/` | Recurso de cátedra/Material propio | `.md`, `.pdf` `.docx`, `.xlsx`, `.pptx` |
+| **Templates** | `Se conserva el nombre oficial / Template_<Tipo>.<ext>` | `Material_de_Clase/Templates/` | Recurso de cátedra/Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
 | **Link_Clases_Grabadas** | `Link_Clases_Grabadas.md` (nombre fijo) | `Material_de_Clase/` | Material propio | `.txt`, `.md` |
 | **Trabajo práctico** | `TP_<NN>_<Tema>/` | `Trabajos_Practicos/` | Material propio | No aplica |
 | **Enunciado de TP** | Se conserva el nombre oficial provisto | `Trabajos_Practicos/TP_<NN>_<Tema>/00_Enunciado/` | Recurso de cátedra | `.pdf`, `.docx` |
