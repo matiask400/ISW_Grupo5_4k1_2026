@@ -60,9 +60,9 @@ Pasos para clonar y trabajar el proyecto localmente:
 ISW_Grupo5_4k1_2026/
 ├── Material_de_Clase/
 │   ├── Bibliografia/
-│   │   ├── Ingeniería de Software/
-│   │   ├── Lean y Kanban/
-│   │   ├── Pensamiento Ágil/
+│   │   ├── Ingeniería_de_Software/
+│   │   ├── Lean_y_Kanban/
+│   │   ├── Pensamiento_Ágil/
 │   │   ├── SCM/
 │   │   └── Testing/
 │   ├── Guias/
@@ -87,7 +87,7 @@ ISW_Grupo5_4k1_2026/
 │   │   ├── TIG_01/
 │   │   └── TIG_02/
 │   └── Evaluables/
-│       └── TP_04_SCM_Herramientas/
+│       └── TP_<NN>_<Tema>/
 │           ├── 00_Enunciado/
 │           ├── 01_Produccion/
 │           │   └── Codigo_Fuente/
@@ -110,8 +110,8 @@ ISW_Grupo5_4k1_2026/
 * `Notas/Teorico/` es un directorio donde se encuentran las anotaciones realizadas en clases teóricas por los estudiantes los días martes.
 * `Notas/Practico/` es un directorio donde se encuentran las anotaciones realizadas en clases prácticas por los estudiantes los días miércoles.
 * `Trabajos_Practicos/` es un directorio contenedor: cada TP evaluable se registra en un subdirectorio independiente y todos comparten la misma estructura interna. Esto permite incorporar nuevos TPs sin cambiar el criterio de organización.
-* `Trabajos_Practicos/Investigacion/` es un directorio donde se encuentran los trabajos prácticos de investigación realizados hasta el momento.
-* `Trabajos_Practicos/Evaluables/` es un directorio donde se encuentran los trabajos prácticos evaluables realizados hasta el momento.
+* `Trabajos_Practicos/Investigacion/` es un directorio donde se encuentran los trabajos prácticos de investigación realizados por el grupo.
+* `Trabajos_Practicos/Evaluables/` es un directorio donde se encuentran los trabajos prácticos evaluables realizados por el grupo.
 
 ## Ítems de configuración
 
@@ -120,7 +120,7 @@ ISW_Grupo5_4k1_2026/
 | **Bibliografía** | `<Nombre_Material>-<Nombre_Autor>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Bibliografia/` | Recurso de cátedra | `.pdf` |
 | **Guías de ejercicios** | `Guia_<Tema>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Guias/` | Recurso de cátedra | `.pdf`, `.docx` |
 | **Planificación** | `Planificacion_<AAAA>-<Tema>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Planificacion/` | Recurso de cátedra | `.md`, `.pdf`, `.xlsx` |
-| **Presentaciones teóricas** | `<N>_<Tema>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Presentaciones_Teoricas/` | Recurso de cátedra | `.pdf`, `.pptx` |
+| **Presentaciones teóricas** | `<NN>_<Tema>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Presentaciones_Teoricas/` | Recurso de cátedra | `.pdf`, `.pptx` |
 | **Resúmenes** | `Resumen_<Tema>_v<MAJOR>.<MINOR>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Resumenes/` | Material propio | `.md`, `.pdf` |
 | **Templates** | `Template_<Tema>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Templates/` | Recurso de cátedra | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
 | **Link Clases Grabadas** | `Link_Clases_Grabadas.md` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Link_Clases_Grabadas/` | Recurso de cátedra | `.txt`, `.md` |
@@ -133,7 +133,7 @@ ISW_Grupo5_4k1_2026/
 | **Código fuente** | Convenciones propias del lenguaje/tecnología | `Trabajos_Practicos/Evaluables/TP_<NN>_<Tema>/01_Produccion/Codigo_Fuente/` | Material propio | Según tecnología |
 | **Entrega de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>_<Tema>/02_Entrega/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
 | **Retroalimentación** | `TP_<NN>_Retroalimentacion_<AAAA-MM-DD>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>_<Tema>/03_Retroalimentacion/` | Recurso de cátedra | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
-| **Evidencia de repositorio** | `TP_<NN>_Evidencia_<Descripcion>_<AAAA-MM-DD>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>_<Tema>/04_Evidencias_Repositorio/` | Material propio | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
+| **Evidencia de repositorio** | `TP_<NN>_Evidencia_<Tema>_<AAAA-MM-DD>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>_<Tema>/04_Evidencias_Repositorio/` | Material propio | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
 | **Documento de estructura SCM** | `README.md` | Raíz del repositorio | Documento de gestión | `.md` |
 
 
@@ -171,7 +171,7 @@ Como grupo, hemos establecido que se definirá una nueva línea base después de
 
 ### Identificación
 
-Las líneas base se identificarán mediante etiquetas con la nomenclatura `LB-G5-<NroLineaBase>`.
+Las líneas base se identificarán mediante etiquetas con la nomenclatura `LB-G5-<NN>`.
 
 ### Historial de líneas base
 
