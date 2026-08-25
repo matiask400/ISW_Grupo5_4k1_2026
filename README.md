@@ -60,11 +60,12 @@ Pasos para clonar y trabajar el proyecto localmente:
 ISW_Grupo5_4k1_2026/
 ├── Material_de_Clase/
 │   ├── Bibliografia/
+│   │   ├── Agilismo/
 │   │   ├── Ingeniería_de_Software/
 │   │   ├── Lean_y_Kanban/
-│   │   ├── Pensamiento_Ágil/
-│   │   ├── SCM/
-│   │   └── Testing/
+│   │   ├── SCM (Gestión de Configuración de Software)/
+│   │   ├── TDD (Test Driven Development)/
+│   │   └── Testing de Software/
 │   ├── Guias/
 │   ├── Planificacion/
 │   ├── Presentaciones_Teoricas/
@@ -73,32 +74,39 @@ ISW_Grupo5_4k1_2026/
 │   └── Link_Clases_Grabadas/
 ├── Notas/
 │   ├── Teorico/
-│   │   ├── Unidad_1/
-│   │   ├── Unidad_2/
-│   │   ├── Unidad_3/
-│   │   └── Unidad_4/
+│   │   ├── Unidad_01/
+│   │   ├── Unidad_02/
+│   │   ├── Unidad_03/
+│   │   └── Unidad_04/
 │   └── Practico/
-│       ├── Unidad_1/
-│       ├── Unidad_2/
-│       ├── Unidad_3/
-│       └── Unidad_4/
+│       ├── Unidad_01/
+│       ├── Unidad_02/
+│       ├── Unidad_03/
+│       └── Unidad_04/
 ├── Trabajos_Practicos/
 │   ├── Investigacion/
 │   │   ├── TIG_01/
 │   │   └── TIG_02/
 │   └── Evaluables/
-│       └── TP_<NN>_<Tema>/
-│           ├── 00_Enunciado/
-│           ├── 01_Produccion/
-│           │   └── Codigo_Fuente/
-│           ├── 02_Entrega/
-│           ├── 03_Retroalimentacion/
-│           └── 04_Evidencias_Repositorio/
+│       ├── TP_04/                               
+│       │   ├── 00_Enunciado/
+│       │   ├── 01_Produccion/
+│       │   │   └── Codigo_Fuente/
+│       │   ├── 02_Entrega/
+│       │   ├── 03_Retroalimentacion/
+│       │   └── 04_Evidencias_Repositorio/
+│       ├── TP_05/
+│       ├── TP_06/
+│       ├── TP_07/
+│       ├── TP_11/
+│       ├── TP_12/
+│       ├── TP_14/
+│       └── TP_15/
 ├── .gitignore
 └── README.md
 ```
 ## Criterios de organización
-* `Material_de_Clase/` es un directorio donde se encuentran los diferentes materiales teóricos y prácticos que se utilizan a lo largo de la materia.
+* `Material_de_Clase/` es un directorio donde se encuentran los diferentes materiales teóricos y prácticos que se utilizan a lo largo de la materia que provienen directamente del aula virtual.
 * `Material_de_Clase/Bibliografia/` es un directorio donde se encuentra la bibliografia para cada unidad de la asignatura.
 * `Material_de_Clase/Guias/` es un directorio donde se encuentran las guías de ejercicios prácticos y sus soluciones.
 * `Material_de_Clase/Planificacion/` es un directorio que agrupa el cronograma, programa de la asignatura y material de seguimiento. 
@@ -107,11 +115,11 @@ ISW_Grupo5_4k1_2026/
 * `Material_de_Clase/Templates/` es un directorio donde se encuentran plantillas y modelos de documentos utilizados para la realización de trabajos y actividades de la asignatura.
 * `Material_de_Clase/Link_Clases_Grabadas/` es un directorio donde se encuentran los links a las diferentes clases grabadas dispuestas por los profesores.
 * `Notas/` es un directorio donde se encuentran las anotaciones realizadas en clases por los estudiantes.
-* `Notas/Teorico/` es un directorio donde se encuentran las anotaciones realizadas en clases teóricas por los estudiantes los días martes.
-* `Notas/Practico/` es un directorio donde se encuentran las anotaciones realizadas en clases prácticas por los estudiantes los días miércoles.
+* `Notas/Teorico/` es un directorio donde se encuentran las anotaciones realizadas en clases teóricas por los estudiantes los días martes. Separándose por unidad de la asignatura.
+* `Notas/Practico/` es un directorio donde se encuentran las anotaciones realizadas en clases prácticas por los estudiantes los días miércoles. Separándose por unidad de la asignatura.
 * `Trabajos_Practicos/` es un directorio contenedor: cada TP evaluable se registra en un subdirectorio independiente y todos comparten la misma estructura interna. Esto permite incorporar nuevos TPs sin cambiar el criterio de organización.
 * `Trabajos_Practicos/Investigacion/` es un directorio donde se encuentran los trabajos prácticos de investigación realizados por el grupo.
-* `Trabajos_Practicos/Evaluables/` es un directorio donde se encuentran los trabajos prácticos evaluables realizados por el grupo.
+* `Trabajos_Practicos/Evaluables/` es un directorio donde se encuentran los trabajos prácticos evaluables realizados por el grupo. Donde cada TP evaluable se registra en un subdirectorio independiente y todos comparten la misma estructura interna como se muestra en el TP_04. Esto permite incorporar nuevos TPs sin cambiar el criterio de organización.
 
 ## Ítems de configuración
 
@@ -155,6 +163,7 @@ Cada `TP_<NN>_<Tema>/` mantiene una estructura estandarizada para gestionar sus 
 * **TP:** Trabajo Práctico.
 * **TIG:** Trabajo de Investigación Grupal.
 * **SCM:** *Software Configuration Management* (Gestión de Configuración de Software).
+* **LB:** Línea Base.
 * **G5:** Grupo 5.
 * **ext:** Extensión del archivo (ej. `.pdf`, `.md`, `.docx`).
 - `<NN>`: número de dos dígitos del trabajo practico (ej. `04`, `05`).
@@ -177,6 +186,6 @@ Las líneas base se identificarán mediante etiquetas con la nomenclatura `LB-G5
 
 | Línea base | Fecha prevista | Descripción |
 | --- | --- | --- |
-| `LB-G5-1` | 05/09/2026 | Consolidación posterior al primer parcial del 03/09/2026. |
-| `LB-G5-2` | 03/11/2026 | Consolidación posterior al segundo parcial del 31/10/2026. |
-| `LB-G5-3` | 30/11/2026 | Consolidación posterior al recuperatorio del 28/11/2026. |
+| `LB-G5-01` | 2026-05-09 | Consolidación posterior al primer parcial del 2026-05-09. |
+| `LB-G5-02` | 2026-03-11 | Consolidación posterior al segundo parcial del 2026-03-11. |
+| `LB-G5-03` | 2026-03-30 | Consolidación posterior al recuperatorio del 2026-03-30. |
