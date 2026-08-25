@@ -135,19 +135,19 @@ ISW_Grupo5_4k1_2026/
 | **Notas teóricas** | `Nota_Teorico_<Tema>_<Apellido>.<ext>` | `ISW_Grupo5_4k1_2026/Notas/Teorico/` | Material propio | `.md`, `.pdf` |
 | **Notas prácticas** | `Nota_Practico_<Tema>_<Apellido>.<ext>` | `ISW_Grupo5_4k1_2026/Notas/Practico/` | Material propio | `.md`, `.pdf` |
 | **Trabajo de investigación grupal** | `TIG_<NN>_<Tema>_G5.pdf` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Investigacion/TIG_<NN>/` | Material propio | `.pdf` |
-| **Trabajo práctico evaluable** | `TP_<NN>_<Tema>_G5.pdf` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Evaluables/TP_<NN>_<Tema>/` | Material propio | `.pdf` |
-| **Enunciado de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>_<Tema>/00_Enunciado/` | Recurso de cátedra | `.pdf`, `.docx` |
-| **Producción de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>_<Tema>/01_Produccion/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
-| **Código fuente** | Convenciones propias del lenguaje/tecnología | `Trabajos_Practicos/Evaluables/TP_<NN>_<Tema>/01_Produccion/Codigo_Fuente/` | Material propio | Según tecnología |
-| **Entrega de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>_<Tema>/02_Entrega/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
-| **Retroalimentación** | `TP_<NN>_Retroalimentacion_<AAAA-MM-DD>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>_<Tema>/03_Retroalimentacion/` | Recurso de cátedra | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
-| **Evidencia de repositorio** | `TP_<NN>_Evidencia_<Tema>_<AAAA-MM-DD>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>_<Tema>/04_Evidencias_Repositorio/` | Material propio | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
+| **Trabajo práctico evaluable** | `TP_<NN>_<Tema>_G5.pdf` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Evaluables/TP_<NN>/` | Material propio | `.pdf` |
+| **Enunciado de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>/00_Enunciado/` | Recurso de cátedra | `.pdf`, `.docx` |
+| **Producción de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>/01_Produccion/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
+| **Código fuente** | Convenciones propias del lenguaje/tecnología | `Trabajos_Practicos/Evaluables/TP_<NN>/01_Produccion/Codigo_Fuente/` | Material propio | Según tecnología |
+| **Entrega de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>/02_Entrega/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
+| **Retroalimentación** | `TP_<NN>_Retroalimentacion_<AAAA-MM-DD>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>/03_Retroalimentacion/` | Recurso de cátedra | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
+| **Evidencia de repositorio** | `TP_<NN>_Evidencia_<Tema>_<AAAA-MM-DD>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>/04_Evidencias_Repositorio/` | Material propio | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
 | **Documento de estructura SCM** | `README.md` | Raíz del repositorio | Documento de gestión | `.md` |
 
 
 ## Flujo de los trabajos prácticos
 
-Cada `TP_<NN>_<Tema>/` mantiene una estructura estandarizada para gestionar sus entradas, productos y evidencias:
+Cada `TP_<NN>/` mantiene una estructura estandarizada para gestionar sus entradas, productos y evidencias:
 
 | Directorio | Contenido | Rol |
 | --- | --- | --- |
