@@ -127,7 +127,7 @@ ISW_Grupo5_4k1_2026/
 | :--- | :--- | :--- | :--- | :--- |
 | **Bibliografía** | `<Nombre_Material>-<Nombre_Autor>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Bibliografia/` | Recurso de cátedra | `.pdf` |
 | **Guías de ejercicios** | `Guia_<Tema>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Guias/` | Recurso de cátedra | `.pdf`, `.docx` |
-| **Planificación** | `Planificacion_<AAAA>-<Tema>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Planificacion/` | Recurso de cátedra | `.md`, `.pdf`, `.xlsx` |
+| **Planificación** | `Planificacion_<AAAA>_<Tema>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Planificacion/` | Recurso de cátedra | `.md`, `.pdf`, `.xlsx` |
 | **Presentaciones teóricas** | `<NN>_<Tema>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Presentaciones_Teoricas/` | Recurso de cátedra | `.pdf`, `.pptx` |
 | **Resúmenes** | `Resumen_<Tema>_v<MAJOR>.<MINOR>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Resumenes/` | Material propio | `.md`, `.pdf` |
 | **Templates** | `Template_<Tema>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Templates/` | Recurso de cátedra | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
