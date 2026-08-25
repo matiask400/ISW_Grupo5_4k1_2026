@@ -1,6 +1,6 @@
 # Evidencia de estructura inicial
 
-Fecha: 2026-08-24
+Fecha: 2026-08-25
 
 Para el TP4 se implementó la estructura definida en `README.md` y se incorporaron los ítems de configuración disponibles al momento:
 
