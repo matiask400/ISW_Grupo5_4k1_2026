@@ -134,8 +134,8 @@ ISW_Grupo5_4k1_2026/
 | **Link Clases Grabadas** | `Link_Clases_Grabadas.md` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Link_Clases_Grabadas/` | Recurso de cátedra | `.txt`, `.md` |
 | **Notas teóricas** | `Nota_Teorico_<Tema>_<Apellido>.<ext>` | `ISW_Grupo5_4k1_2026/Notas/Teorico/Unidad_<NU>/` | Material propio | `.md`, `.pdf` |
 | **Notas prácticas** | `Nota_Practico_<Tema>_<Apellido>.<ext>` | `ISW_Grupo5_4k1_2026/Notas/Practico/Unidad_<NU>/` | Material propio | `.md`, `.pdf` |
-| **Trabajo de investigación grupal** | `TIG_<NN>.<ext>` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Investigacion/TIG_<NN>/` | Material propio | `.pdf` |
-| **Trabajo práctico evaluable** | `TP_<NN>.<ext>` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Evaluables/TP_<NN>/` | Material propio | `.pdf` |
+| **Trabajo de investigación grupal** | `TIG_<NN>` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Investigacion/TIG_<NN>/` | Material propio | `No aplica` |
+| **Trabajo práctico evaluable** | `TP_<NN>` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Evaluables/TP_<NN>/` | Material propio | `No aplica` |
 | **Enunciado de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>/00_Enunciado/` | Recurso de cátedra | `.pdf`, `.docx` |
 | **Producción de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>/01_Produccion/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
 | **Código fuente** | Convenciones propias del lenguaje/tecnología | `Trabajos_Practicos/Evaluables/TP_<NN>/01_Produccion/Codigo_Fuente/` | Material propio | Según tecnología |
