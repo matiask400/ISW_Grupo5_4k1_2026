@@ -167,6 +167,7 @@ Cada `TP_<NN>/` mantiene una estructura estandarizada para gestionar sus entrada
 * **G5:** Grupo 5.
 * **ext:** Extensión del archivo (ej. `.pdf`, `.md`, `.docx`).
 - `<NN>`: número de dos dígitos del trabajo practico (ej. `04`, `05`).
+- `<NU>`: número de la unidad de la asignatura, representado con dos dígitos (ej. `01`, `02`, `03`, `04`)
 - `<Tema>`: título breve que identifique el documento usando `_` como separador de palabras. 
 - `<Artefacto>`: tipo de documento, por ejemplo `Resolución`, `Informe`, `Cronograma`.
 - `<AAAA-MM-DD>`: Fecha formateada bajo la norma ISO 8601 (Año-Mes-Día).
