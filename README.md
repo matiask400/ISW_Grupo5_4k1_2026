@@ -88,7 +88,7 @@ ISW_Grupo5_4k1_2026/
 │   ├── Investigacion/
 │   │   ├── TIG_01/
 │   │   └── TIG_02/
-│   └── No_Evaluables/
+│   ├── No_Evaluables/
 │   │   └── TP_<NN>.pdf
 │   └── Evaluables/
 │       ├── TP_04/                               
