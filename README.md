@@ -194,6 +194,6 @@ Las líneas base se identificarán mediante etiquetas con la nomenclatura `LB-G5
 
 | Línea base | Fecha prevista | Descripción |
 | --- | --- | --- |
-| `LB-G5-01` | 2026-09-05 | Consolidación posterior al primer parcial del 2026-09-05. |
-| `LB-G5-02` | 2026-11-03 | Consolidación posterior al segundo parcial del 2026-11-03. |
-| `LB-G5-03` | 2026-11-30 | Consolidación posterior al recuperatorio del 2026-11-30. |
+| `LB-G5-01` | 2026-10-03 | Consolidación posterior al primer parcial del 2026-10-03. |
+| `LB-G5-02` | 2026-10-31 | Consolidación posterior al segundo parcial del 2026-10-31. |
+| `LB-G5-03` | 2026-11-28 | Consolidación posterior al recuperatorio del 2026-11-28. |
