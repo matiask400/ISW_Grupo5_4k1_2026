@@ -89,7 +89,7 @@ ISW_Grupo5_4k1_2026/
 │   │   ├── TIG_01/
 │   │   └── TIG_02/
 │   └── No_Evaluables/
-│   │   ├── TP_<NN>
+│   │   └── TP_<NN>.pdf
 │   └── Evaluables/
 │       ├── TP_04/                               
 │       │   ├── 00_Enunciado/
@@ -140,7 +140,7 @@ ISW_Grupo5_4k1_2026/
 | **Notas teóricas** | `Nota_Teorico_<Tema>_<Apellido>.<ext>` | `ISW_Grupo5_4k1_2026/Notas/Teorico/Unidad_<NU>/` | Material propio | `.md`, `.pdf` |
 | **Notas prácticas** | `Nota_Practico_<Tema>_<Apellido>.<ext>` | `ISW_Grupo5_4k1_2026/Notas/Practico/Unidad_<NU>/` | Material propio | `.md`, `.pdf` |
 | **Trabajo de investigación grupal** | `TIG_<NN>` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Investigacion/TIG_<NN>/` | Material propio | No Aplica |
-| **Trabajo práctico no evaluable** | `TP_<NN>` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/No_Evaluables/TP_<NN>` | Material propio | `.pdf`, `.docx` |
+| **Trabajo práctico no evaluable** | `TP_<NN>` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/No_Evaluables/` | Material propio | `.pdf`, `.docx` |
 | **Trabajo práctico evaluable** | `TP_<NN>` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Evaluables/TP_<NN>/` | Material propio | No Aplica |
 | **Enunciado de TP** | Se conserva el nombre oficial provisto por la cátedra | `Trabajos_Practicos/Evaluables/TP_<NN>/00_Enunciado/` | Recurso de cátedra | `.pdf`, `.docx` |
 | **Producción de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>/01_Produccion/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
