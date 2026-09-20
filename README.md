@@ -68,6 +68,7 @@ ISW_Grupo5_4k1_2026/
 │   │   └── Testing de Software/
 │   ├── Guias/
 │   ├── Planificacion/
+│   ├── Cronograma/
 │   ├── Presentaciones_Teoricas/
 │   ├── Resumenes/
 │   ├── Templates/
@@ -87,6 +88,8 @@ ISW_Grupo5_4k1_2026/
 │   ├── Investigacion/
 │   │   ├── TIG_01/
 │   │   └── TIG_02/
+│   └── No_Evaluables/
+        └── TP_<NN>/
 │   └── Evaluables/
 │       ├── TP_04/                               
 │       │   ├── 00_Enunciado/
@@ -94,7 +97,6 @@ ISW_Grupo5_4k1_2026/
 │       │   │   └── Codigo_Fuente/
 │       │   ├── 02_Entrega/
 │       │   ├── 03_Retroalimentacion/
-│       │   └── 04_Evidencias_Repositorio/
 │       ├── TP_05/
 │       ├── TP_06/
 │       ├── TP_07/
@@ -109,7 +111,8 @@ ISW_Grupo5_4k1_2026/
 * `Material_de_Clase/` es un directorio donde se encuentran los diferentes materiales teóricos y prácticos que se utilizan a lo largo de la materia que provienen directamente del aula virtual.
 * `Material_de_Clase/Bibliografia/` es un directorio donde se encuentra la bibliografia para cada unidad de la asignatura.
 * `Material_de_Clase/Guias/` es un directorio donde se encuentran las guías de ejercicios prácticos y sus soluciones.
-* `Material_de_Clase/Planificacion/` es un directorio que agrupa el cronograma, programa de la asignatura y material de seguimiento. 
+* `Material_de_Clase/Planificacion/` es un directorio que agrupa el programa de la asignatura.
+* `Material_de_Clase/Cronograma/` es un directorio que agrupa el cronograma de la asignatura. 
 * `Material_de_Clase/Presentaciones_Teoricas/` es un directorio donde se encuentran las presentaciones power point del desarrollo de la asginatura.
 * `Material_de_Clase/Resumenes/` es un directorio donde se encuentran los resumenes para el estudio de la asignatura realizados por los estudiantes.
 * `Material_de_Clase/Templates/` es un directorio donde se encuentran plantillas y modelos de documentos utilizados para la realización de trabajos y actividades de la asignatura.
@@ -119,6 +122,7 @@ ISW_Grupo5_4k1_2026/
 * `Notas/Practico/` es un directorio donde se encuentran las anotaciones realizadas en clases prácticas por los estudiantes los días miércoles. Separándose por unidad de la asignatura.
 * `Trabajos_Practicos/` es un directorio contenedor: cada TP evaluable se registra en un subdirectorio independiente y todos comparten la misma estructura interna. Esto permite incorporar nuevos TPs sin cambiar el criterio de organización.
 * `Trabajos_Practicos/Investigacion/` es un directorio donde se encuentran los trabajos prácticos de investigación realizados por el grupo.
+* `Trabajos_Practicos/No_Evaluables/` es un directorio donde se encuentran los trabajos prácticos de carácter formativo, sin calificación, realizados por el grupo durante el cursado.
 * `Trabajos_Practicos/Evaluables/` es un directorio donde se encuentran los trabajos prácticos evaluables realizados por el grupo. Donde cada TP evaluable se registra en un subdirectorio independiente y todos comparten la misma estructura interna como se muestra en el TP_04. Esto permite incorporar nuevos TPs sin cambiar el criterio de organización.
 
 ## Ítems de configuración
@@ -128,20 +132,21 @@ ISW_Grupo5_4k1_2026/
 | **Bibliografía** | `<Nombre_Material>-<Nombre_Autor>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Bibliografia/` | Recurso de cátedra | `.pdf` |
 | **Guías de ejercicios** | `Guia_<Tema>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Guias/` | Recurso de cátedra | `.pdf`, `.docx` |
 | **Planificación** | `Planificacion_<AAAA>_<Tema>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Planificacion/` | Recurso de cátedra | `.md`, `.pdf`, `.xlsx` |
-| **Presentaciones teóricas** | `<NN>_<Tema>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Presentaciones_Teoricas/` | Recurso de cátedra | `.pdf`, `.pptx` |
+| **Cronograma** | `Cronograma_<AAAA>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Cronograma/` | Recurso de cátedra | `.md`, `.pdf`, `.xlsx` |
+| **Presentaciones teóricas** | `<NN>_<Tema>.pdf` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Presentaciones_Teoricas/` | Recurso de cátedra | `.pdf`|
 | **Resúmenes** | `Resumen_<Tema>_v<MAJOR>.<MINOR>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Resumenes/` | Material propio | `.md`, `.pdf` |
 | **Templates** | `Template_<Tema>.<ext>` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Templates/` | Recurso de cátedra | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
 | **Link Clases Grabadas** | `Link_Clases_Grabadas.md` | `ISW_Grupo5_4k1_2026/Material_de_Clase/Link_Clases_Grabadas/` | Recurso de cátedra | `.txt`, `.md` |
 | **Notas teóricas** | `Nota_Teorico_<Tema>_<Apellido>.<ext>` | `ISW_Grupo5_4k1_2026/Notas/Teorico/Unidad_<NU>/` | Material propio | `.md`, `.pdf` |
 | **Notas prácticas** | `Nota_Practico_<Tema>_<Apellido>.<ext>` | `ISW_Grupo5_4k1_2026/Notas/Practico/Unidad_<NU>/` | Material propio | `.md`, `.pdf` |
-| **Trabajo de investigación grupal** | `TIG_<NN>` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Investigacion/TIG_<NN>/` | Material propio | `No aplica` |
-| **Trabajo práctico evaluable** | `TP_<NN>` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Evaluables/TP_<NN>/` | Material propio | `No aplica` |
-| **Enunciado de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>/00_Enunciado/` | Recurso de cátedra | `.pdf`, `.docx` |
+| **Trabajo de investigación grupal** | `TIG_<NN>` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Investigacion/TIG_<NN>/` | Material propio | `.pdf`, `.docx` |
+| **Trabajo práctico no evaluable** | `TP_<NN>` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/No_Evaluables/TP_<NN>/` | Material propio | `.pdf`, `.docx` |
+| **Trabajo práctico evaluable** | `TP_<NN>` | `ISW_Grupo5_4k1_2026/Trabajos_Practicos/Evaluables/TP_<NN>/` | Material propio | `.pdf`, `.docx` |
+| **Enunciado de TP** | Se conserva el nombre oficial provisto por la cátedra | `Trabajos_Practicos/Evaluables/TP_<NN>/00_Enunciado/` | Recurso de cátedra | `.pdf`, `.docx` |
 | **Producción de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>/01_Produccion/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
 | **Código fuente** | Convenciones propias del lenguaje/tecnología | `Trabajos_Practicos/Evaluables/TP_<NN>/01_Produccion/Codigo_Fuente/` | Material propio | Según tecnología |
 | **Entrega de TP** | `TP_<NN>_<Artefacto>_v<MAJOR>.<MINOR>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>/02_Entrega/` | Material propio | `.md`, `.pdf`, `.docx`, `.xlsx`, `.pptx` |
 | **Retroalimentación** | `TP_<NN>_Retroalimentacion_<AAAA-MM-DD>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>/03_Retroalimentacion/` | Recurso de cátedra | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
-| **Evidencia de repositorio** | `TP_<NN>_Evidencia_<Tema>_<AAAA-MM-DD>.<ext>` | `Trabajos_Practicos/Evaluables/TP_<NN>/04_Evidencias_Repositorio/` | Material propio | `.md`, `.pdf`, `.png`, `.jpg`, `.jpeg` |
 | **Documento de estructura SCM** | `README.md` | Raíz del repositorio | Documento de gestión | `.md` |
 
 
@@ -155,7 +160,9 @@ Cada `TP_<NN>/` mantiene una estructura estandarizada para gestionar sus entrada
 | `01_Produccion/` | Artefactos de trabajo del grupo, incluyendo código fuente si corresponde | Trabajo en curso |
 | `02_Entrega/` | Versión final presentada | Salida formal |
 | `03_Retroalimentacion/` | Correcciones, calificaciones y devoluciones recibidas | Entrada posterior |
-| `04_Evidencias_Repositorio/` | Capturas, reportes de Git, tags y pruebas de actualización | Evidencia de gestión |
+
+*Producción de TP* y *Entrega de TP* comparten la misma regla de nombrado porque representan el mismo artefacto en dos momentos distintos del flujo: `01_Produccion/` contiene las versiones de trabajo a medida que se van generando, mientras que `02_Entrega/` contiene específicamente la última versión, ya cerrada como definitiva para la evaluación. No es un ítem duplicado, sino el mismo documento en dos etapas del ciclo de vida del TP.
+
 
 ### Glosario
 
