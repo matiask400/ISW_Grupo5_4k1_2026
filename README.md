@@ -89,7 +89,7 @@ ISW_Grupo5_4k1_2026/
 │   │   ├── TIG_01/
 │   │   └── TIG_02/
 │   └── No_Evaluables/
-        └── TP_<NN>/
+│       └── TP_<NN>
 │   └── Evaluables/
 │       ├── TP_04/                               
 │       │   ├── 00_Enunciado/
