@@ -1,10 +1,13 @@
 from app.modelos.modelos import ResultadoCompra, SolicitudCompra
 
 
+MAXIMO_ENTRADAS_POR_COMPRA = 10
+
+
 class ServicioCompra:
     def comprar(self, solicitud: SolicitudCompra) -> ResultadoCompra:
-        if solicitud.cantidad > 10:
-            return ResultadoCompra(
-                exitosa=False, error="La cantidad de entradas no puede superar 10"
+        if solicitud.cantidad > MAXIMO_ENTRADAS_POR_COMPRA:
+            return ResultadoCompra.fallida(
+                f"La cantidad de entradas no puede superar {MAXIMO_ENTRADAS_POR_COMPRA}"
             )
-        return ResultadoCompra(exitosa=True)
+        return ResultadoCompra.ok()

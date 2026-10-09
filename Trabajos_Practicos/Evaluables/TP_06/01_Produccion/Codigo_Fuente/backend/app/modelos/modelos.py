@@ -27,3 +27,11 @@ class SolicitudCompra:
 class ResultadoCompra:
     exitosa: bool
     error: str | None = None
+
+    @classmethod
+    def ok(cls) -> "ResultadoCompra":
+        return cls(exitosa=True)
+
+    @classmethod
+    def fallida(cls, error: str) -> "ResultadoCompra":
+        return cls(exitosa=False, error=error)
