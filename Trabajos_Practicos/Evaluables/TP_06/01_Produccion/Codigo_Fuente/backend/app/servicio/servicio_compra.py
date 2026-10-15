@@ -1,5 +1,5 @@
 from app.modelos.modelos import ResultadoCompra, SolicitudCompra
-from datetime import datetime
+from datetime import date, datetime
 from collections.abc import Callable
 from app.servicio.calendario_parque import CalendarioParque
 
@@ -58,6 +58,8 @@ class ServicioCompra:
     def _validar_fecha(self, solicitud: SolicitudCompra) -> str | None:
         if solicitud.fecha_visita < self._ahora().date():
             return "La fecha de visita debe ser hoy o una fecha futura"
+        if solicitud.fecha_visita > date(2026, 11, 22):  # fake it
+            return "Solo se pueden comprar entradas con hasta 1 mes de anticipación"
         if not self._calendario.esta_abierto(solicitud.fecha_visita):
             return "El parque está cerrado en la fecha seleccionada"
         return None
