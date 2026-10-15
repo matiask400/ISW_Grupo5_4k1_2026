@@ -50,6 +50,6 @@ class ServicioCompra:
 
     @staticmethod
     def _validar_fecha(solicitud: SolicitudCompra) -> str | None:
-        if solicitud.fecha_visita == date(2026, 10, 7):  # fake it
+        if solicitud.fecha_visita < date.today():
             return "La fecha de visita debe ser hoy o una fecha futura"
         return None
