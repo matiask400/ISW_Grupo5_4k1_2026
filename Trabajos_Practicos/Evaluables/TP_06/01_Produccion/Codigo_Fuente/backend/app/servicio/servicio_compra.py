@@ -10,4 +10,6 @@ class ServicioCompra:
             return ResultadoCompra.fallida(
                 f"La cantidad de entradas no puede superar {MAXIMO_ENTRADAS_POR_COMPRA}"
             )
+        if solicitud.forma_pago is None:
+            return ResultadoCompra.fallida("Debe seleccionar una forma de pago")
         return ResultadoCompra.ok()
