@@ -149,3 +149,18 @@ class TestComprarEntrada:
 
         assert resultado.exitosa is False
         assert resultado.error == "Las edades deben estar entre 0 y 120"
+
+    def test_permite_edades_en_los_limites(self):
+        servicio = ServicioCompra()
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=date(2026, 12, 15),
+            cantidad=2,
+            edades=[0, 120],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.exitosa is True
