@@ -278,3 +278,18 @@ class TestComprarEntrada:
 
         assert resultado.exitosa is False
         assert resultado.error == "Solo se pueden comprar entradas con hasta 1 mes de anticipación"
+
+    def test_permite_comprar_justo_un_mes_despues_cruzando_el_anio(self):
+        servicio = crear_servicio(ahora=datetime(2026, 12, 20, 10, 0))
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=date(2027, 1, 20),
+            cantidad=2,
+            edades=[30, 28],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.exitosa is True
