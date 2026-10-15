@@ -2,6 +2,7 @@ from app.modelos.modelos import ResultadoCompra, SolicitudCompra
 from datetime import date
 from collections.abc import Callable
 
+
 MINIMO_ENTRADAS_POR_COMPRA = 1
 MAXIMO_ENTRADAS_POR_COMPRA = 10
 EDAD_MINIMA = 0
@@ -23,11 +24,6 @@ class ServicioCompra:
         if error:
             return ResultadoCompra.fallida(error)
         return ResultadoCompra.ok()
-
-    def _validar_fecha(self, solicitud: SolicitudCompra) -> str | None:
-        if solicitud.fecha_visita < self._hoy():
-            return "La fecha de visita debe ser hoy o una fecha futura"
-        return None
 
     @staticmethod
     def _validar_cantidad(solicitud: SolicitudCompra) -> str | None:
@@ -55,4 +51,10 @@ class ServicioCompra:
     def _validar_tipo_pase(solicitud: SolicitudCompra) -> str | None:
         if solicitud.tipo_pase is None:
             return "Debe seleccionar un tipo de pase"
+        return None
+
+    @staticmethod
+    def _validar_fecha(solicitud: SolicitudCompra) -> str | None:
+        if solicitud.fecha_visita < date.today():
+            return "La fecha de visita debe ser hoy o una fecha futura"
         return None
