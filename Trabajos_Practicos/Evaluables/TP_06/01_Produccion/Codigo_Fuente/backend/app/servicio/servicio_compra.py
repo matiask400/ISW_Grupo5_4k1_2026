@@ -1,4 +1,5 @@
 from app.modelos.modelos import ResultadoCompra, SolicitudCompra
+from datetime import date
 
 MINIMO_ENTRADAS_POR_COMPRA = 1
 MAXIMO_ENTRADAS_POR_COMPRA = 10
@@ -9,7 +10,8 @@ EDAD_MAXIMA = 120
 class ServicioCompra:
     def comprar(self, solicitud: SolicitudCompra) -> ResultadoCompra:
         error = (
-            self._validar_cantidad(solicitud)
+            self._validar_fecha(solicitud)
+            or self._validar_cantidad(solicitud)
             or self._validar_visitantes(solicitud)
             or self._validar_tipo_pase(solicitud)
             or self._validar_forma_pago(solicitud)
@@ -44,4 +46,10 @@ class ServicioCompra:
     def _validar_tipo_pase(solicitud: SolicitudCompra) -> str | None:
         if solicitud.tipo_pase is None:
             return "Debe seleccionar un tipo de pase"
+        return None
+
+    @staticmethod
+    def _validar_fecha(solicitud: SolicitudCompra) -> str | None:
+        if solicitud.fecha_visita == date(2026, 10, 7):  # fake it
+            return "La fecha de visita debe ser hoy o una fecha futura"
         return None
