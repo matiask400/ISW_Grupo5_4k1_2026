@@ -20,7 +20,7 @@ class SolicitudCompra:
     cantidad: int
     edades: list[int]
     tipo_pase: TipoPase
-    forma_pago: FormaPago
+    forma_pago: FormaPago | None
 
 
 @dataclass
