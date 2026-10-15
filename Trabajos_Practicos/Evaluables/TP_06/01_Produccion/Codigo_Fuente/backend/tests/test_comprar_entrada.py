@@ -4,14 +4,14 @@ from app.servicio.servicio_compra import ServicioCompra
 from datetime import date
 
 """
-Probar comprar entradas ingresando una cantidad de entradas mayor a 10 
+Probar comprar entradas ingresando una cantidad de entradas mayor a 10
 """
 
 class TestComprarEntrada:
 
     def test_no_deberia_comprar_mas_10_entradas(self):
         servicio = ServicioCompra()
-        
+
         solicitud = SolicitudCompra(
             usuario_email="ana@mail.com",
             fecha_visita=date(2026, 12, 15),
