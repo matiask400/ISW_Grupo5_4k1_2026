@@ -2,6 +2,8 @@ from app.modelos.modelos import ResultadoCompra, SolicitudCompra
 
 MINIMO_ENTRADAS_POR_COMPRA = 1
 MAXIMO_ENTRADAS_POR_COMPRA = 10
+EDAD_MINIMA = 0
+EDAD_MAXIMA = 120
 
 
 class ServicioCompra:
@@ -27,7 +29,7 @@ class ServicioCompra:
     def _validar_visitantes(solicitud: SolicitudCompra) -> str | None:
         if len(solicitud.edades) != solicitud.cantidad:
             return "Debe indicar la edad de cada visitante"
-        if any(edad < 0 for edad in solicitud.edades):
+        if any(edad < 0 or edad > 120 for edad in solicitud.edades):
             return "Las edades deben estar entre 0 y 120"
         return None
 
