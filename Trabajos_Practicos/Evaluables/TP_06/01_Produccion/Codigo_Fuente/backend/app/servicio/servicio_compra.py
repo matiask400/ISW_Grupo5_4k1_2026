@@ -2,14 +2,14 @@ from app.modelos.modelos import ResultadoCompra, SolicitudCompra
 from datetime import date, datetime
 from collections.abc import Callable
 from app.servicio.calendario_parque import CalendarioParque
+from datetime import date, datetime, time
 import calendar
 
 MINIMO_ENTRADAS_POR_COMPRA = 1
 MAXIMO_ENTRADAS_POR_COMPRA = 10
 EDAD_MINIMA = 0
 EDAD_MAXIMA = 120
-
-
+HORA_LIMITE_COMPRA_MISMO_DIA = time(17, 30)
 
 
 def sumar_un_mes(fecha: date) -> date:
@@ -65,6 +65,9 @@ class ServicioCompra:
         return None
 
     def _validar_fecha(self, solicitud: SolicitudCompra) -> str | None:
+        ahora = self._ahora()
+        if solicitud.fecha_visita == ahora.date() and ahora.time() > HORA_LIMITE_COMPRA_MISMO_DIA:
+            return "Las compras para el día de hoy se permiten hasta las 17:30"
         if solicitud.fecha_visita < self._ahora().date():
             return "La fecha de visita debe ser hoy o una fecha futura"
         if solicitud.fecha_visita > sumar_un_mes(self._ahora().date()):
