@@ -211,3 +211,19 @@ class TestComprarEntrada:
 
         assert resultado.exitosa is False
         assert resultado.error == "La fecha de visita debe ser hoy o una fecha futura"
+
+    def test_rechaza_otra_fecha_pasada(self):
+        servicio = ServicioCompra()
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=date(2025, 1, 1),
+            cantidad=2,
+            edades=[30, 28],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.exitosa is False
+        assert resultado.error == "La fecha de visita debe ser hoy o una fecha futura"
