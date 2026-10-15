@@ -55,3 +55,49 @@ class TestComprarEntrada:
 
         assert resultado.exitosa is False
         assert resultado.error == "Debe comprar al menos 1 entrada"
+
+    def test_rechaza_cantidad_menor_a_1(self):
+        servicio = ServicioCompra()
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=date(2026, 12, 15),
+            cantidad=-1,
+            edades=[],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.exitosa is False
+        assert resultado.error == "Debe comprar al menos 1 entrada"
+
+    def test_permite_comprar_2_entradas(self):
+        servicio = ServicioCompra()
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=date(2026, 12, 15),
+            cantidad=2,
+            edades=[30, 28],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.exitosa is True
+
+    def test_permite_exactamente_10_entradas(self):
+        servicio = ServicioCompra()
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=date(2026, 12, 15),
+            cantidad=10,
+            edades=[30] * 10,
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.exitosa is True
