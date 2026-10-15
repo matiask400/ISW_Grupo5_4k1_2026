@@ -11,6 +11,7 @@ class ServicioCompra:
         error = (
             self._validar_cantidad(solicitud)
             or self._validar_visitantes(solicitud)
+            or self._validar_tipo_pase(solicitud)
             or self._validar_forma_pago(solicitud)
         )
         if error:
@@ -37,4 +38,10 @@ class ServicioCompra:
     def _validar_forma_pago(solicitud: SolicitudCompra) -> str | None:
         if solicitud.forma_pago is None:
             return "Debe seleccionar una forma de pago"
+        return None
+
+    @staticmethod
+    def _validar_tipo_pase(solicitud: SolicitudCompra) -> str | None:
+        if solicitud.tipo_pase is None:
+            return "Debe seleccionar un tipo de pase"
         return None

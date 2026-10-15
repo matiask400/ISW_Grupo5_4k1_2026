@@ -19,7 +19,7 @@ class SolicitudCompra:
     fecha_visita: date
     cantidad: int
     edades: list[int]
-    tipo_pase: TipoPase
+    tipo_pase: TipoPase | None
     forma_pago: FormaPago | None
 
 
