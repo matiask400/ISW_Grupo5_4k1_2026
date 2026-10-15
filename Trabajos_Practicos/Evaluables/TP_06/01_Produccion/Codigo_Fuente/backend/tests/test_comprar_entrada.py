@@ -4,7 +4,7 @@ from app.servicio.servicio_compra import ServicioCompra
 
 AHORA = datetime(2026, 10, 22, 10, 0)
 HOY = AHORA.date()
-FECHA_VALIDA = date(2026, 10, 15)
+FECHA_VALIDA = date(2026, 10, 29)
 
 
 def crear_servicio(ahora: datetime = AHORA) -> ServicioCompra:
