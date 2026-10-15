@@ -251,7 +251,7 @@ class TestComprarEntrada:
         servicio = crear_servicio()
         solicitud = SolicitudCompra(
             usuario_email="ana@mail.com",
-            fecha_visita=date(2026, 10, 12),  # lunes
+            fecha_visita=date(2026, 10, 26),
             cantidad=2,
             edades=[30, 28],
             tipo_pase=TipoPase.REGULAR,
