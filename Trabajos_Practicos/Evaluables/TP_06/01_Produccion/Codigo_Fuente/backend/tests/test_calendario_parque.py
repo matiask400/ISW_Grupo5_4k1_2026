@@ -10,3 +10,6 @@ class TestCalendarioParque:
 
     def test_abierto_un_martes(self):
         assert CalendarioParque().esta_abierto(date(2026, 10, 13)) is True
+
+    def test_cerrado_el_25_de_diciembre(self):
+        assert CalendarioParque().esta_abierto(date(2026, 12, 25)) is False
