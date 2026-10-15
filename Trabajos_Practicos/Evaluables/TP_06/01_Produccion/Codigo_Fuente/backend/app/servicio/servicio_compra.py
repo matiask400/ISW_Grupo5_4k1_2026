@@ -1,5 +1,5 @@
 from app.modelos.modelos import ResultadoCompra, SolicitudCompra
-from datetime import date
+from datetime import datetime
 from collections.abc import Callable
 
 
@@ -10,8 +10,8 @@ EDAD_MAXIMA = 120
 
 
 class ServicioCompra:
-    def __init__(self, hoy: Callable[[], date] = date.today) -> None:
-        self._hoy = hoy
+    def __init__(self, ahora: Callable[[], datetime] = datetime.now) -> None:
+        self._ahora = ahora
 
     def comprar(self, solicitud: SolicitudCompra) -> ResultadoCompra:
         error = (
@@ -37,8 +37,8 @@ class ServicioCompra:
     def _validar_visitantes(solicitud: SolicitudCompra) -> str | None:
         if len(solicitud.edades) != solicitud.cantidad:
             return "Debe indicar la edad de cada visitante"
-        if any(edad < 0 or edad > 120 for edad in solicitud.edades):
-            return "Las edades deben estar entre 0 y 120"
+        if any(not EDAD_MINIMA <= edad <= EDAD_MAXIMA for edad in solicitud.edades):
+            return f"Las edades deben estar entre {EDAD_MINIMA} y {EDAD_MAXIMA}"
         return None
 
     @staticmethod
@@ -53,8 +53,7 @@ class ServicioCompra:
             return "Debe seleccionar un tipo de pase"
         return None
 
-    @staticmethod
-    def _validar_fecha(solicitud: SolicitudCompra) -> str | None:
-        if solicitud.fecha_visita < date.today():
+    def _validar_fecha(self, solicitud: SolicitudCompra) -> str | None:
+        if solicitud.fecha_visita < self._ahora().date():
             return "La fecha de visita debe ser hoy o una fecha futura"
         return None

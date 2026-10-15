@@ -1,7 +1,14 @@
-import pytest
-from app.modelos.modelos import SolicitudCompra, TipoPase, FormaPago
+from datetime import date, datetime, timedelta
+from app.modelos.modelos import FormaPago, SolicitudCompra, TipoPase
 from app.servicio.servicio_compra import ServicioCompra
-from datetime import date, timedelta
+
+AHORA = datetime(2026, 10, 22, 10, 0)
+HOY = AHORA.date()
+FECHA_VALIDA = date(2026, 10, 15)
+
+
+def crear_servicio(ahora: datetime = AHORA) -> ServicioCompra:
+    return ServicioCompra(ahora=lambda: ahora)
 
 
 class TestComprarEntrada:
@@ -210,10 +217,10 @@ class TestComprarEntrada:
         assert resultado.error == "La fecha de visita debe ser hoy o una fecha futura"
 
     def test_rechaza_otra_fecha_pasada(self):
-        servicio = ServicioCompra()
+        servicio = crear_servicio()
         solicitud = SolicitudCompra(
             usuario_email="ana@mail.com",
-            fecha_visita=date.today() - timedelta(days=1),
+            fecha_visita=HOY - timedelta(days=1),
             cantidad=2,
             edades=[30, 28],
             tipo_pase=TipoPase.REGULAR,
@@ -226,10 +233,10 @@ class TestComprarEntrada:
         assert resultado.error == "La fecha de visita debe ser hoy o una fecha futura"
 
     def test_permite_comprar_para_el_dia_de_hoy(self):
-        servicio = ServicioCompra()
+        servicio = crear_servicio()
         solicitud = SolicitudCompra(
             usuario_email="ana@mail.com",
-            fecha_visita=date.today(),
+            fecha_visita=HOY,
             cantidad=2,
             edades=[30, 28],
             tipo_pase=TipoPase.REGULAR,
