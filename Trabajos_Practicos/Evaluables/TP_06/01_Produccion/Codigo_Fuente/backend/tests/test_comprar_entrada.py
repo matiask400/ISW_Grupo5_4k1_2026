@@ -40,3 +40,9 @@ class TestComprarEntrada:
 
         assert resultado.exitosa is False
         assert resultado.error == "Debe seleccionar una forma de pago"
+
+    def test_rechaza_0_entradas():
+        resultado = ServicioCompra().comprar(crear_solicitud(cantidad=0, edades=[]))
+
+        assert resultado.exitosa is False
+        assert resultado.error == "Debe comprar al menos 1 entrada"
