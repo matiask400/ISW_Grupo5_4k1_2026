@@ -1,6 +1,7 @@
 from app.modelos.modelos import ResultadoCompra, SolicitudCompra
 from datetime import datetime
 from collections.abc import Callable
+from app.servicio.calendario_parque import CalendarioParque
 
 
 MINIMO_ENTRADAS_POR_COMPRA = 1
@@ -10,8 +11,9 @@ EDAD_MAXIMA = 120
 
 
 class ServicioCompra:
-    def __init__(self, ahora: Callable[[], datetime] = datetime.now) -> None:
+    def __init__(self, ahora: Callable[[], datetime] = datetime.now, calendario: CalendarioParque | None = None,) -> None:
         self._ahora = ahora
+        self._calendario = calendario or CalendarioParque()
 
     def comprar(self, solicitud: SolicitudCompra) -> ResultadoCompra:
         error = (
@@ -56,4 +58,6 @@ class ServicioCompra:
     def _validar_fecha(self, solicitud: SolicitudCompra) -> str | None:
         if solicitud.fecha_visita < self._ahora().date():
             return "La fecha de visita debe ser hoy o una fecha futura"
+        if not self._calendario.esta_abierto(solicitud.fecha_visita):
+            return "El parque está cerrado en la fecha seleccionada"
         return None
