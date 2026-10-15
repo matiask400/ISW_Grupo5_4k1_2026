@@ -262,3 +262,19 @@ class TestComprarEntrada:
 
         assert resultado.exitosa is False
         assert resultado.error == "El parque está cerrado en la fecha seleccionada"
+
+    def test_no_deberia_comprar_con_mas_de_un_mes_de_anticipacion(self):
+        servicio = crear_servicio()
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=date(2026, 11, 28),
+            cantidad=2,
+            edades=[30, 28],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.exitosa is False
+        assert resultado.error == "Solo se pueden comprar entradas con hasta 1 mes de anticipación"
