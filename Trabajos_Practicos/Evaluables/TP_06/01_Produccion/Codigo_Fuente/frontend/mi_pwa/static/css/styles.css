@@ -1,0 +1,234 @@
+* {
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  margin: 0;
+  /* Clave: elimina el margen por defecto del navegador */
+  padding: 0;
+  /* Clave: sin relleno para que el header toque los bordes */
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Tu fondo (imagen o color) */
+  background-image: url('/static/icons/fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+header {
+  width: 100%;
+  background-color: #ffffff;
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  /* Clave: alinea verticalmente logo, título y badge */
+  gap: 1rem;
+  /* Espacio entre el logo, título y badge */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 0;
+}
+
+header h1 {
+  margin: 0;
+  /* Quita el margen por defecto del h1 para que no deforme el header */
+  font-size: 1.5rem;
+  /* Ajusta el tamaño para que sea proporcionado */
+}
+
+.logo-header {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+  /* Evita que el logo se achique si la pantalla es angosta */
+}
+
+#network-badge {
+  margin-left: auto;
+  /* Empuja el cartel "En línea" al extremo derecho */
+}
+
+/* Para que el resto del contenido no quede pegado a los bordes de la pantalla */
+main {
+  padding: 1.5rem;
+  max-width: 1200px;
+  /* Opcional: limita el ancho máximo del contenido */
+  margin: 0 auto;
+  /* Centra el contenido en pantallas grandes */
+}
+
+.badge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.badge.online {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.badge.offline {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+button {
+  cursor: pointer;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+}
+
+.btn-primary {
+  background-color: #1976d2;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #455a64;
+  color: white;
+}
+
+pre {
+  background: #272822;
+  color: #f8f8f2;
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+.view.hidden {
+  display: none;
+}
+
+.view.active {
+  display: block;
+}
+
+/* Botón hamburguesa */
+.hamburger-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 28px;
+  height: 24px;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.hamburger-btn span {
+  width: 100%;
+  height: 3px;
+  background-color: #2e7d32;
+  /* Tono verde parque o el que prefieras */
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Fondo oscuro (Overlay) */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Panel lateral (Drawer) */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -280px;
+  /* Escondido a la izquierda */
+  width: 280px;
+  height: 100vh;
+  background-color: #ffffff;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+.side-menu.open {
+  transform: translateX(280px);
+  /* Se desliza a la vista */
+}
+
+.side-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.side-menu-header h3 {
+  margin: 0;
+  color: #2e7d32;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #666;
+  padding: 0;
+  line-height: 1;
+}
+
+/* Lista de enlaces */
+.menu-links {
+  list-style: none;
+  margin: 0;
+  padding: 1rem 0;
+}
+
+.menu-links li {
+  padding: 0;
+}
+
+.menu-links a {
+  display: block;
+  padding: 0.9rem 1.5rem;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.menu-links a:hover {
+  background-color: #f0f7f0;
+  color: #2e7d32;
+}

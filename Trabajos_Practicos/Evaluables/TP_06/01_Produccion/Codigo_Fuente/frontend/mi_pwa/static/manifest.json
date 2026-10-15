@@ -1,0 +1,22 @@
+{
+  "name": "EcoHarmony Park",
+  "short_name": "EcoHarmonyPark",
+  "description": "Página web de EcoHarmony Park",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1976d2",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/static/icons/icono.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "/static/icons/icono.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
