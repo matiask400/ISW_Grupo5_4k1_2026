@@ -9,3 +9,13 @@ Thumbs.db
 *.tmp
 *.bak
 *.swp
+
+# Caché de Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Variables de entorno
+.env
+.env.*
+!.env.example
