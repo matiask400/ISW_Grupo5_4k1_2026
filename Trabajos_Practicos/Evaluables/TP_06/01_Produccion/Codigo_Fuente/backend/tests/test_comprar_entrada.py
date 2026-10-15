@@ -101,3 +101,19 @@ class TestComprarEntrada:
         resultado = servicio.comprar(solicitud)
 
         assert resultado.exitosa is True
+
+    def test_rechaza_si_falta_la_edad_de_algun_visitante(self):
+        servicio = ServicioCompra()
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=date(2026, 12, 15),
+            cantidad=3,
+            edades=[30, 28],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.exitosa is False
+        assert resultado.error == "Debe indicar la edad de cada visitante"
