@@ -180,3 +180,18 @@ class TestComprarEntrada:
 
         assert resultado.exitosa is False
         assert resultado.error == "Debe seleccionar un tipo de pase"
+
+    def test_permite_comprar_pase_vip(self):
+        servicio = ServicioCompra()
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=date(2026, 12, 15),
+            cantidad=2,
+            edades=[30, 28],
+            tipo_pase=TipoPase.VIP,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.exitosa is True
