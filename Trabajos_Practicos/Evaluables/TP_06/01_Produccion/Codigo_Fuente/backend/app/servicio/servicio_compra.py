@@ -1,9 +1,10 @@
-from app.modelos.modelos import ResultadoCompra, SolicitudCompra
-from datetime import date, datetime
-from collections.abc import Callable
-from app.servicio.calendario_parque import CalendarioParque
-from datetime import date, datetime, time
 import calendar
+from collections.abc import Callable
+from datetime import date, datetime, time
+
+from app.modelos.modelos import ResultadoCompra, SolicitudCompra
+from app.servicio.calendario_parque import CalendarioParque
+
 
 MINIMO_ENTRADAS_POR_COMPRA = 1
 MAXIMO_ENTRADAS_POR_COMPRA = 10
@@ -36,6 +37,22 @@ class ServicioCompra:
             return ResultadoCompra.fallida(error)
         return ResultadoCompra.ok()
 
+    def _validar_fecha(self, solicitud: SolicitudCompra) -> str | None:
+        ahora = self._ahora()
+        hoy = ahora.date()
+        fecha = solicitud.fecha_visita
+
+        if fecha < hoy:
+            return "La fecha de visita debe ser hoy o una fecha futura"
+        if fecha > sumar_un_mes(hoy):
+            return "Solo se pueden comprar entradas con hasta 1 mes de anticipación"
+        if fecha == hoy and ahora.time() > HORA_LIMITE_COMPRA_MISMO_DIA:
+            limite = HORA_LIMITE_COMPRA_MISMO_DIA.strftime("%H:%M")
+            return f"Las compras para el día de hoy se permiten hasta las {limite}"
+        if not self._calendario.esta_abierto(fecha):
+            return "El parque está cerrado en la fecha seleccionada"
+        return None
+
     @staticmethod
     def _validar_cantidad(solicitud: SolicitudCompra) -> str | None:
         if solicitud.cantidad < MINIMO_ENTRADAS_POR_COMPRA:
@@ -53,25 +70,13 @@ class ServicioCompra:
         return None
 
     @staticmethod
-    def _validar_forma_pago(solicitud: SolicitudCompra) -> str | None:
-        if solicitud.forma_pago is None:
-            return "Debe seleccionar una forma de pago"
-        return None
-
-    @staticmethod
     def _validar_tipo_pase(solicitud: SolicitudCompra) -> str | None:
         if solicitud.tipo_pase is None:
             return "Debe seleccionar un tipo de pase"
         return None
 
-    def _validar_fecha(self, solicitud: SolicitudCompra) -> str | None:
-        ahora = self._ahora()
-        if solicitud.fecha_visita == ahora.date() and ahora.time() > HORA_LIMITE_COMPRA_MISMO_DIA:
-            return "Las compras para el día de hoy se permiten hasta las 17:30"
-        if solicitud.fecha_visita < self._ahora().date():
-            return "La fecha de visita debe ser hoy o una fecha futura"
-        if solicitud.fecha_visita > sumar_un_mes(self._ahora().date()):
-            return "Solo se pueden comprar entradas con hasta 1 mes de anticipación"
-        if not self._calendario.esta_abierto(solicitud.fecha_visita):
-            return "El parque está cerrado en la fecha seleccionada"
+    @staticmethod
+    def _validar_forma_pago(solicitud: SolicitudCompra) -> str | None:
+        if solicitud.forma_pago is None:
+            return "Debe seleccionar una forma de pago"
         return None
