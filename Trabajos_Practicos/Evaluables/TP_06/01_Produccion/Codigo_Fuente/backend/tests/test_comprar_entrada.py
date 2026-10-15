@@ -323,3 +323,19 @@ class TestComprarEntrada:
         resultado = servicio.comprar(solicitud)
 
         assert resultado.exitosa is True
+
+    def test_no_deberia_comprar_para_hoy_despues_de_las_17_30(self):
+        servicio = crear_servicio(ahora=datetime(2026, 10, 22, 17, 31))
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=HOY,
+            cantidad=2,
+            edades=[30, 28],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.exitosa is False
+        assert resultado.error == "Las compras para el día de hoy se permiten hasta las 17:30"
