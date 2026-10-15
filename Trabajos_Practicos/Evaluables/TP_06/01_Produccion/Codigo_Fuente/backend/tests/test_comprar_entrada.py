@@ -246,3 +246,19 @@ class TestComprarEntrada:
         resultado = servicio.comprar(solicitud)
 
         assert resultado.exitosa is True
+
+    def test_no_deberia_comprar_si_el_parque_esta_cerrado(self):
+        servicio = crear_servicio()
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=date(2026, 10, 12),  # lunes
+            cantidad=2,
+            edades=[30, 28],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.exitosa is False
+        assert resultado.error == "El parque está cerrado en la fecha seleccionada"
