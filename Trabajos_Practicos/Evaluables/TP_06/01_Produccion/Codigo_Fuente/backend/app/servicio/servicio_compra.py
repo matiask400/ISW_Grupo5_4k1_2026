@@ -1,12 +1,12 @@
 from app.modelos.modelos import ResultadoCompra, SolicitudCompra
 
-
+MINIMO_ENTRADAS_POR_COMPRA = 1
 MAXIMO_ENTRADAS_POR_COMPRA = 10
 
 
 class ServicioCompra:
     def comprar(self, solicitud: SolicitudCompra) -> ResultadoCompra:
-        if solicitud.cantidad < 1:
+        if solicitud.cantidad < MINIMO_ENTRADAS_POR_COMPRA:
             return ResultadoCompra.fallida("Debe comprar al menos 1 entrada")
         if solicitud.cantidad > MAXIMO_ENTRADAS_POR_COMPRA:
             return ResultadoCompra.fallida(
