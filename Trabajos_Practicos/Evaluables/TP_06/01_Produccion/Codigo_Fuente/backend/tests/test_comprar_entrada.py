@@ -293,3 +293,33 @@ class TestComprarEntrada:
         resultado = servicio.comprar(solicitud)
 
         assert resultado.exitosa is True
+
+    def test_permite_comprar_exactamente_un_mes_despues(self):
+        servicio = crear_servicio()
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=date(2026, 11, 22),
+            cantidad=2,
+            edades=[30, 28],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.exitosa is True
+
+    def test_permite_comprar_hasta_fin_del_mes_siguiente_corto(self):
+        servicio = crear_servicio(ahora=datetime(2027, 1, 31, 10, 0))
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=date(2027, 2, 28),
+            cantidad=2,
+            edades=[30, 28],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.exitosa is True
