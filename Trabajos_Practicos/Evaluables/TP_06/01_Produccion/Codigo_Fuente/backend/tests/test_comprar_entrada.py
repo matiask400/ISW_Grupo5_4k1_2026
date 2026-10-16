@@ -467,3 +467,51 @@ class TestComprarEntrada:
         resultado = servicio.comprar(compra_del_viernes)
 
         assert resultado.exitosa is True
+
+    def test_permite_completar_exactamente_10_entradas_en_varias_compras(self):
+        servicio = crear_servicio()
+        primera_compra = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=8,
+            edades=[30] * 8,
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+        segunda_compra = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=2,
+            edades=[30, 28],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+        servicio.comprar(primera_compra)
+
+        resultado = servicio.comprar(segunda_compra)
+
+        assert resultado.exitosa is True
+
+    def test_una_compra_fallida_no_suma_al_total_del_dia(self):
+        servicio = crear_servicio()
+        compra_fallida = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=8,
+            edades=[30] * 8,
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=None,
+        )
+        compra_valida = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=10,
+            edades=[30] * 10,
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+        servicio.comprar(compra_fallida)
+
+        resultado = servicio.comprar(compra_valida)
+
+        assert resultado.exitosa is True
