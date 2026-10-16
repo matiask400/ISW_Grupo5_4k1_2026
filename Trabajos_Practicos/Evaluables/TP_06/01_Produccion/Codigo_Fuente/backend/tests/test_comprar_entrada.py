@@ -2,6 +2,7 @@ from datetime import date, datetime, timedelta
 from app.modelos.modelos import FormaPago, SolicitudCompra, TipoPase
 from app.servicio.servicio_compra import ServicioCompra
 from app.servicio.repositorio_usuarios import RepositorioUsuariosEnMemoria
+from app.servicio.repositorio_compras import RepositorioComprasEnMemoria
 
 AHORA = datetime(2026, 10, 22, 10, 0)
 HOY = AHORA.date()
@@ -9,12 +10,13 @@ FECHA_VALIDA = date(2026, 10, 29)
 USUARIO_REGISTRADO = "ana@mail.com"
 OTRO_USUARIO_REGISTRADO = "juan@mail.com"
 
+
 def crear_servicio(ahora: datetime = AHORA) -> ServicioCompra:
     return ServicioCompra(
         ahora=lambda: ahora,
         usuarios=RepositorioUsuariosEnMemoria({USUARIO_REGISTRADO, OTRO_USUARIO_REGISTRADO}),
+        compras=RepositorioComprasEnMemoria(),
     )
-
 
 class TestComprarEntrada:
 

@@ -1,23 +1,26 @@
-import calendar
 from collections.abc import Callable
 from datetime import datetime
+
 from app.modelos.modelos import ResultadoCompra, SolicitudCompra
 from app.servicio.calendario_parque import CalendarioParque
-from app.servicio.validador_compra import ValidadorCompra,MAXIMO_ENTRADAS_POR_COMPRA
+from app.servicio.repositorio_compras import RepositorioComprasEnMemoria
 from app.servicio.repositorio_usuarios import RepositorioUsuariosEnMemoria
+from app.servicio.validador_compra import MAXIMO_ENTRADAS_POR_COMPRA, ValidadorCompra
 
 
 class ServicioCompra:
+    """Caso de uso "Comprar entradas": orquesta la compra."""
+
     def __init__(
         self,
         usuarios: RepositorioUsuariosEnMemoria,
+        compras: RepositorioComprasEnMemoria,
         ahora: Callable[[], datetime] = datetime.now,
         calendario: CalendarioParque | None = None,
     ) -> None:
         self._usuarios = usuarios
+        self._compras = compras
         self._validador = ValidadorCompra(ahora, calendario or CalendarioParque())
-        self._entradas_compradas: dict[tuple[str, date], int] = {}
-
 
     def comprar(self, solicitud: SolicitudCompra) -> ResultadoCompra:
         error = (
@@ -27,9 +30,7 @@ class ServicioCompra:
         )
         if error:
             return ResultadoCompra.fallida(error)
-        email = solicitud.usuario_email
-        clave = (solicitud.usuario_email, solicitud.fecha_visita)
-        self._entradas_compradas[clave] = self._entradas_compradas.get(clave, 0) + solicitud.cantidad
+        self._compras.guardar(solicitud)
         return ResultadoCompra.ok()
 
     def _verificar_usuario(self, solicitud: SolicitudCompra) -> str | None:
@@ -38,8 +39,9 @@ class ServicioCompra:
         return None
 
     def _verificar_limite_por_fecha(self, solicitud: SolicitudCompra) -> str | None:
-        clave = (solicitud.usuario_email, solicitud.fecha_visita)
-        ya_compradas = self._entradas_compradas.get(clave, 0)
+        ya_compradas = self._compras.entradas_compradas(
+            solicitud.usuario_email, solicitud.fecha_visita
+        )
         if ya_compradas + solicitud.cantidad > MAXIMO_ENTRADAS_POR_COMPRA:
             return (
                 f"Solo puede comprar hasta {MAXIMO_ENTRADAS_POR_COMPRA} entradas por fecha. "
