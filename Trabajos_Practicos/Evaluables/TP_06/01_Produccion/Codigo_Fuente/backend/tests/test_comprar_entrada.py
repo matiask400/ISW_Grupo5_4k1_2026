@@ -7,11 +7,12 @@ AHORA = datetime(2026, 10, 22, 10, 0)
 HOY = AHORA.date()
 FECHA_VALIDA = date(2026, 10, 29)
 USUARIO_REGISTRADO = "ana@mail.com"
+OTRO_USUARIO_REGISTRADO = "juan@mail.com"
 
 def crear_servicio(ahora: datetime = AHORA) -> ServicioCompra:
     return ServicioCompra(
         ahora=lambda: ahora,
-        usuarios=RepositorioUsuariosEnMemoria({USUARIO_REGISTRADO}),
+        usuarios=RepositorioUsuariosEnMemoria({USUARIO_REGISTRADO, OTRO_USUARIO_REGISTRADO}),
     )
 
 
@@ -389,3 +390,30 @@ class TestComprarEntrada:
 
         assert resultado.exitosa is False
         assert resultado.error == "Debe estar registrado para comprar entradas"
+
+    def test_no_deberia_superar_10_entradas_sumando_compras_de_la_misma_fecha(self):
+        servicio = crear_servicio()
+        primera_compra = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=8,
+            edades=[30] * 8,
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+        segunda_compra = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=3,
+            edades=[30] * 3,
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+        servicio.comprar(primera_compra)
+
+        resultado = servicio.comprar(segunda_compra)
+
+        assert resultado.exitosa is False
+        assert resultado.error == (
+            "Solo puede comprar hasta 10 entradas por fecha. Ya compró 8 para ese día"
+        )
