@@ -683,3 +683,19 @@ class TestComprarEntrada:
         assert mail.destinatario == "ana@mail.com"
         assert mail.asunto == "Confirmación de compra - EcoHarmony Park"
         assert mail.cuerpo == resultado.mensaje
+
+    def test_una_compra_invalida_no_envia_mail(self):
+        email = ServicioEmailSimulado()
+        servicio = crear_servicio(email=email)
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=2,
+            edades=[30, 28],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=None,
+        )
+
+        servicio.comprar(solicitud)
+
+        assert email.enviados == []
