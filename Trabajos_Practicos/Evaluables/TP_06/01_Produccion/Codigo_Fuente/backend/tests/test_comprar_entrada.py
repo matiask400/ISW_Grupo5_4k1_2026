@@ -4,6 +4,7 @@ from app.servicio.servicio_compra import ServicioCompra
 from app.servicio.repositorio_usuarios import RepositorioUsuariosEnMemoria
 from app.servicio.repositorio_compras import RepositorioComprasEnMemoria
 from app.servicio.pasarela_pago import PasarelaMercadoPagoSimulada
+from app.servicio.servicio_email import ServicioEmailSimulado
 
 AHORA = datetime(2026, 10, 22, 10, 0)
 HOY = AHORA.date()
@@ -18,14 +19,15 @@ OTRO_USUARIO_REGISTRADO = "juan@mail.com"
 def crear_servicio(
     ahora: datetime = AHORA,
     pasarela: PasarelaMercadoPagoSimulada | None = None,
+    email: ServicioEmailSimulado | None = None,
 ) -> ServicioCompra:
     return ServicioCompra(
         ahora=lambda: ahora,
         usuarios=RepositorioUsuariosEnMemoria({USUARIO_REGISTRADO, OTRO_USUARIO_REGISTRADO}),
         compras=RepositorioComprasEnMemoria(),
         pasarela=pasarela or PasarelaMercadoPagoSimulada(),
+        email=email or ServicioEmailSimulado(),
     )
-
 class TestComprarEntrada:
 
     def test_no_deberia_comprar_mas_10_entradas(self):
@@ -661,3 +663,23 @@ class TestComprarEntrada:
         servicio.comprar(solicitud)
 
         assert pasarela.pagos_creados == []
+
+    def test_una_compra_valida_envia_mail_de_confirmacion(self):
+        email = ServicioEmailSimulado()
+        servicio = crear_servicio(email=email)
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=2,
+            edades=[30, 28],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.TARJETA,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert len(email.enviados) == 1
+        mail = email.enviados[0]
+        assert mail.destinatario == "ana@mail.com"
+        assert mail.asunto == "Confirmación de compra - EcoHarmony Park"
+        assert mail.cuerpo == resultado.mensaje
