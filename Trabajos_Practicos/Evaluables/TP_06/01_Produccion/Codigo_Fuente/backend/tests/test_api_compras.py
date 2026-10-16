@@ -73,3 +73,10 @@ class TestApiComprarEntradas:
         )
 
         assert respuesta.status_code == 403
+
+    def test_sin_identificar_al_usuario_recibe_401(self):
+        cliente = crear_cliente()
+
+        respuesta = cliente.post(ENDPOINT, json=CUERPO_VALIDO)
+
+        assert respuesta.status_code == 401
