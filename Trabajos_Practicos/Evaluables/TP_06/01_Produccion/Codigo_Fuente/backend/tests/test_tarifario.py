@@ -12,3 +12,6 @@ class TestTarifario:
 
     def test_nino_de_10_anios_paga_la_mitad(self):
         assert Tarifario().precio(TipoPase.REGULAR, 10) == 5000
+
+    def test_bebe_de_2_anios_no_paga(self):
+        assert Tarifario().precio(TipoPase.REGULAR, 2) == 0
