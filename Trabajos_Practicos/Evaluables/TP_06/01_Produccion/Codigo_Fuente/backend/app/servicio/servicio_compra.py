@@ -33,7 +33,11 @@ class ServicioCompra:
             return ResultadoCompra.fallida(error)
         monto_total = self._calcular_monto_total(solicitud)
         self._compras.guardar(solicitud)
-        return ResultadoCompra.ok(monto_total)
+        return ResultadoCompra.ok(
+            cantidad=solicitud.cantidad,
+            fecha_visita=solicitud.fecha_visita,
+            monto_total=monto_total,
+        )
 
     def _verificar_usuario(self, solicitud: SolicitudCompra) -> str | None:
         if not self._usuarios.esta_registrado(solicitud.usuario_email):
