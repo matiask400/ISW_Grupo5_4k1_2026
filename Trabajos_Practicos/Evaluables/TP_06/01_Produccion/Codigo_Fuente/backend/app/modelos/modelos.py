@@ -45,8 +45,17 @@ class ResultadoCompra:
         return cls(exitosa=False, error=error)
 
     @property
-    def mensaje(self) -> str:
+    def mensaje(self) -> str | None:
+        """Texto para informar al visitante al finalizar la compra (CA8)."""
+        if not self.exitosa:
+            return None
         palabra = "entrada" if self.cantidad == 1 else "entradas"
         fecha = self.fecha_visita.strftime("%d/%m/%Y")
-        total = f"{self.monto_total:,}".replace(",", ".")
-        return f"Compraste {self.cantidad} {palabra} para el {fecha}. Total: ${total}"
+        return (
+            f"Compraste {self.cantidad} {palabra} para el {fecha}. "
+            f"Total: ${formatear_pesos(self.monto_total)}"
+        )
+
+def formatear_pesos(monto: int) -> str:
+    """20000 -> '20.000'"""
+    return f"{monto:,}".replace(",", ".")
