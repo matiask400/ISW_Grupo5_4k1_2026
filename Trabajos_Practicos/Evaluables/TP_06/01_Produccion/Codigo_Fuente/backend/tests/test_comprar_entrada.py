@@ -607,3 +607,18 @@ class TestComprarEntrada:
         resultado = servicio.comprar(solicitud)
 
         assert resultado.url_pago == "http://localhost:5173/mercado-pago-simulado?monto=20000"
+
+    def test_pago_en_efectivo_no_redirige_a_mercado_pago(self):
+        servicio = crear_servicio()
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=2,
+            edades=[30, 28],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.url_pago is None
