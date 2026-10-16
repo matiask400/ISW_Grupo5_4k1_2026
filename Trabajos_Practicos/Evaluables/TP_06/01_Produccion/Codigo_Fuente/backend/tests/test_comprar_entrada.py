@@ -441,3 +441,27 @@ class TestComprarEntrada:
         resultado = servicio.comprar(compra_de_juan)
 
         assert resultado.exitosa is True
+
+    def test_mismo_usuario_puede_comprar_para_otra_fecha(self):
+        servicio = crear_servicio()
+        compra_del_jueves = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=10,
+            edades=[30] * 10,
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+        compra_del_viernes = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=date(2026, 10, 30),  # Fecha posterior
+            cantidad=2,
+            edades=[30, 28],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+        servicio.comprar(compra_del_jueves)
+
+        resultado = servicio.comprar(compra_del_viernes)
+
+        assert resultado.exitosa is True
