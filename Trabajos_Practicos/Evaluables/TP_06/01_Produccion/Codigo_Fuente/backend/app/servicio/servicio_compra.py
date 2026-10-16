@@ -6,10 +6,9 @@ from app.servicio.calendario_parque import CalendarioParque
 from app.servicio.repositorio_compras import RepositorioComprasEnMemoria
 from app.servicio.repositorio_usuarios import RepositorioUsuariosEnMemoria
 from app.servicio.validador_compra import MAXIMO_ENTRADAS_POR_COMPRA, ValidadorCompra
-
+from app.servicio.tarifario import Tarifario
 
 class ServicioCompra:
-    """Caso de uso "Comprar entradas": orquesta la compra."""
 
     def __init__(
         self,
@@ -17,10 +16,12 @@ class ServicioCompra:
         compras: RepositorioComprasEnMemoria,
         ahora: Callable[[], datetime] = datetime.now,
         calendario: CalendarioParque | None = None,
+        tarifario: Tarifario | None = None,
     ) -> None:
         self._usuarios = usuarios
         self._compras = compras
         self._validador = ValidadorCompra(ahora, calendario or CalendarioParque())
+        self._tarifario = tarifario or Tarifario()
 
     def comprar(self, solicitud: SolicitudCompra) -> ResultadoCompra:
         error = (
@@ -30,8 +31,11 @@ class ServicioCompra:
         )
         if error:
             return ResultadoCompra.fallida(error)
+        monto_total = sum(
+            self._tarifario.precio(solicitud.tipo_pase, edad) for edad in solicitud.edades
+        )
         self._compras.guardar(solicitud)
-        return ResultadoCompra.ok()
+        return ResultadoCompra.ok(monto_total)
 
     def _verificar_usuario(self, solicitud: SolicitudCompra) -> str | None:
         if not self._usuarios.esta_registrado(solicitud.usuario_email):

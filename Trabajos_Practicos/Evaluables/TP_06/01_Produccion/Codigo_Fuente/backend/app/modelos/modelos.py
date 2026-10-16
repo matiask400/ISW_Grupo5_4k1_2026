@@ -27,10 +27,11 @@ class SolicitudCompra:
 class ResultadoCompra:
     exitosa: bool
     error: str | None = None
+    monto_total: int | None = None
 
     @classmethod
-    def ok(cls) -> "ResultadoCompra":
-        return cls(exitosa=True)
+    def ok(cls, monto_total: int) -> "ResultadoCompra":
+        return cls(exitosa=True, monto_total=monto_total)
 
     @classmethod
     def fallida(cls, error: str) -> "ResultadoCompra":
