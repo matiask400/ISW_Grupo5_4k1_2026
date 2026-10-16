@@ -1,12 +1,13 @@
 from collections.abc import Callable
 from datetime import datetime
 
-from app.modelos.modelos import ResultadoCompra, SolicitudCompra
+from app.modelos.modelos import ResultadoCompra, SolicitudCompra, FormaPago
 from app.servicio.calendario_parque import CalendarioParque
 from app.servicio.repositorio_compras import RepositorioComprasEnMemoria
 from app.servicio.repositorio_usuarios import RepositorioUsuariosEnMemoria
 from app.servicio.validador_compra import MAXIMO_ENTRADAS_POR_COMPRA, ValidadorCompra
 from app.servicio.tarifario import Tarifario
+
 
 class ServicioCompra:
 
@@ -33,11 +34,14 @@ class ServicioCompra:
             return ResultadoCompra.fallida(error)
         monto_total = self._calcular_monto_total(solicitud)
         self._compras.guardar(solicitud)
+        url_pago = None
+        if solicitud.forma_pago == FormaPago.TARJETA:
+            url_pago = "http://localhost:5173/mercado-pago-simulado?monto=20000"
         return ResultadoCompra.ok(
             cantidad=solicitud.cantidad,
             fecha_visita=solicitud.fecha_visita,
             monto_total=monto_total,
-            url_pago="http://localhost:5173/mercado-pago-simulado?monto=20000",
+            url_pago=url_pago,
         )
 
     def _verificar_usuario(self, solicitud: SolicitudCompra) -> str | None:
