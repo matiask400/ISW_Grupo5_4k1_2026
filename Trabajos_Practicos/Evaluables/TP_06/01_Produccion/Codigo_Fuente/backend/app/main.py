@@ -1,3 +1,11 @@
 from fastapi import FastAPI
 
-app = FastAPI(title="Mi Servidor PWA")
+from app.api.rutas_compras import router as router_compras
+
+app = FastAPI(title="EcoHarmony Park API")
+app.include_router(router_compras)
+
+
+@app.get("/salud")
+def salud():
+    return {"estado": "ok"}

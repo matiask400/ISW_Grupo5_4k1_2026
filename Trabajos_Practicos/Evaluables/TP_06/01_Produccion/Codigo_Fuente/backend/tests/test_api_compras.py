@@ -17,7 +17,6 @@ CUERPO_VALIDO = {
 
 
 def crear_cliente(servicio: ServicioCompra | None = None) -> TestClient:
-    """Cliente HTTP de prueba que usa un servicio con datos y reloj controlados."""
     servicio = servicio or crear_servicio()
     app.dependency_overrides[obtener_servicio_compra] = lambda: servicio
     return TestClient(app)
