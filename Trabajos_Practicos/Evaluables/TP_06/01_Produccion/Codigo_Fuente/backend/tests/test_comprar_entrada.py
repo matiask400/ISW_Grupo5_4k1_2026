@@ -417,3 +417,27 @@ class TestComprarEntrada:
         assert resultado.error == (
             "Solo puede comprar hasta 10 entradas por fecha. Ya compró 8 para ese día"
         )
+
+    def test_otro_usuario_puede_comprar_para_la_misma_fecha(self):
+        servicio = crear_servicio()
+        compra_de_ana = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=10,
+            edades=[30] * 10,
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+        compra_de_juan = SolicitudCompra(
+            usuario_email="juan@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=2,
+            edades=[40, 38],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+        servicio.comprar(compra_de_ana)
+
+        resultado = servicio.comprar(compra_de_juan)
+
+        assert resultado.exitosa is True
