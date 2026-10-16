@@ -547,3 +547,18 @@ class TestComprarEntrada:
 
         assert resultado.cantidad == 2
         assert resultado.fecha_visita == FECHA_VALIDA
+
+    def test_informa_un_mensaje_con_cantidad_fecha_y_total(self):
+        servicio = crear_servicio()
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=2,
+            edades=[30, 28],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.mensaje == "Compraste 2 entradas para el 29/10/2026. Total: $20.000"
