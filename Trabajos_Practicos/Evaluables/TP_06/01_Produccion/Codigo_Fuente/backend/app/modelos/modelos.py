@@ -46,4 +46,7 @@ class ResultadoCompra:
 
     @property
     def mensaje(self) -> str:
-        return "Compraste 2 entradas para el 29/10/2026. Total: $20.000"
+        palabra = "entrada" if self.cantidad == 1 else "entradas"
+        fecha = self.fecha_visita.strftime("%d/%m/%Y")
+        total = f"{self.monto_total:,}".replace(",", ".")
+        return f"Compraste {self.cantidad} {palabra} para el {fecha}. Total: ${total}"
