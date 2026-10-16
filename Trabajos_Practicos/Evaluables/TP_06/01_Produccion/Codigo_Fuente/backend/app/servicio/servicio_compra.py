@@ -36,7 +36,7 @@ class ServicioCompra:
         self._compras.guardar(solicitud)
         url_pago = None
         if solicitud.forma_pago == FormaPago.TARJETA:
-            url_pago = "http://localhost:5173/mercado-pago-simulado?monto=20000"
+            url_pago = f"http://localhost:5173/mercado-pago-simulado?monto={monto_total}"
         return ResultadoCompra.ok(
             cantidad=solicitud.cantidad,
             fecha_visita=solicitud.fecha_visita,
