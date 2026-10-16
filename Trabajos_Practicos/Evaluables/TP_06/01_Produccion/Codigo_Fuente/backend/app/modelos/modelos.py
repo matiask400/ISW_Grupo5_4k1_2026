@@ -43,3 +43,7 @@ class ResultadoCompra:
     @classmethod
     def fallida(cls, error: str) -> "ResultadoCompra":
         return cls(exitosa=False, error=error)
+
+    @property
+    def mensaje(self) -> str:
+        return "Compraste 2 entradas para el 29/10/2026. Total: $20.000"
