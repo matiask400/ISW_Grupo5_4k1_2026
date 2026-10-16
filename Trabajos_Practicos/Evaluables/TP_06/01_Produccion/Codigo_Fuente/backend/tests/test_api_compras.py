@@ -46,3 +46,21 @@ class TestApiComprarEntradas:
 
         assert respuesta.status_code == 422
         assert respuesta.json()["detail"] == "Debe seleccionar una forma de pago"
+
+    def test_pu3_compra_con_el_parque_cerrado_falla(self):
+        cliente = crear_cliente()
+        cuerpo = {**CUERPO_VALIDO, "fecha_visita": "2026-10-26"}  # lunes
+
+        respuesta = cliente.post(ENDPOINT, json=cuerpo, headers=CABECERAS)
+
+        assert respuesta.status_code == 422
+        assert respuesta.json()["detail"] == "El parque está cerrado en la fecha seleccionada"
+
+    def test_pu4_compra_de_mas_de_10_entradas_falla(self):
+        cliente = crear_cliente()
+        cuerpo = {**CUERPO_VALIDO, "cantidad": 11, "edades": [30] * 11}
+
+        respuesta = cliente.post(ENDPOINT, json=cuerpo, headers=CABECERAS)
+
+        assert respuesta.status_code == 422
+        assert respuesta.json()["detail"] == "La cantidad de entradas no puede superar 10"
