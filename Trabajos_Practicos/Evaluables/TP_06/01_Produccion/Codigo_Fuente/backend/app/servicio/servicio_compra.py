@@ -37,6 +37,7 @@ class ServicioCompra:
             cantidad=solicitud.cantidad,
             fecha_visita=solicitud.fecha_visita,
             monto_total=monto_total,
+            url_pago="http://localhost:5173/mercado-pago-simulado?monto=20000",
         )
 
     def _verificar_usuario(self, solicitud: SolicitudCompra) -> str | None:

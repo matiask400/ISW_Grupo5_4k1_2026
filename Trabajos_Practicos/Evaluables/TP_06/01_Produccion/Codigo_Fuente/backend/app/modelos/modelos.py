@@ -56,6 +56,24 @@ class ResultadoCompra:
             f"Total: ${formatear_pesos(self.monto_total)}"
         )
 
+    url_pago: str | None = None
+
+    @classmethod
+    def ok(
+        cls,
+        cantidad: int,
+        fecha_visita: date,
+        monto_total: int,
+        url_pago: str | None = None,
+    ) -> "ResultadoCompra":
+        return cls(
+            exitosa=True,
+            cantidad=cantidad,
+            fecha_visita=fecha_visita,
+            monto_total=monto_total,
+            url_pago=url_pago,
+        )
+
 def formatear_pesos(monto: int) -> str:
     """20000 -> '20.000'"""
     return f"{monto:,}".replace(",", ".")
