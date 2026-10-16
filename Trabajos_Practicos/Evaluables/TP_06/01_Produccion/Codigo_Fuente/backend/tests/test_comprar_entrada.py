@@ -515,3 +515,19 @@ class TestComprarEntrada:
         resultado = servicio.comprar(compra_valida)
 
         assert resultado.exitosa is True
+
+    def test_informa_el_monto_total_segun_tipo_de_pase_y_edades(self):
+        servicio = crear_servicio()
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=4,
+            edades=[35, 33, 10, 2],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.exitosa is True
+        assert resultado.monto_total == 25000
