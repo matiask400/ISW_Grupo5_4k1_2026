@@ -1,5 +1,13 @@
-Libreria: pip install pytest-cov
+******************************************************************************************
+Comando:
+python -m pytest tests/ -v
+------------------------------------------------------
+Ejecuta los test
 
+******************************************************************************************
+
+
+******************************************************************************************
 Comando:
 python -m pytest --cov=app --cov-report=term-missing
 ------------------------------------------------------
@@ -8,3 +16,6 @@ Stmts	Cantidad de líneas de código ejecutables del archivo
 Miss	Cuántas de esas líneas no se ejecutaron en ningún test
 Cover	Porcentaje cubierto
 Missing	Números de las líneas sin cubrir
+
+Libreria: pip install pytest-cov
+******************************************************************************************

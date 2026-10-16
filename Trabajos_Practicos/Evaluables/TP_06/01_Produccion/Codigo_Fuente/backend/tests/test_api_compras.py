@@ -86,3 +86,10 @@ def test_salud_responde_ok():
 
     assert respuesta.status_code == 200
     assert respuesta.json() == {"estado": "ok"}
+
+def test_la_app_usa_un_unico_servicio_para_conservar_las_compras_entre_requests():
+    primero = obtener_servicio_compra()
+    segundo = obtener_servicio_compra()
+
+    assert isinstance(primero, ServicioCompra)
+    assert primero is segundo
