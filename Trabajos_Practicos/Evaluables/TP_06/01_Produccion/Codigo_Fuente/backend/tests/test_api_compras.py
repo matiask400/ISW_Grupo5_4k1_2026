@@ -36,3 +36,13 @@ class TestApiComprarEntradas:
         assert datos["mensaje"] == "Compraste 2 entradas para el 29/10/2026. Total: $20.000"
         assert datos["mail_enviado_a"] == USUARIO_REGISTRADO
         assert len(email.enviados) == 1
+
+    def test_pu2_compra_sin_forma_de_pago_falla(self):
+        cliente = crear_cliente()
+        cuerpo = {**CUERPO_VALIDO}
+        del cuerpo["forma_pago"]
+
+        respuesta = cliente.post(ENDPOINT, json=cuerpo, headers=CABECERAS)
+
+        assert respuesta.status_code == 422
+        assert respuesta.json()["detail"] == "Debe seleccionar una forma de pago"
