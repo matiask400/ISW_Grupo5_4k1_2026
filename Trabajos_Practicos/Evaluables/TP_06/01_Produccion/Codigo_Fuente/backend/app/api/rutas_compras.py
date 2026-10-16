@@ -15,6 +15,8 @@ def comprar_entradas(
 ) -> RespuestaCompra:
     solicitud = SolicitudCompra(usuario_email=usuario_email, **pedido.model_dump())
     resultado = servicio.comprar(solicitud)
+    if resultado.acceso_denegado:
+        raise HTTPException(status_code=403, detail=resultado.error)
     if not resultado.exitosa:
         raise HTTPException(status_code=422, detail=resultado.error)
     return RespuestaCompra.desde_resultado(resultado)

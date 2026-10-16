@@ -31,11 +31,10 @@ class ServicioCompra:
         self._tarifario = tarifario or Tarifario()
 
     def comprar(self, solicitud: SolicitudCompra) -> ResultadoCompra:
-        error = (
-            self._verificar_usuario(solicitud)
-            or self._validador.validar(solicitud)
-            or self._verificar_limite_por_fecha(solicitud)
-        )
+        if not self._usuarios.esta_registrado(solicitud.usuario_email):
+            return ResultadoCompra.denegada("Debe estar registrado para comprar entradas")
+
+        error = self._validador.validar(solicitud) or self._verificar_limite_por_fecha(solicitud)
         if error:
             return ResultadoCompra.fallida(error)
 
@@ -57,11 +56,6 @@ class ServicioCompra:
                 asunto=ASUNTO_MAIL_CONFIRMACION,
                 cuerpo=resultado.mensaje,
             )
-
-    def _verificar_usuario(self, solicitud: SolicitudCompra) -> str | None:
-        if not self._usuarios.esta_registrado(solicitud.usuario_email):
-            return "Debe estar registrado para comprar entradas"
-        return None
 
     def _verificar_limite_por_fecha(self, solicitud: SolicitudCompra) -> str | None:
         ya_compradas = self._compras.entradas_compradas(

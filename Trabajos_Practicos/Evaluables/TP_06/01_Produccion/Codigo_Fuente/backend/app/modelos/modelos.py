@@ -49,6 +49,11 @@ class ResultadoCompra:
 
     url_pago: str | None = None
     mail_enviado_a: str | None = None
+    acceso_denegado: bool = False
+
+    @classmethod
+    def denegada(cls, error: str) -> "ResultadoCompra":
+        return cls(exitosa=False, error=error, acceso_denegado=True)
 
     @classmethod
     def ok(
