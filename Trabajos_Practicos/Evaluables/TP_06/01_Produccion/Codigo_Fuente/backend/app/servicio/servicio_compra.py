@@ -8,6 +8,9 @@ from app.servicio.repositorio_usuarios import RepositorioUsuariosEnMemoria
 from app.servicio.validador_compra import MAXIMO_ENTRADAS_POR_COMPRA, ValidadorCompra
 from app.servicio.tarifario import Tarifario
 from app.servicio.pasarela_pago import PasarelaMercadoPagoSimulada
+from app.servicio.servicio_email import ServicioEmailSimulado
+
+ASUNTO_MAIL_CONFIRMACION = "Confirmación de compra - EcoHarmony Park"
 
 class ServicioCompra:
     def __init__(
@@ -15,6 +18,7 @@ class ServicioCompra:
         usuarios: RepositorioUsuariosEnMemoria,
         compras: RepositorioComprasEnMemoria,
         pasarela: PasarelaMercadoPagoSimulada,
+        email: ServicioEmailSimulado,
         ahora: Callable[[], datetime] = datetime.now,
         calendario: CalendarioParque | None = None,
         tarifario: Tarifario | None = None,
@@ -22,6 +26,7 @@ class ServicioCompra:
         self._usuarios = usuarios
         self._compras = compras
         self._pasarela = pasarela
+        self._email = email
         self._validador = ValidadorCompra(ahora, calendario or CalendarioParque())
         self._tarifario = tarifario or Tarifario()
 
@@ -35,12 +40,18 @@ class ServicioCompra:
             return ResultadoCompra.fallida(error)
         monto_total = self._calcular_monto_total(solicitud)
         self._compras.guardar(solicitud)
-        return ResultadoCompra.ok(
+        resultado = ResultadoCompra.ok(
             cantidad=solicitud.cantidad,
             fecha_visita=solicitud.fecha_visita,
             monto_total=monto_total,
             url_pago=self._iniciar_pago(solicitud, monto_total),
         )
+        self._email.enviar(
+            destinatario=solicitud.usuario_email,
+            asunto=ASUNTO_MAIL_CONFIRMACION,
+            cuerpo=resultado.mensaje,
+        )
+        return resultado
 
     def _verificar_usuario(self, solicitud: SolicitudCompra) -> str | None:
         if not self._usuarios.esta_registrado(solicitud.usuario_email):
