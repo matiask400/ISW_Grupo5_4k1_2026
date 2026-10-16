@@ -57,6 +57,7 @@ class ResultadoCompra:
         )
 
     url_pago: str | None = None
+    mail_enviado_a: str | None = None
 
     @classmethod
     def ok(
@@ -65,6 +66,7 @@ class ResultadoCompra:
         fecha_visita: date,
         monto_total: int,
         url_pago: str | None = None,
+        mail_enviado_a: str | None = None,
     ) -> "ResultadoCompra":
         return cls(
             exitosa=True,
@@ -72,6 +74,7 @@ class ResultadoCompra:
             fecha_visita=fecha_visita,
             monto_total=monto_total,
             url_pago=url_pago,
+            mail_enviado_a=mail_enviado_a,
         )
 
 def formatear_pesos(monto: int) -> str:

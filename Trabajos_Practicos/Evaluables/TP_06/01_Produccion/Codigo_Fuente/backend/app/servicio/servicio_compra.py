@@ -45,6 +45,7 @@ class ServicioCompra:
             fecha_visita=solicitud.fecha_visita,
             monto_total=monto_total,
             url_pago=self._iniciar_pago(solicitud, monto_total),
+            mail_enviado_a=solicitud.usuario_email,
         )
         self._email.enviar(
             destinatario=solicitud.usuario_email,
