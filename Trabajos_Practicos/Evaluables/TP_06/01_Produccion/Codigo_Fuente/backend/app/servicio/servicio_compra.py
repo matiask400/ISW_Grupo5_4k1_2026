@@ -38,6 +38,7 @@ class ServicioCompra:
         )
         if error:
             return ResultadoCompra.fallida(error)
+
         monto_total = self._calcular_monto_total(solicitud)
         self._compras.guardar(solicitud)
         resultado = ResultadoCompra.ok(
@@ -47,12 +48,15 @@ class ServicioCompra:
             url_pago=self._iniciar_pago(solicitud, monto_total),
             mail_enviado_a=solicitud.usuario_email,
         )
-        self._email.enviar(
-            destinatario=solicitud.usuario_email,
-            asunto=ASUNTO_MAIL_CONFIRMACION,
-            cuerpo=resultado.mensaje,
-        )
+        self._notificar(resultado)
         return resultado
+
+    def _notificar(self, resultado: ResultadoCompra) -> None:
+            self._email.enviar(
+                destinatario=resultado.mail_enviado_a,
+                asunto=ASUNTO_MAIL_CONFIRMACION,
+                cuerpo=resultado.mensaje,
+            )
 
     def _verificar_usuario(self, solicitud: SolicitudCompra) -> str | None:
         if not self._usuarios.esta_registrado(solicitud.usuario_email):
