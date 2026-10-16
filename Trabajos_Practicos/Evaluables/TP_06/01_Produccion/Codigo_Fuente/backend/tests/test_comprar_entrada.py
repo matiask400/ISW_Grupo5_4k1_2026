@@ -577,3 +577,18 @@ class TestComprarEntrada:
         resultado = servicio.comprar(solicitud)
 
         assert resultado.mensaje == "Compraste 1 entrada para el 30/10/2026. Total: $20.000"
+
+    def test_una_compra_fallida_no_tiene_mensaje_de_confirmacion(self):
+        servicio = crear_servicio()
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=11,
+            edades=[30] * 11,
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.mensaje is None
