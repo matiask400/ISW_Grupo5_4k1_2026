@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Header
+from fastapi import APIRouter, Depends, Header, HTTPException
 from app.api.dependencias import obtener_servicio_compra
 from app.api.esquemas import PedidoCompra, RespuestaCompra
 from app.modelos.modelos import SolicitudCompra
@@ -15,4 +15,6 @@ def comprar_entradas(
 ) -> RespuestaCompra:
     solicitud = SolicitudCompra(usuario_email=usuario_email, **pedido.model_dump())
     resultado = servicio.comprar(solicitud)
+    if not resultado.exitosa:
+        raise HTTPException(status_code=422, detail=resultado.error)
     return RespuestaCompra.desde_resultado(resultado)
