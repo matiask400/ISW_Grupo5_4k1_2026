@@ -32,15 +32,6 @@ class ResultadoCompra:
     monto_total: int | None = None
 
     @classmethod
-    def ok(cls, cantidad: int, fecha_visita: date, monto_total: int) -> "ResultadoCompra":
-        return cls(
-            exitosa=True,
-            cantidad=cantidad,
-            fecha_visita=fecha_visita,
-            monto_total=monto_total,
-        )
-
-    @classmethod
     def fallida(cls, error: str) -> "ResultadoCompra":
         return cls(exitosa=False, error=error)
 
