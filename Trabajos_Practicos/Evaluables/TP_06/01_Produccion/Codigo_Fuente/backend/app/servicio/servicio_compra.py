@@ -19,9 +19,12 @@ class ServicioCompra:
 
 
     def comprar(self, solicitud: SolicitudCompra) -> ResultadoCompra:
-        if not self._usuarios.esta_registrado(solicitud.usuario_email):
-            return ResultadoCompra.fallida("Debe estar registrado para comprar entradas")
-        error = self._validador.validar(solicitud)
+        error = self._verificar_usuario(solicitud) or self._validador.validar(solicitud)
         if error:
             return ResultadoCompra.fallida(error)
         return ResultadoCompra.ok()
+
+    def _verificar_usuario(self, solicitud: SolicitudCompra) -> str | None:
+        if not self._usuarios.esta_registrado(solicitud.usuario_email):
+            return "Debe estar registrado para comprar entradas"
+        return None
