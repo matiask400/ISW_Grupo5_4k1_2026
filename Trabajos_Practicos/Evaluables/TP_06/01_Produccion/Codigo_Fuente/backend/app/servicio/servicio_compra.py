@@ -31,9 +31,7 @@ class ServicioCompra:
         )
         if error:
             return ResultadoCompra.fallida(error)
-        monto_total = sum(
-            self._tarifario.precio(solicitud.tipo_pase, edad) for edad in solicitud.edades
-        )
+        monto_total = self._calcular_monto_total(solicitud)
         self._compras.guardar(solicitud)
         return ResultadoCompra.ok(monto_total)
 
@@ -52,3 +50,8 @@ class ServicioCompra:
                 f"Ya compró {ya_compradas} para ese día"
             )
         return None
+
+    def _calcular_monto_total(self, solicitud: SolicitudCompra) -> int:
+        return sum(
+            self._tarifario.precio(solicitud.tipo_pase, edad) for edad in solicitud.edades
+        )
