@@ -9,3 +9,6 @@ class TestTarifario:
 
     def test_adulto_con_pase_vip_paga_20000(self):
         assert Tarifario().precio(TipoPase.VIP, 30) == 20000
+
+    def test_nino_de_10_anios_paga_la_mitad(self):
+        assert Tarifario().precio(TipoPase.REGULAR, 10) == 5000
