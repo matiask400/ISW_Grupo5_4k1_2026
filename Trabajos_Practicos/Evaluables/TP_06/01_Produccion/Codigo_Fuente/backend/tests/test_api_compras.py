@@ -80,3 +80,9 @@ class TestApiComprarEntradas:
         respuesta = cliente.post(ENDPOINT, json=CUERPO_VALIDO)
 
         assert respuesta.status_code == 401
+
+def test_salud_responde_ok():
+    respuesta = TestClient(app).get("/salud")
+
+    assert respuesta.status_code == 200
+    assert respuesta.json() == {"estado": "ok"}
