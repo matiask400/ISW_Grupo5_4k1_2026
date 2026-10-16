@@ -3,7 +3,7 @@ from collections.abc import Callable
 from datetime import date, datetime, time
 
 from app.modelos.modelos import SolicitudCompra
-from app.servicio.calendario_parque import CalendarioParque
+from app.servicios.calendario_parque import CalendarioParque
 
 MINIMO_ENTRADAS_POR_COMPRA = 1
 MAXIMO_ENTRADAS_POR_COMPRA = 10

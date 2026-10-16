@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from app.api.dependencias import obtener_servicio_compra, obtener_usuario_actual
 from app.api.esquemas import PedidoCompra, RespuestaCompra
 from app.modelos.modelos import ResultadoCompra, SolicitudCompra
-from app.servicio.servicio_compra import ServicioCompra
+from app.servicios.servicio_compra import ServicioCompra
 
 router = APIRouter(prefix="/api/compras", tags=["Compras"])
 

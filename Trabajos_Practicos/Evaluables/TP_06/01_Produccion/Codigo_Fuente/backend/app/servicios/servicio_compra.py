@@ -2,13 +2,13 @@ from collections.abc import Callable
 from datetime import datetime
 
 from app.modelos.modelos import ResultadoCompra, SolicitudCompra, FormaPago
-from app.servicio.calendario_parque import CalendarioParque
-from app.servicio.repositorio_compras import RepositorioComprasEnMemoria
-from app.servicio.repositorio_usuarios import RepositorioUsuariosEnMemoria
-from app.servicio.validador_compra import MAXIMO_ENTRADAS_POR_COMPRA, ValidadorCompra
-from app.servicio.tarifario import Tarifario
-from app.servicio.pasarela_pago import PasarelaMercadoPagoSimulada
-from app.servicio.servicio_email import ServicioEmailSimulado
+from app.servicios.calendario_parque import CalendarioParque
+from app.repositorios.repositorio_compras import RepositorioComprasEnMemoria
+from app.repositorios.repositorio_usuarios import RepositorioUsuariosEnMemoria
+from app.servicios.validador_compra import MAXIMO_ENTRADAS_POR_COMPRA, ValidadorCompra
+from app.servicios.tarifario import Tarifario
+from app.integraciones.mercado_pago import PasarelaMercadoPagoSimulada
+from app.integraciones.email import ServicioEmailSimulado
 
 ASUNTO_MAIL_CONFIRMACION = "Confirmación de compra - EcoHarmony Park"
 

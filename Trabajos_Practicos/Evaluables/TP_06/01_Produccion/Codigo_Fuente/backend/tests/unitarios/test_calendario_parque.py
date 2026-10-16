@@ -1,6 +1,6 @@
 from datetime import date
 
-from app.servicio.calendario_parque import CalendarioParque
+from app.servicios.calendario_parque import CalendarioParque
 
 
 class TestCalendarioParque:

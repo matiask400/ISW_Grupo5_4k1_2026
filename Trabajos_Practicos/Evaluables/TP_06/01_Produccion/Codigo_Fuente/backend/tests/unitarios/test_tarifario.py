@@ -1,5 +1,5 @@
 from app.modelos.modelos import TipoPase
-from app.servicio.tarifario import Tarifario
+from app.servicios.tarifario import Tarifario
 import pytest
 
 class TestTarifario:

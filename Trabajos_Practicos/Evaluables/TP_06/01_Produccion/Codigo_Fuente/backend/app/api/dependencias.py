@@ -3,11 +3,11 @@ from functools import lru_cache
 from zoneinfo import ZoneInfo
 from fastapi import Header, HTTPException
 
-from app.servicio.pasarela_pago import PasarelaMercadoPagoSimulada
-from app.servicio.repositorio_compras import RepositorioComprasEnMemoria
-from app.servicio.repositorio_usuarios import RepositorioUsuariosEnMemoria
-from app.servicio.servicio_compra import ServicioCompra
-from app.servicio.servicio_email import ServicioEmailSimulado
+from app.integraciones.mercado_pago import PasarelaMercadoPagoSimulada
+from app.repositorios.repositorio_compras import RepositorioComprasEnMemoria
+from app.repositorios.repositorio_usuarios import RepositorioUsuariosEnMemoria
+from app.servicios.servicio_compra import ServicioCompra
+from app.integraciones.email import ServicioEmailSimulado
 
 ZONA_HORARIA_PARQUE = ZoneInfo("America/Argentina/Cordoba")
 USUARIO_DEMO = "visitante@ecoharmony.com"
