@@ -592,3 +592,18 @@ class TestComprarEntrada:
         resultado = servicio.comprar(solicitud)
 
         assert resultado.mensaje is None
+
+    def test_pago_con_tarjeta_devuelve_url_de_mercado_pago(self):
+        servicio = crear_servicio()
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=2,
+            edades=[30, 28],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.TARJETA,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.url_pago == "http://localhost:5173/mercado-pago-simulado?monto=20000"
