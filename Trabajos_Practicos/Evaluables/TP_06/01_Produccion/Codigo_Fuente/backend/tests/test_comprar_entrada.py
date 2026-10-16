@@ -714,3 +714,18 @@ class TestComprarEntrada:
         resultado = servicio.comprar(solicitud)
 
         assert resultado.mail_enviado_a == "ana@mail.com"
+
+    def test_usuario_no_registrado_se_informa_como_acceso_denegado(self):
+        servicio = crear_servicio()
+        solicitud = SolicitudCompra(
+            usuario_email="intruso@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=2,
+            edades=[30, 28],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.acceso_denegado is True
