@@ -64,3 +64,12 @@ class TestApiComprarEntradas:
 
         assert respuesta.status_code == 422
         assert respuesta.json()["detail"] == "La cantidad de entradas no puede superar 10"
+
+    def test_usuario_no_registrado_recibe_403(self):
+        cliente = crear_cliente()
+
+        respuesta = cliente.post(
+            ENDPOINT, json=CUERPO_VALIDO, headers={"X-Usuario-Email": "intruso@mail.com"}
+        )
+
+        assert respuesta.status_code == 403
