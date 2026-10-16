@@ -1,5 +1,5 @@
-from fastapi import APIRouter, Depends, Header, HTTPException
-from app.api.dependencias import obtener_servicio_compra
+from fastapi import APIRouter, Depends, HTTPException
+from app.api.dependencias import obtener_servicio_compra, obtener_usuario_actual
 from app.api.esquemas import PedidoCompra, RespuestaCompra
 from app.modelos.modelos import SolicitudCompra
 from app.servicio.servicio_compra import ServicioCompra
@@ -10,7 +10,7 @@ router = APIRouter(prefix="/api/compras", tags=["Compras"])
 @router.post("", status_code=201, response_model=RespuestaCompra)
 def comprar_entradas(
     pedido: PedidoCompra,
-    usuario_email: str = Header(alias="X-Usuario-Email"),
+    usuario_email: str = Depends(obtener_usuario_actual),
     servicio: ServicioCompra = Depends(obtener_servicio_compra),
 ) -> RespuestaCompra:
     solicitud = SolicitudCompra(usuario_email=usuario_email, **pedido.model_dump())

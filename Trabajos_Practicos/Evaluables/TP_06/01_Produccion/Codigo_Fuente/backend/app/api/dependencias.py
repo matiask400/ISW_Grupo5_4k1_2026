@@ -1,6 +1,7 @@
 from datetime import datetime
 from functools import lru_cache
 from zoneinfo import ZoneInfo
+from fastapi import Header, HTTPException
 
 from app.servicio.pasarela_pago import PasarelaMercadoPagoSimulada
 from app.servicio.repositorio_compras import RepositorioComprasEnMemoria
@@ -21,3 +22,11 @@ def obtener_servicio_compra() -> ServicioCompra:
         email=ServicioEmailSimulado(),
         ahora=lambda: datetime.now(ZONA_HORARIA_PARQUE).replace(tzinfo=None),
     )
+
+def obtener_usuario_actual(
+    usuario_email: str | None = Header(default=None, alias="X-Usuario-Email"),
+) -> str:
+    """Sesión simulada (FAQ 19). Con un login real, acá se validaría un token."""
+    if not usuario_email:
+        raise HTTPException(status_code=401, detail="Debe iniciar sesión")
+    return usuario_email
