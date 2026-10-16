@@ -1,14 +1,18 @@
 from datetime import date, datetime, timedelta
 from app.modelos.modelos import FormaPago, SolicitudCompra, TipoPase
 from app.servicio.servicio_compra import ServicioCompra
+from app.servicio.repositorio_usuarios import RepositorioUsuariosEnMemoria
 
 AHORA = datetime(2026, 10, 22, 10, 0)
 HOY = AHORA.date()
 FECHA_VALIDA = date(2026, 10, 29)
-
+USUARIO_REGISTRADO = "ana@mail.com"
 
 def crear_servicio(ahora: datetime = AHORA) -> ServicioCompra:
-    return ServicioCompra(ahora=lambda: ahora)
+    return ServicioCompra(
+        ahora=lambda: ahora,
+        usuarios=RepositorioUsuariosEnMemoria({USUARIO_REGISTRADO}),
+    )
 
 
 class TestComprarEntrada:
@@ -369,3 +373,19 @@ class TestComprarEntrada:
         resultado = servicio.comprar(solicitud)
 
         assert resultado.exitosa is True
+
+    def test_no_deberia_comprar_un_usuario_no_registrado(self):
+        servicio = crear_servicio()
+        solicitud = SolicitudCompra(
+            usuario_email="intruso@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=2,
+            edades=[30, 28],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.exitosa is False
+        assert resultado.error == "Debe estar registrado para comprar entradas"
