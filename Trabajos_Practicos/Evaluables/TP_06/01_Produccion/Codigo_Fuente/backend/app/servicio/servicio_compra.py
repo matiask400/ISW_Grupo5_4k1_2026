@@ -16,7 +16,7 @@ class ServicioCompra:
     ) -> None:
         self._usuarios = usuarios
         self._validador = ValidadorCompra(ahora, calendario or CalendarioParque())
-        self._entradas_compradas = 0
+        self._entradas_compradas: dict[str, int] = {}
 
 
     def comprar(self, solicitud: SolicitudCompra) -> ResultadoCompra:
@@ -27,7 +27,8 @@ class ServicioCompra:
         )
         if error:
             return ResultadoCompra.fallida(error)
-        self._entradas_compradas += solicitud.cantidad
+        email = solicitud.usuario_email
+        self._entradas_compradas[email] = self._entradas_compradas.get(email, 0) + solicitud.cantidad
         return ResultadoCompra.ok()
 
     def _verificar_usuario(self, solicitud: SolicitudCompra) -> str | None:
@@ -36,7 +37,7 @@ class ServicioCompra:
         return None
 
     def _verificar_limite_por_fecha(self, solicitud: SolicitudCompra) -> str | None:
-        ya_compradas = self._entradas_compradas
+        ya_compradas = self._entradas_compradas.get(solicitud.usuario_email, 0)
         if ya_compradas + solicitud.cantidad > MAXIMO_ENTRADAS_POR_COMPRA:
             return (
                 f"Solo puede comprar hasta {MAXIMO_ENTRADAS_POR_COMPRA} entradas por fecha. "
