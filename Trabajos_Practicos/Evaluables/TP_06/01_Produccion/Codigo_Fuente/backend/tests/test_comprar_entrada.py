@@ -645,3 +645,19 @@ class TestComprarEntrada:
         resultado = servicio.comprar(solicitud)
 
         assert resultado.url_pago == "http://localhost:5173/mercado-pago-simulado?monto=25000"
+
+    def test_una_compra_invalida_no_genera_ningun_pago(self):
+        pasarela = PasarelaMercadoPagoSimulada()
+        servicio = crear_servicio(pasarela=pasarela)
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=11,
+            edades=[30] * 11,
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.TARJETA,
+        )
+
+        servicio.comprar(solicitud)
+
+        assert pasarela.pagos_creados == []
