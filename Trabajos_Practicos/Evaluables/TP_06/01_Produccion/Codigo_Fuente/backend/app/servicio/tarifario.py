@@ -8,6 +8,6 @@ class Tarifario:
         precio_base = PRECIOS_BASE[tipo_pase]
         if edad <= 3:
             return 0
-        if edad <= 15:
+        if edad <= 15 or edad >= 60:
             return precio_base // 2
         return precio_base
