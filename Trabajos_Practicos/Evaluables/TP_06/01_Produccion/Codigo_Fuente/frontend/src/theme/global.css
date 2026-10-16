@@ -1,0 +1,84 @@
+/* Estilos propios que no trae Ionic. */
+
+/* Fondo con la imagen del parque */
+ion-content.con-fondo {
+  --background: url('/images/fondo.jpg') center / cover no-repeat fixed;
+}
+
+/* Centra el contenido y limita el ancho en pantallas grandes */
+.contenedor {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 8px 0 24px;
+}
+
+.logo-encabezado {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-inline-start: 4px;
+}
+
+/* Opción activa del menú lateral */
+ion-menu ion-item.opcion-seleccionada {
+  --color: var(--ion-color-primary);
+  --background: rgba(var(--ion-color-primary-rgb), 0.1);
+  font-weight: 600;
+}
+
+ion-menu ion-item.opcion-seleccionada ion-icon {
+  color: var(--ion-color-primary);
+}
+
+.accesos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.calendario {
+  display: flex;
+  justify-content: center;
+}
+
+.contador {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.contador strong {
+  min-width: 2ch;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.nota {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.mensaje-error {
+  font-weight: 500;
+  margin-top: 0;
+}
+
+.icono-grande {
+  font-size: 64px;
+  margin: 16px 0;
+}
+
+.ion-color-green {
+  --ion-color-base: var(--ion-color-green);
+  --ion-color-contrast: var(--ion-color-green-contrast);
+}
+
+.badge-conexion {
+  --padding-top: 5px;
+  --padding-bottom: 5px;
+  --padding-start:7px;
+  --padding-end: 7px;
+}
