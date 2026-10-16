@@ -699,3 +699,18 @@ class TestComprarEntrada:
         servicio.comprar(solicitud)
 
         assert email.enviados == []
+
+    def test_informa_a_que_direccion_se_envio_el_mail(self):
+        servicio = crear_servicio()
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=2,
+            edades=[30, 28],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.mail_enviado_a == "ana@mail.com"
