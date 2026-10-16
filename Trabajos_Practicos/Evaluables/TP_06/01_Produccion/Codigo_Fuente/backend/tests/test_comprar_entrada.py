@@ -531,3 +531,19 @@ class TestComprarEntrada:
 
         assert resultado.exitosa is True
         assert resultado.monto_total == 25000
+
+    def test_informa_cantidad_y_fecha_al_finalizar_la_compra(self):
+        servicio = crear_servicio()
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=2,
+            edades=[30, 28],
+            tipo_pase=TipoPase.REGULAR,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.cantidad == 2
+        assert resultado.fecha_visita == FECHA_VALIDA
