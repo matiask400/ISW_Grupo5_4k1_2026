@@ -3,6 +3,7 @@ from app.modelos.modelos import FormaPago, SolicitudCompra, TipoPase
 from app.servicio.servicio_compra import ServicioCompra
 from app.servicio.repositorio_usuarios import RepositorioUsuariosEnMemoria
 from app.servicio.repositorio_compras import RepositorioComprasEnMemoria
+from app.servicio.pasarela_pago import PasarelaMercadoPagoSimulada
 
 AHORA = datetime(2026, 10, 22, 10, 0)
 HOY = AHORA.date()
@@ -11,11 +12,18 @@ USUARIO_REGISTRADO = "ana@mail.com"
 OTRO_USUARIO_REGISTRADO = "juan@mail.com"
 
 
-def crear_servicio(ahora: datetime = AHORA) -> ServicioCompra:
+
+
+
+def crear_servicio(
+    ahora: datetime = AHORA,
+    pasarela: PasarelaMercadoPagoSimulada | None = None,
+) -> ServicioCompra:
     return ServicioCompra(
         ahora=lambda: ahora,
         usuarios=RepositorioUsuariosEnMemoria({USUARIO_REGISTRADO, OTRO_USUARIO_REGISTRADO}),
         compras=RepositorioComprasEnMemoria(),
+        pasarela=pasarela or PasarelaMercadoPagoSimulada(),
     )
 
 class TestComprarEntrada:

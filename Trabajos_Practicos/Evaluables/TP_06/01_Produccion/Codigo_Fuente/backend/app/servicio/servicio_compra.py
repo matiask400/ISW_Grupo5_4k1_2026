@@ -7,20 +7,21 @@ from app.servicio.repositorio_compras import RepositorioComprasEnMemoria
 from app.servicio.repositorio_usuarios import RepositorioUsuariosEnMemoria
 from app.servicio.validador_compra import MAXIMO_ENTRADAS_POR_COMPRA, ValidadorCompra
 from app.servicio.tarifario import Tarifario
-
+from app.servicio.pasarela_pago import PasarelaMercadoPagoSimulada
 
 class ServicioCompra:
-
     def __init__(
         self,
         usuarios: RepositorioUsuariosEnMemoria,
         compras: RepositorioComprasEnMemoria,
+        pasarela: PasarelaMercadoPagoSimulada,
         ahora: Callable[[], datetime] = datetime.now,
         calendario: CalendarioParque | None = None,
         tarifario: Tarifario | None = None,
     ) -> None:
         self._usuarios = usuarios
         self._compras = compras
+        self._pasarela = pasarela
         self._validador = ValidadorCompra(ahora, calendario or CalendarioParque())
         self._tarifario = tarifario or Tarifario()
 
@@ -34,14 +35,11 @@ class ServicioCompra:
             return ResultadoCompra.fallida(error)
         monto_total = self._calcular_monto_total(solicitud)
         self._compras.guardar(solicitud)
-        url_pago = None
-        if solicitud.forma_pago == FormaPago.TARJETA:
-            url_pago = f"http://localhost:5173/mercado-pago-simulado?monto={monto_total}"
         return ResultadoCompra.ok(
             cantidad=solicitud.cantidad,
             fecha_visita=solicitud.fecha_visita,
             monto_total=monto_total,
-            url_pago=url_pago,
+            url_pago=self._iniciar_pago(solicitud, monto_total),
         )
 
     def _verificar_usuario(self, solicitud: SolicitudCompra) -> str | None:
@@ -64,3 +62,9 @@ class ServicioCompra:
         return sum(
             self._tarifario.precio(solicitud.tipo_pase, edad) for edad in solicitud.edades
         )
+
+    def _iniciar_pago(self, solicitud: SolicitudCompra, monto: int) -> str | None:
+        """Con tarjeta devuelve la URL de Mercado Pago; en efectivo se paga en boletería."""
+        if solicitud.forma_pago != FormaPago.TARJETA:
+            return None
+        return self._pasarela.crear_link_de_pago(monto)
