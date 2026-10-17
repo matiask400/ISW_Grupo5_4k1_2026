@@ -52,3 +52,19 @@ export function validarNumeroTarjeta(numero: string): boolean {
 
   return suma % 10 === 0;
 }
+
+
+export function validarCVV(
+  cvv: string,
+  marca: MarcaTarjeta
+): boolean {
+  if (marca === 'VISA' || marca === 'MASTERCARD') {
+    return /^\d{3}$/.test(cvv);
+  }
+
+  if (marca === 'AMEX') {
+    return /^\d{4}$/.test(cvv);
+  }
+
+  return false;
+}
