@@ -28,9 +28,17 @@ class TestTarifario:
             (TipoPase.REGULAR, 16, 10000),  # primero sin descuento
             (TipoPase.REGULAR, 59, 10000),  # último sin descuento
             (TipoPase.REGULAR, 60, 5000),   # primero con descuento de mayor
+            (TipoPase.REGULAR, 0, 0),       # edad mínima
+            (TipoPase.REGULAR, 120, 5000),  # edad máxima
+            (TipoPase.VIP, 0, 0),
             (TipoPase.VIP, 3, 0),
+            (TipoPase.VIP, 4, 10000),
             (TipoPase.VIP, 10, 10000),
+            (TipoPase.VIP, 15, 10000),
+            (TipoPase.VIP, 16, 20000),
+            (TipoPase.VIP, 59, 20000),
             (TipoPase.VIP, 60, 10000),
+            (TipoPase.VIP, 120, 10000),
         ],
     )
     def test_precio_en_los_bordes_de_cada_tramo(self, tipo_pase, edad, precio_esperado):

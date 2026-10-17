@@ -1,4 +1,5 @@
 from datetime import date, datetime, timedelta
+import pytest
 from app.modelos.modelos import FormaPago, SolicitudCompra, TipoPase
 from app.servicios.servicio_compra import ServicioCompra
 from app.repositorios.repositorio_usuarios import RepositorioUsuariosEnMemoria
@@ -541,6 +542,26 @@ class TestComprarEntrada:
 
         assert resultado.exitosa is True
         assert resultado.monto_total == 25000
+
+    @pytest.mark.parametrize(
+        ("tipo_pase", "monto_esperado"),
+        [(TipoPase.REGULAR, 40000), (TipoPase.VIP, 80000)],
+    )
+    def test_monto_total_con_edades_en_todos_los_tramos(self, tipo_pase, monto_esperado):
+        servicio = crear_servicio()
+        solicitud = SolicitudCompra(
+            usuario_email="ana@mail.com",
+            fecha_visita=FECHA_VALIDA,
+            cantidad=8,
+            edades=[0, 1, 4, 15, 16, 59, 60, 120],
+            tipo_pase=tipo_pase,
+            forma_pago=FormaPago.EFECTIVO,
+        )
+
+        resultado = servicio.comprar(solicitud)
+
+        assert resultado.exitosa is True
+        assert resultado.monto_total == monto_esperado
 
     def test_informa_cantidad_y_fecha_al_finalizar_la_compra(self):
         servicio = crear_servicio()
