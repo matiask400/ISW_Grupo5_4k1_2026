@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { detectarMarcaTarjeta } from './tarjetas';
 import { validarNumeroTarjeta } from './tarjetas';
 import { validarCVV } from './tarjetas';
+import { validarDatosTarjeta } from './tarjetas';
 
 
 describe('detectarMarcaTarjeta', () => {
@@ -110,5 +111,38 @@ describe('validarCVV', () => {
     expect(validarCVV('123', 'DESCONOCIDA')).toBe(false);
   });
 });
+
+describe('validarDatosTarjeta', () => {
+  it('acepta una Visa válida con CVV de tres dígitos', () => {
+    expect(
+      validarDatosTarjeta('4111111111111111', '123')
+    ).toBe(true);
+  });
+
+  it('acepta American Express con CVV de cuatro dígitos', () => {
+    expect(
+      validarDatosTarjeta('371111111111111', '1234')
+    ).toBe(true);
+  });
+
+  it('rechaza un número de tarjeta inválido', () => {
+    expect(
+      validarDatosTarjeta('4111111111111112', '123')
+    ).toBe(false);
+  });
+
+  it('rechaza un CVV incorrecto', () => {
+    expect(
+      validarDatosTarjeta('4111111111111111', '12')
+    ).toBe(false);
+  });
+
+  it('rechaza una tarjeta de marca desconocida', () => {
+    expect(
+      validarDatosTarjeta('6011111111111117', '123')
+    ).toBe(false);
+  });
+});
+
 
 
