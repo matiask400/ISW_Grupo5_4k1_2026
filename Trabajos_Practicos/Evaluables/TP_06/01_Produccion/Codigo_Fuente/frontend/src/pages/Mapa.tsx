@@ -1,13 +1,15 @@
 import {
+  IonButton,
   IonCard,
   IonCardContent,
   IonCardHeader,
+  IonCardSubtitle,
   IonCardTitle,
   IonContent,
   IonIcon,
   IonPage,
 } from '@ionic/react';
-import { mapOutline } from 'ionicons/icons';
+import { compassOutline, leafOutline, mapOutline } from 'ionicons/icons';
 import Encabezado from '../components/Encabezado';
 
 const Mapa: React.FC = () => (
@@ -17,11 +19,18 @@ const Mapa: React.FC = () => (
       <div className="contenedor">
         <IonCard>
           <IonCardHeader>
+            <IonCardSubtitle><IonIcon icon={compassOutline} /> Explorá a tu ritmo</IonCardSubtitle>
             <IonCardTitle>Mapa del parque</IonCardTitle>
           </IonCardHeader>
           <IonCardContent className="ion-text-center">
-            <IonIcon icon={mapOutline} className="icono-grande" color="primary" />
-            <p>Próximamente vas a poder ver el mapa del parque acá.</p>
+            <div className="estado-vacio">
+              <IonIcon icon={mapOutline} className="icono-grande" />
+              <h2>Estamos preparando el recorrido</h2>
+              <p>Próximamente vas a poder consultar el mapa del parque y ubicar sus principales espacios.</p>
+              <IonButton routerLink="/actividades" routerDirection="root">
+                <IonIcon slot="start" icon={leafOutline} /> Explorar actividades
+              </IonButton>
+            </div>
           </IonCardContent>
         </IonCard>
       </div>

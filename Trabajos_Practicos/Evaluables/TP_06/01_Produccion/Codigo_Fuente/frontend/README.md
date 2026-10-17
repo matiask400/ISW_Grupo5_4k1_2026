@@ -1,29 +1,35 @@
-# Eco Harmony Park — Frontend
+# EcoHarmony Park — Frontend Ionic
 
-Frontend responsive construido con React, TypeScript, Ionic y Vite.
+Aplicación web responsive construida con React, TypeScript, Ionic y Vite.
 
-## Ejecutar localmente
+## Requisitos
+
+- Node.js LTS
+- npm
+
+## Ejecutar en desarrollo
 
 ```bash
 npm ci
 npm run dev
 ```
 
-## Pruebas y build
+## Pruebas y compilación
 
 ```bash
 npm test
 npm run build
 ```
 
-## Modo de integración
+## Estilo visual
 
-- `VITE_API_MOCK=true`: simula la compra en el frontend, registra el límite acumulado de entradas por usuario/fecha en `localStorage`, genera un número de orden y muestra la pasarela y el correo simulados. No se envía dinero ni correo real.
-- `VITE_API_MOCK=false`: usa `POST /api/compras` y el contrato definido en `src/services/api.ts`.
-- `VITE_API_URL`: URL base opcional del backend. Si queda vacía, las rutas `/api/...` usan el proxy configurado en Vite.
+- Fuente Lato incluida localmente mediante `@fontsource/lato`.
+- Paleta del PO: `#386641`, `#6a994e`, `#a7c957`, `#f2e8cf`, `#bc4749`.
+- Fondo fotográfico del parque con movimiento lento, hero animado y superficies translúcidas.
+- Estados hover/focus/active en botones, tarjetas y navegación.
+- Diseño responsive y respeto por `prefers-reduced-motion` para reducir animaciones si el sistema lo solicita.
+- Se conserva la navegación Ionic y las pantallas/funcionalidades existentes.
 
-La configuración local está en `.env.local` (no se versiona). `.env.example` documenta las variables disponibles.
+## Simulación local
 
-## TDD
-
-Los cambios recientes están organizados en commits de pruebas y desarrollo (`test(RED)`, `feat(GREEN)` y `refactor`). Las reglas de precio y del límite acumulado tienen pruebas en `src/services/reglasCompra.test.ts`.
+El archivo `.env.local` de esta entrega configura `VITE_API_MOCK=true` para permitir probar el flujo simulado sin depender del backend. No se realizan cobros ni se envían correos reales.

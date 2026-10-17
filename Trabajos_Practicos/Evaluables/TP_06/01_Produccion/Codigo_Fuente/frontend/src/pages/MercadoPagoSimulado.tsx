@@ -30,7 +30,7 @@ const MercadoPagoSimulado: React.FC = () => {
       <Encabezado titulo="Mercado Pago" />
       <IonContent className="con-fondo">
         <div className="contenedor">
-          <IonCard>
+          <IonCard className="pago-exitoso-card">
             <IonCardHeader>
               <IonCardSubtitle>Mercado Pago (simulado)</IonCardSubtitle>
               <IonCardTitle>Compra exitosa</IonCardTitle>

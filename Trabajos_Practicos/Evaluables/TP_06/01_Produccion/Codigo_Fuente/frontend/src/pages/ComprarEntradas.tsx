@@ -125,7 +125,7 @@ const ComprarEntradas: React.FC = () => {
       <Encabezado titulo="Comprar Entradas" />
       <IonContent className="con-fondo">
         <div className="contenedor">
-          <IonCard>
+          <IonCard className="compra-card">
             <IonCardHeader>
               <IonCardTitle>Comprar entradas</IonCardTitle>
             </IonCardHeader>

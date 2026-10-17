@@ -51,7 +51,7 @@ const MercadoPagoFormulario: React.FC<MercadoPagoFormularioProps> = ({
   }[marca];
 
   return (
-    <IonCard>
+    <IonCard className="mercado-pago-card">
       <IonCardHeader>
         <IonCardTitle>Mercado Pago</IonCardTitle>
       </IonCardHeader>

@@ -1,84 +1,147 @@
-/* Estilos propios que no trae Ionic. */
+/* EcoHarmony Park — capa visual, compatible con Ionic y con movimiento reducido. */
 
-/* Fondo con la imagen del parque */
+:root {
+  --eh-cream: #f2e8cf;
+  --eh-forest: #386641;
+  --eh-leaf: #6a994e;
+  --eh-lime: #a7c957;
+  --eh-rose: #bc4749;
+  --eh-ink: #203326;
+  --eh-muted: #657467;
+  --eh-radius: 22px;
+  --eh-shadow: 0 16px 40px rgba(28, 54, 34, 0.13);
+}
+
+html, body, #root, ion-app { min-height: 100%; font-family: 'Lato', system-ui, sans-serif; }
+body { background: var(--eh-cream); color: var(--eh-ink); }
+
+/* Fondo fotográfico con un desplazamiento lento. El contenido queda legible
+   gracias a una capa crema semitransparente sobre la imagen. */
 ion-content.con-fondo {
-  --background: url('/images/fondo.jpg') center / cover no-repeat fixed;
+  --background: transparent;
+  position: relative;
+}
+ion-content.con-fondo::part(background) {
+  background-image: linear-gradient(135deg, rgba(242,232,207,.76), rgba(242,232,207,.9)), url('/images/fondo.jpg');
+  background-size: cover, 112% auto;
+  background-position: center, 48% 50%;
+  background-repeat: no-repeat;
+  animation: fondo-flotante 48s ease-in-out infinite alternate;
+}
+@keyframes fondo-flotante {
+  from { background-position: center, 46% 48%; }
+  to { background-position: center, 54% 54%; }
 }
 
-/* Centra el contenido y limita el ancho en pantallas grandes */
-.contenedor {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 8px 0 24px;
+.contenedor { width: min(100% - 28px, 900px); margin: 0 auto; padding: 22px 0 42px; }
+.logo-encabezado { width: 38px; height: 38px; object-fit: cover; border-radius: 12px; margin-inline-start: 5px; box-shadow: 0 3px 10px rgba(0,0,0,.12); }
+
+/* Encabezado */
+ion-header { box-shadow: 0 5px 22px rgba(29, 57, 35, .08); }
+ion-header ion-toolbar { --background: rgba(242, 232, 207, .97); --color: var(--eh-forest); --min-height: 68px; --border-color: rgba(56,102,65,.12); }
+ion-header ion-title { font-weight: 800; letter-spacing: -.025em; }
+ion-menu ion-toolbar { --background: var(--eh-forest); --color: white; --min-height: 76px; }
+ion-menu ion-content { --background: #fbf8ef; }
+ion-menu ion-list { background: transparent; padding: 14px 10px; }
+ion-menu ion-item { --background: transparent; --border-radius: 14px; --padding-start: 14px; margin: 5px 0; font-weight: 700; transition: transform .18s ease, background .18s ease; }
+ion-menu ion-item:hover { transform: translateX(3px); }
+ion-menu ion-item.opcion-seleccionada { --color: var(--eh-forest); --background: rgba(167,201,87,.28); font-weight: 800; }
+ion-menu ion-item.opcion-seleccionada ion-icon { color: var(--eh-forest); }
+
+/* Tarjetas, superficies y jerarquía tipográfica */
+ion-card { margin: 0 0 20px; border-radius: var(--eh-radius); background: rgba(255, 253, 247, .94); box-shadow: var(--eh-shadow); border: 1px solid rgba(56,102,65,.08); overflow: hidden; transition: transform .22s ease, box-shadow .22s ease; }
+ion-card:hover { box-shadow: 0 20px 46px rgba(28,54,34,.17); }
+ion-card-header { padding: 24px 24px 12px; }
+ion-card-content { padding: 10px 24px 24px; color: var(--eh-ink); }
+ion-card-title { color: var(--eh-forest); font-size: clamp(1.35rem, 2.8vw, 1.8rem); font-weight: 800; letter-spacing: -.035em; }
+ion-card-subtitle { color: var(--eh-leaf); font-size: .76rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+p { line-height: 1.65; }
+
+/* Hero de inicio: la fotografía se mueve lentamente sin bloquear controles. */
+.hero-inicio { position: relative; isolation: isolate; min-height: 310px; display: flex; align-items: flex-end; overflow: hidden; padding: clamp(24px, 5vw, 44px); margin-bottom: 22px; border-radius: 28px; color: white; background: var(--eh-forest); box-shadow: 0 24px 50px rgba(24,54,31,.23); }
+.hero-inicio::before { content: ''; position: absolute; z-index: -2; inset: -4%; background: url('/images/fondo.jpg') center 50% / cover no-repeat; animation: hero-zoom 34s ease-in-out infinite alternate; }
+.hero-inicio::after { content: ''; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(19,48,27,.82) 0%, rgba(27,62,35,.56) 52%, rgba(27,62,35,.08) 100%), linear-gradient(0deg, rgba(20,44,26,.38), transparent 60%); }
+@keyframes hero-zoom { from { transform: scale(1) translateX(-.5%); } to { transform: scale(1.09) translateX(.5%); } }
+.hero-contenido { max-width: 600px; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border: 1px solid rgba(255,255,255,.36); border-radius: 999px; background: rgba(255,255,255,.13); backdrop-filter: blur(8px); font-size: .78rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+.hero-inicio h1 { margin: 18px 0 12px; font-size: clamp(2.3rem, 6vw, 4.5rem); line-height: .98; letter-spacing: -.055em; font-weight: 900; }
+.hero-inicio p { max-width: 490px; margin: 0; color: rgba(255,255,255,.91); font-size: clamp(1rem, 2vw, 1.15rem); }
+.hero-inicio .hero-acciones { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+
+/* Botones: feedback claro con hover, foco de teclado y pulsación. */
+ion-button { --border-radius: 14px; font-weight: 800; letter-spacing: .005em; text-transform: none; transition: transform .18s ease, filter .18s ease; }
+ion-button::part(native) { min-height: 46px; box-shadow: 0 5px 12px rgba(56,102,65,.10); transition: box-shadow .18s ease, transform .18s ease, filter .18s ease; }
+ion-button:hover:not([disabled]) { filter: brightness(1.04); transform: translateY(-2px); }
+ion-button:hover:not([disabled])::part(native) { box-shadow: 0 9px 18px rgba(56,102,65,.18); }
+ion-button:active:not([disabled]) { transform: translateY(0) scale(.985); }
+ion-button:focus-visible { outline: 3px solid var(--eh-lime); outline-offset: 3px; }
+
+.accesos { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.tarjetas-beneficio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 20px 0; }
+.beneficio { min-height: 130px; padding: 20px; border: 1px solid rgba(56,102,65,.09); border-radius: 20px; background: rgba(255,253,247,.88); box-shadow: 0 10px 24px rgba(28,54,34,.07); }
+.beneficio ion-icon { font-size: 26px; color: var(--eh-leaf); }
+.beneficio strong { display: block; margin: 12px 0 5px; color: var(--eh-forest); font-size: 1.02rem; }
+.beneficio span { color: var(--eh-muted); font-size: .9rem; line-height: 1.45; }
+
+/* Controles Ionic */
+ion-list { background: transparent; padding-top: 4px; padding-bottom: 4px; }
+ion-item { --background: rgba(255,255,255,.55); --border-color: rgba(56,102,65,.12); --highlight-color-focused: var(--eh-leaf); --min-height: 56px; }
+ion-input, ion-textarea { --highlight-color-focused: var(--eh-leaf); }
+ion-list-header { min-height: 46px; padding-inline: 22px; color: var(--eh-forest); font-weight: 900; font-size: 1rem; letter-spacing: -.01em; }
+ion-note.nota, .nota { display: block; padding-top: 6px; padding-bottom: 6px; color: var(--eh-muted); font-size: .88rem; line-height: 1.55; }
+.calendario { display: flex; justify-content: center; padding: 12px; }
+ion-datetime { border: 1px solid rgba(56,102,65,.10); border-radius: 20px; background: #fffdf7; box-shadow: 0 8px 22px rgba(28,54,34,.06); --background: #fffdf7; }
+.contador { display: flex; align-items: center; gap: 5px; }
+.contador strong { min-width: 2ch; text-align: center; font-size: 1.15rem; color: var(--eh-forest); }
+.resumen-precio { margin: 16px; border: 1px solid rgba(106,153,78,.25); background: linear-gradient(135deg, #fffdf7, #f1f6e7); box-shadow: none; }
+.resumen-precio ion-card-title { font-size: 1.25rem; }
+.resumen-precio p:last-child strong { color: var(--eh-forest); font-size: 1.12rem; }
+.mensaje-error { padding: 12px 14px; border-radius: 12px; background: rgba(188,71,73,.09); font-weight: 700; margin-top: 0; }
+.icono-grande { font-size: 64px; margin: 16px 0; }
+
+/* Actividades */
+.actividades-intro { padding: 8px 24px 18px; color: var(--eh-muted); }
+.actividad-item { --padding-start: 16px; --inner-padding-end: 16px; --min-height: 82px; --border-radius: 14px; margin: 7px 12px; border-radius: 14px; transition: transform .18s ease, background .18s ease; }
+.actividad-item:hover { transform: translateX(3px); --background: rgba(167,201,87,.14); }
+.actividad-item ion-icon { font-size: 25px; margin-right: 12px; }
+.actividad-item h2 { color: var(--eh-forest); font-weight: 800; margin-bottom: 5px; }
+.actividad-item p { color: var(--eh-muted); white-space: normal; }
+
+/* Compra y pago simulado */
+.compra-card > ion-card-header { background: linear-gradient(135deg, rgba(167,201,87,.22), rgba(242,232,207,.18)); padding-bottom: 22px; }
+.compra-card > ion-card-header::after { content: 'Elegí tu visita y prepará una experiencia inolvidable'; display: block; margin-top: 9px; color: var(--eh-muted); font-size: .95rem; }
+.mercado-pago-card { border: 1px solid rgba(56,102,65,.13); background: linear-gradient(150deg, #fffdf7, #f4f7ed); }
+.correo-simulado { border: 1px solid rgba(56,102,65,.13); }
+.correo-simulado hr { border: 0; border-top: 1px solid rgba(56,102,65,.15); margin: 20px 0; }
+.adjunto-simulado { --background: rgba(167,201,87,.14); --border-radius: 14px; margin: 18px 0; border-radius: 14px; }
+
+/* Mapa / estados vacíos */
+.estado-vacio { padding: 32px 20px; border: 1px dashed rgba(56,102,65,.24); border-radius: 18px; background: rgba(242,232,207,.38); }
+.estado-vacio ion-icon { color: var(--eh-leaf); }
+
+.badge-conexion { --padding-top: 5px; --padding-bottom: 5px; --padding-start: 8px; --padding-end: 8px; font-weight: 800; border-radius: 999px; }
+.ion-color-green { --ion-color-base: var(--ion-color-green); --ion-color-contrast: var(--ion-color-green-contrast); }
+
+@media (max-width: 640px) {
+  .contenedor { width: min(100% - 20px, 900px); padding-top: 14px; }
+  .hero-inicio { min-height: 360px; border-radius: 22px; padding: 24px; }
+  .hero-inicio::after { background: linear-gradient(0deg, rgba(19,48,27,.88), rgba(27,62,35,.25)); }
+  .tarjetas-beneficio { grid-template-columns: 1fr; gap: 10px; }
+  .beneficio { min-height: 0; display: grid; grid-template-columns: 36px 1fr; column-gap: 12px; align-items: center; padding: 16px; }
+  .beneficio ion-icon { grid-row: span 2; }
+  .beneficio strong { margin: 0 0 3px; }
+  ion-card { border-radius: 19px; }
+  ion-card-header { padding: 21px 19px 10px; }
+  ion-card-content { padding: 8px 18px 20px; }
+  ion-list-header { padding-inline: 18px; }
+  .logo-encabezado { width: 32px; height: 32px; }
+  ion-header ion-toolbar { --min-height: 60px; }
 }
 
-.logo-encabezado {
-  width: 36px;
-  height: 36px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-inline-start: 4px;
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
-
-/* Opción activa del menú lateral */
-ion-menu ion-item.opcion-seleccionada {
-  --color: var(--ion-color-primary);
-  --background: rgba(var(--ion-color-primary-rgb), 0.1);
-  font-weight: 600;
-}
-
-ion-menu ion-item.opcion-seleccionada ion-icon {
-  color: var(--ion-color-primary);
-}
-
-.accesos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.calendario {
-  display: flex;
-  justify-content: center;
-}
-
-.contador {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.contador strong {
-  min-width: 2ch;
-  text-align: center;
-  font-size: 1.1rem;
-}
-
-.nota {
-  display: block;
-  font-size: 0.85rem;
-  margin-bottom: 8px;
-}
-
-.mensaje-error {
-  font-weight: 500;
-  margin-top: 0;
-}
-
-.icono-grande {
-  font-size: 64px;
-  margin: 16px 0;
-}
-
-.ion-color-green {
-  --ion-color-base: var(--ion-color-green);
-  --ion-color-contrast: var(--ion-color-green-contrast);
-}
-
-.badge-conexion {
-  --padding-top: 5px;
-  --padding-bottom: 5px;
-  --padding-start:7px;
-  --padding-end: 7px;
-}
+.inicio-panel h2 { margin: 2px 0 8px; color: var(--eh-forest); font-size: clamp(1.35rem, 3vw, 1.8rem); font-weight: 900; letter-spacing: -.035em; }
+.inicio-panel p { color: var(--eh-muted); }
+.pago-exitoso-card { border-top: 5px solid var(--eh-lime); }
+.pago-exitoso-card .icono-grande { filter: drop-shadow(0 8px 12px rgba(106,153,78,.22)); }
