@@ -5,13 +5,38 @@
 // para avisarle al usuario antes de enviar; el backend sigue siendo quien
 // decide. Si cambian las reglas en el backend, hay que actualizarlas acá.
 
-import type { SolicitudCompra } from './tipos';
+import type { SolicitudCompra, TipoPase } from './tipos';
 
 export const MINIMO_ENTRADAS_POR_COMPRA = 1;
 export const MAXIMO_ENTRADAS_POR_COMPRA = 10;
 export const EDAD_MINIMA = 0;
 export const EDAD_MAXIMA = 120;
 export const HORA_LIMITE_COMPRA_MISMO_DIA = { horas: 17, minutos: 30 };
+
+/** Precios base definidos por el PO. */
+export const PRECIOS_PASE: Record<TipoPase, number> = {
+  REGULAR: 10_000,
+  VIP: 20_000,
+};
+
+/** Calcula el precio individual aplicando los descuentos por edad del FAQ. */
+export function calcularPrecioEntrada(tipoPase: TipoPase, edad: number): number {
+  if (edad <= 3) return 0;
+  if (edad <= 15 || edad >= 60) return PRECIOS_PASE[tipoPase] * 0.5;
+  return PRECIOS_PASE[tipoPase];
+}
+
+/** Suma el precio de todas las entradas, con descuento individual por visitante. */
+export function calcularTotalEntradas(tipoPase: TipoPase, edades: number[]): number {
+  return edades.reduce((total, edad) => total + calcularPrecioEntrada(tipoPase, edad), 0);
+}
+
+/** Valida el límite acumulado del usuario para una fecha de visita. */
+export function validarLimiteAcumuladoEntradas(compradas: number, nuevas: number): string | null {
+  return compradas + nuevas > MAXIMO_ENTRADAS_POR_COMPRA
+    ? `Solo podés comprar hasta ${MAXIMO_ENTRADAS_POR_COMPRA} entradas para una misma fecha`
+    : null;
+}
 
 /** Feriados en que el parque cierra, como [mes, día]. */
 const FERIADOS_CERRADO: Array<[number, number]> = [
