@@ -2,6 +2,7 @@
 import { describe, expect, it } from 'vitest';
 import { detectarMarcaTarjeta } from './tarjetas';
 import { validarNumeroTarjeta } from './tarjetas';
+import { validarCVV } from './tarjetas';
 
 
 describe('detectarMarcaTarjeta', () => {
@@ -74,4 +75,40 @@ it('rechaza símbolos distintos de espacios y guiones', () => {
   expect(validarNumeroTarjeta('4111/1111/1111/1111')).toBe(false);
 });
 });
+
+
+describe('validarCVV', () => {
+  it('acepta un CVV de tres dígitos para Visa', () => {
+    expect(validarCVV('123', 'VISA')).toBe(true);
+  });
+
+  it('acepta un CVV de tres dígitos para Mastercard', () => {
+    expect(validarCVV('123', 'MASTERCARD')).toBe(true);
+  });
+
+  it('acepta un CVV de cuatro dígitos para American Express', () => {
+    expect(validarCVV('1234', 'AMEX')).toBe(true);
+  });
+
+  it('rechaza tres dígitos para American Express', () => {
+    expect(validarCVV('123', 'AMEX')).toBe(false);
+  });
+
+  it('rechaza cuatro dígitos para Visa', () => {
+    expect(validarCVV('1234', 'VISA')).toBe(false);
+  });
+
+  it('rechaza letras', () => {
+    expect(validarCVV('abc', 'VISA')).toBe(false);
+  });
+
+  it('rechaza el campo vacío', () => {
+    expect(validarCVV('', 'VISA')).toBe(false);
+  });
+
+  it('rechaza una marca desconocida', () => {
+    expect(validarCVV('123', 'DESCONOCIDA')).toBe(false);
+  });
+});
+
 
