@@ -39,6 +39,7 @@ import {
 } from '../services/reglasCompra';
 import type { FormaPago, ResultadoCompra, SolicitudCompra, TipoPase } from '../services/tipos';
 import { guardarUltimaCompra } from '../services/ultimaCompra';
+import MercadoPagoFormulario from '../components/MercadoPagoFormulario';
 
 /** Único usuario registrado en el backend (USUARIO_DEMO en api/dependencias.py). */
 const USUARIO_DEMO = 'prueba@gmail.com';
@@ -281,21 +282,45 @@ const ComprarEntradas: React.FC = () => {
                 </IonRadioGroup>
               </IonList>
 
+              
               <div className="ion-padding">
                 {error && (
                   <IonText color="danger" role="alert">
                     <p className="mensaje-error">{error}</p>
                   </IonText>
                 )}
+
                 {!online && (
                   <IonText color="medium">
                     <p>Necesitás conexión a internet para comprar.</p>
                   </IonText>
                 )}
-                <IonButton expand="block" onClick={comprar} disabled={enviando || !online}>
-                  {enviando ? <IonSpinner name="crescent" /> : 'Comprar'}
-                </IonButton>
+
+                {formaPago === 'TARJETA' ? (
+                  <MercadoPagoFormulario
+                    monto={
+                      tipoPase
+                        ? calcularTotalEntradas(tipoPase, edades.map(Number))
+                        : 0
+                    }
+                    procesando={enviando}
+                    onConfirmar={() => {
+                      setError(
+                        'Formulario válido. El procesamiento simulado se implementará en el siguiente ciclo.',
+                      );
+                    }}
+                  />
+                ) : (
+                  <IonButton
+                    expand="block"
+                    onClick={comprar}
+                    disabled={enviando || !online}
+                  >
+                    {enviando ? <IonSpinner name="crescent" /> : 'Comprar'}
+                  </IonButton>
+                )}
               </div>
+
             </IonCardContent>
           </IonCard>
         </div>
