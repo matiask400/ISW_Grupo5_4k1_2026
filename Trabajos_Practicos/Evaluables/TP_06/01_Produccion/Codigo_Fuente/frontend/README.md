@@ -1,13 +1,8 @@
-# EcoHarmony Park — Frontend Ionic
+# EcoHarmony Park — Frontend
 
-Aplicación web responsive construida con React, TypeScript, Ionic y Vite.
+Aplicación frontend desarrollada con React, TypeScript, Ionic y Vite.
 
-## Requisitos
-
-- Node.js LTS
-- npm
-
-## Ejecutar en desarrollo
+## Ejecutar localmente
 
 ```bash
 npm ci
@@ -21,15 +16,16 @@ npm test
 npm run build
 ```
 
-## Estilo visual
+## Interfaz
 
-- Fuente Lato incluida localmente mediante `@fontsource/lato`.
-- Paleta del PO: `#386641`, `#6a994e`, `#a7c957`, `#f2e8cf`, `#bc4749`.
-- Fondo fotográfico del parque con movimiento lento, hero animado y superficies translúcidas.
-- Estados hover/focus/active en botones, tarjetas y navegación.
-- Diseño responsive y respeto por `prefers-reduced-motion` para reducir animaciones si el sistema lo solicita.
-- Se conserva la navegación Ionic y las pantallas/funcionalidades existentes.
+- Identidad visual basada en la paleta `#386641`, `#6a994e`, `#a7c957`, `#f2e8cf`, `#bc4749` y tipografía Lato.
+- Portada con hero fotográfico, degradado, zoom lento, aparición suave del contenido y CTA principales.
+- Secciones de beneficios, galería ilustrativa, horarios, datos de ubicación pendientes de confirmar, recomendaciones familiares, preguntas frecuentes y testimonios claramente rotulados como demostración.
+- Compra con indicador de pasos, calendario, selector de cantidad, edades por visitante, cálculo de descuentos, resumen lateral y estados de validación/procesamiento.
+- Animaciones con soporte para `prefers-reduced-motion`.
 
-## Simulación local
+## Datos y demostración
 
-El archivo `.env.local` de esta entrega configura `VITE_API_MOCK=true` para permitir probar el flujo simulado sin depender del backend. No se realizan cobros ni se envían correos reales.
+La ubicación exacta del parque todavía no está configurada en la interfaz. Las fotografías externas son ilustrativas y los testimonios están identificados como ejemplos, no como opiniones reales. La integración de pago y correo sigue el comportamiento simulado/implementado por el proyecto.
+
+Para habilitar el modo mock local, revisar la variable `VITE_API_MOCK` en `.env.local` según el entorno de desarrollo.

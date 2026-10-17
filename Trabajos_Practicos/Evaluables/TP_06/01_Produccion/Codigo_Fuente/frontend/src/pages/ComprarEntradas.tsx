@@ -57,6 +57,7 @@ const ComprarEntradas: React.FC = () => {
   const [enviando, setEnviando] = useState(false);
   const [correoCompra, setCorreoCompra] = useState<ResultadoCompra | null>(null);
 
+  const [pasoActivo, setPasoActivo] = useState(1);
   const cantidad = edades.length;
   const edadesCompletas = edades.every(
     (edad) => edad.trim() !== '' && Number.isInteger(Number(edad)) && Number(edad) >= EDAD_MINIMA && Number(edad) <= EDAD_MAXIMA,
@@ -101,11 +102,13 @@ const ComprarEntradas: React.FC = () => {
     }
 
     setError(null);
+    setPasoActivo(3);
     setEnviando(true);
     const resultado = await comprarEntradas(solicitud);
     setEnviando(false);
 
     if (resultado.exitosa) {
+      setPasoActivo(4);
       guardarUltimaCompra(resultado);
       // Con tarjeta el backend devuelve el link de Mercado Pago para pagar (FAQ 4).
       if (resultado.url_pago) {
@@ -125,7 +128,9 @@ const ComprarEntradas: React.FC = () => {
       <Encabezado titulo="Comprar Entradas" />
       <IonContent className="con-fondo">
         <div className="contenedor">
-          <IonCard className="compra-card">
+          <div className="compra-intro"><span className="sobrelinea">TU VISITA, A TU MANERA</span><h1>Prepará tu experiencia.</h1><p>Completá los pasos y revisá el resumen antes de confirmar.</p></div>
+          <div className="pasos-compra" aria-label="Pasos de compra">{[{n:1,t:'Fecha'},{n:2,t:'Entradas'},{n:3,t:'Pago'},{n:4,t:'Confirmación'}].map((p) => <button type="button" key={p.n} className={`paso-compra ${pasoActivo === p.n ? 'activo' : ''} ${pasoActivo > p.n ? 'completado' : ''}`} onClick={() => { setPasoActivo(p.n); document.getElementById(p.n === 1 ? 'paso-fecha' : p.n === 2 ? 'paso-entradas' : p.n === 3 ? 'paso-pago' : 'resumen-compra')?.scrollIntoView({behavior:'smooth',block:'start'}); }}><span>{pasoActivo > p.n ? '✓' : p.n}</span><strong>{p.t}</strong></button>)}</div>
+          <div className="compra-layout"><div className="compra-formulario"><IonCard className="compra-card">
             <IonCardHeader>
               <IonCardTitle>Comprar entradas</IonCardTitle>
             </IonCardHeader>
@@ -151,7 +156,7 @@ const ComprarEntradas: React.FC = () => {
               </IonNote>
 
               {/* Fecha de visita */}
-              <IonListHeader>
+              <div id="paso-fecha" className="ancla-compra"><IonListHeader>
                 <IonLabel>Fecha de visita</IonLabel>
               </IonListHeader>
               <IonNote className="ion-padding-horizontal nota">
@@ -172,10 +177,10 @@ const ComprarEntradas: React.FC = () => {
                     setFecha(typeof v === 'string' ? v : undefined);
                   }}
                 />
-              </div>
+              </div></div>
 
               {/* Cantidad y edades */}
-              <IonListHeader>
+              <div id="paso-entradas" className="ancla-compra"><IonListHeader>
                 <IonLabel>Visitantes</IonLabel>
               </IonListHeader>
               <IonList>
@@ -217,6 +222,8 @@ const ComprarEntradas: React.FC = () => {
                   </IonItem>
                 ))}
               </IonList>
+
+              </div>
 
               {/* Tipo de pase */}
               <IonListHeader>
@@ -261,7 +268,7 @@ const ComprarEntradas: React.FC = () => {
               )}
 
               {/* Forma de pago */}
-              <IonListHeader>
+              <div id="paso-pago" className="ancla-compra"><IonListHeader>
                 <IonLabel>Forma de pago</IonLabel>
               </IonListHeader>
               <IonList>
@@ -280,7 +287,7 @@ const ComprarEntradas: React.FC = () => {
                     </IonRadio>
                   </IonItem>
                 </IonRadioGroup>
-              </IonList>
+              </IonList></div>
 
               
               <div className="ion-padding">
@@ -314,7 +321,7 @@ const ComprarEntradas: React.FC = () => {
               </div>
 
             </IonCardContent>
-          </IonCard>
+          </IonCard></div><aside className="compra-resumen-lateral" id="resumen-compra"><span className="sobrelinea">TU RESUMEN</span><h2>Tu visita</h2><div className="resumen-lateral-linea"><span>Fecha</span><strong>{fecha ? new Intl.DateTimeFormat('es-AR',{dateStyle:'medium'}).format(new Date(`${fecha.slice(0,10)}T12:00:00`)) : 'A elegir'}</strong></div><div className="resumen-lateral-linea"><span>Visitantes</span><strong>{cantidad} {cantidad === 1 ? 'persona' : 'personas'}</strong></div><div className="resumen-lateral-linea"><span>Tipo de pase</span><strong>{tipoPase === 'VIP' ? 'VIP' : tipoPase === 'REGULAR' ? 'Regular' : 'A elegir'}</strong></div><div className="resumen-lateral-linea"><span>Forma de pago</span><strong>{formaPago === 'TARJETA' ? 'Tarjeta' : formaPago === 'EFECTIVO' ? 'Efectivo' : 'A elegir'}</strong></div><div className="resumen-lateral-total"><span>Total estimado</span><strong>{tipoPase && edadesCompletas ? new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',maximumFractionDigits:0}).format(calcularTotalEntradas(tipoPase,edades.map(Number))) : '—'}</strong></div><p>El total se calcula según el tipo de pase y la edad de cada visitante.</p><div className="resumen-descuentos"><strong>Tarifas y descuentos</strong><span>Regular: $10.000</span><span>VIP: $20.000</span><span>Hasta 3 años: gratis</span><span>4 a 15 años: 50%</span><span>Desde 60 años: 50%</span></div><div className="resumen-descuentos"><strong>Descuentos aplicados automáticamente</strong><span>Hasta 3 años: gratis</span><span>4 a 15 años: 50%</span><span>Desde 60 años: 50%</span></div></aside></div>
         </div>
       </IonContent>
       <IonModal isOpen={correoCompra !== null} onDidDismiss={() => setCorreoCompra(null)}>
