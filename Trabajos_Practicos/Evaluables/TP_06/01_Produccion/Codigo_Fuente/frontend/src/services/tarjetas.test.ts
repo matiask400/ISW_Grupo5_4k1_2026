@@ -66,5 +66,12 @@ describe('validarNumeroTarjeta', () => {
   it('rechaza una longitud no admitida', () => {
     expect(validarNumeroTarjeta('41111111111111111111')).toBe(false);
   });
+  it('acepta guiones entre los dígitos', () => {
+  expect(validarNumeroTarjeta('4111-1111-1111-1111')).toBe(true);
+});
+
+it('rechaza símbolos distintos de espacios y guiones', () => {
+  expect(validarNumeroTarjeta('4111/1111/1111/1111')).toBe(false);
+});
 });
 
