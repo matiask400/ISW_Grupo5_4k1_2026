@@ -1,6 +1,6 @@
 // Validaciones de la compra de entradas del lado del cliente.
 //
-// Son una COPIA de las reglas de backend/app/servicio/servicio_compra.py y
+// Son una COPIA de las reglas de backend/app/servicios/validador_compra.py y
 // calendario_parque.py, con los mismos mensajes y en el mismo orden. Sirven
 // para avisarle al usuario antes de enviar; el backend sigue siendo quien
 // decide. Si cambian las reglas en el backend, hay que actualizarlas acá.

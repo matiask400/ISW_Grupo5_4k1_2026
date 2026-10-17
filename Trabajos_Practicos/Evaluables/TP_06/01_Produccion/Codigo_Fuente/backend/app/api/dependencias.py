@@ -10,7 +10,7 @@ from app.servicios.servicio_compra import ServicioCompra
 from app.integraciones.email import ServicioEmailSimulado
 
 ZONA_HORARIA_PARQUE = ZoneInfo("America/Argentina/Cordoba")
-USUARIO_DEMO = "visitante@ecoharmony.com"
+USUARIO_DEMO = "prueba@gmail.com"
 
 
 @lru_cache

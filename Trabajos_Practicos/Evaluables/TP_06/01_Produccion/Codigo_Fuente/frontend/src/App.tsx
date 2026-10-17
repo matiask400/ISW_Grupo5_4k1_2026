@@ -7,6 +7,7 @@ import Actividades from './pages/Actividades';
 import ComprarEntradas from './pages/ComprarEntradas';
 import Inicio from './pages/Inicio';
 import Mapa from './pages/Mapa';
+import MercadoPagoSimulado from './pages/MercadoPagoSimulado';
 
 /* CSS base que necesitan los componentes de Ionic */
 import '@ionic/react/css/core.css';
@@ -21,6 +22,10 @@ import '@ionic/react/css/text-alignment.css';
 import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
+
+/* Fuente Lato (FAQ 3) */
+import '@fontsource/lato/400.css';
+import '@fontsource/lato/700.css';
 
 /* Colores y estilos propios */
 import './theme/variables.css';
@@ -39,6 +44,7 @@ const App: React.FC = () => (
           <Route exact path="/actividades" component={Actividades} />
           <Route exact path="/entradas" component={ComprarEntradas} />
           <Route exact path="/mapa" component={Mapa} />
+          <Route exact path="/mercado-pago-simulado" component={MercadoPagoSimulado} />
           <Route>
             <Redirect to="/inicio" />
           </Route>

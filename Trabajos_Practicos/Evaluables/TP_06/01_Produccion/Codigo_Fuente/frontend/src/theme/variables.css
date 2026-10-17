@@ -1,21 +1,46 @@
-/* Paleta de EcoHarmony Park.
+/* Paleta de EcoHarmony Park (FAQ 3):
+   https://coolors.co/palette/386641-6a994e-a7c957-f2e8cf-bc4749
    Ionic usa estas variables en todos sus componentes.
    Generador de colores: https://ionicframework.com/docs/theming/color-generator */
 :root {
-  --ion-color-primary: #2e7d32;
-  --ion-color-primary-rgb: 46, 125, 50;
+  --ion-color-primary: #386641;
+  --ion-color-primary-rgb: 56, 102, 65;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #296e2c;
-  --ion-color-primary-tint: #438a47;
-  --ion-color-green: #29882d;
-  --ion-color-green-contrast: #ffffff;
-  --ion-color-secondary: #1976d2;
-  --ion-color-secondary-rgb: 25, 118, 210;
+  --ion-color-primary-shade: #315a39;
+  --ion-color-primary-tint: #4c7554;
+
+  --ion-color-secondary: #6a994e;
+  --ion-color-secondary-rgb: 106, 153, 78;
   --ion-color-secondary-contrast: #ffffff;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
-  --ion-color-secondary-shade: #1668b9;
-  --ion-color-secondary-tint: #3084d7;
+  --ion-color-secondary-shade: #5d8745;
+  --ion-color-secondary-tint: #79a360;
 
-  --ion-font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ion-color-tertiary: #a7c957;
+  --ion-color-tertiary-rgb: 167, 201, 87;
+  --ion-color-tertiary-contrast: #000000;
+  --ion-color-tertiary-contrast-rgb: 0, 0, 0;
+  --ion-color-tertiary-shade: #93b14d;
+  --ion-color-tertiary-tint: #b0ce68;
+
+  --ion-color-light: #f2e8cf;
+  --ion-color-light-rgb: 242, 232, 207;
+  --ion-color-light-contrast: #000000;
+  --ion-color-light-contrast-rgb: 0, 0, 0;
+  --ion-color-light-shade: #d5ccb6;
+  --ion-color-light-tint: #f3ead4;
+
+  --ion-color-danger: #bc4749;
+  --ion-color-danger-rgb: 188, 71, 73;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #a53e40;
+  --ion-color-danger-tint: #c3595b;
+
+  --ion-color-green: #6a994e;
+  --ion-color-green-contrast: #ffffff;
+
+  /* Fuente Lato (FAQ 3), incluida en el build para que funcione offline */
+  --ion-font-family: 'Lato', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }

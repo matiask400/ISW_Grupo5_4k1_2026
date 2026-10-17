@@ -18,7 +18,7 @@ import {
   IonRadioGroup,
   IonSpinner,
   IonText,
-  useIonToast,
+  useIonAlert,
 } from '@ionic/react';
 import { addOutline, removeOutline } from 'ionicons/icons';
 import { useMemo, useState } from 'react';
@@ -35,12 +35,17 @@ import {
   validarSolicitud,
 } from '../services/reglasCompra';
 import type { FormaPago, SolicitudCompra, TipoPase } from '../services/tipos';
+import { guardarUltimaCompra } from '../services/ultimaCompra';
+
+/** Único usuario registrado en el backend (USUARIO_DEMO en api/dependencias.py). */
+const USUARIO_DEMO = 'prueba@gmail.com';
 
 const ComprarEntradas: React.FC = () => {
   const online = useOnline();
-  const [mostrarToast] = useIonToast();
+  const [mostrarAlerta] = useIonAlert();
 
-  const [email, setEmail] = useState('');
+  // Sesión simulada (FAQ 19): arranca con el usuario registrado de prueba.
+  const [email, setEmail] = useState(USUARIO_DEMO);
   const [fecha, setFecha] = useState<string | undefined>(undefined);
   const [edades, setEdades] = useState<string[]>(['']); // una por visitante
   const [tipoPase, setTipoPase] = useState<TipoPase | null>(null);
@@ -94,12 +99,19 @@ const ComprarEntradas: React.FC = () => {
     setEnviando(false);
 
     if (resultado.exitosa) {
+      guardarUltimaCompra(resultado);
+      // Con tarjeta el backend devuelve el link de Mercado Pago para pagar (FAQ 4).
+      if (resultado.url_pago) {
+        window.location.assign(resultado.url_pago);
+        return;
+      }
       limpiarFormulario();
-      await mostrarToast({
-        message: '¡Compra realizada con éxito! Te enviamos los detalles por email.',
-        duration: 4000,
-        color: 'success',
-        position: 'top',
+      // En efectivo: se informa cantidad, fecha y total (CA8) y el mail enviado (FAQ 5).
+      await mostrarAlerta({
+        header: '¡Compra realizada!',
+        subHeader: `Mail enviado a ${resultado.mail_enviado_a}`,
+        message: `${resultado.mensaje ?? ''}. Pagás en boletería al llegar al parque.`,
+        buttons: ['Aceptar'],
       });
     } else {
       setError(resultado.error ?? 'No se pudo completar la compra.');
@@ -120,7 +132,7 @@ const ComprarEntradas: React.FC = () => {
               <IonList>
                 <IonItem>
                   <IonInput
-                    label="Email"
+                    label="Usuario (email)"
                     labelPlacement="stacked"
                     type="email"
                     inputmode="email"
@@ -131,14 +143,18 @@ const ComprarEntradas: React.FC = () => {
                   />
                 </IonItem>
               </IonList>
+              <IonNote className="ion-padding-horizontal nota">
+                Sesión simulada: solo pueden comprar usuarios registrados ({USUARIO_DEMO}). Cambiá el
+                email para probar con un usuario no registrado.
+              </IonNote>
 
               {/* Fecha de visita */}
               <IonListHeader>
                 <IonLabel>Fecha de visita</IonLabel>
               </IonListHeader>
               <IonNote className="ion-padding-horizontal nota">
-                El parque cierra los lunes, el 25/12 y el 1/1. Para hoy se puede comprar hasta las
-                17:30.
+                El parque abre de 8:30 a 19 y cierra los lunes, el 25/12 y el 1/1. Para hoy se puede
+                comprar hasta las 17:30, y hasta con 1 mes de anticipación.
               </IonNote>
               <div className="calendario">
                 <IonDatetime
@@ -204,6 +220,9 @@ const ComprarEntradas: React.FC = () => {
               <IonListHeader>
                 <IonLabel>Tipo de pase</IonLabel>
               </IonListHeader>
+              <IonNote className="ion-padding-horizontal nota">
+                Hasta 3 años no pagan. Hasta 15 años y desde 60 años tienen 50% de descuento.
+              </IonNote>
               <IonList>
                 <IonRadioGroup
                   value={tipoPase}
@@ -211,12 +230,12 @@ const ComprarEntradas: React.FC = () => {
                 >
                   <IonItem>
                     <IonRadio value="REGULAR" justify="space-between">
-                      Regular
+                      Regular — $10.000
                     </IonRadio>
                   </IonItem>
                   <IonItem>
                     <IonRadio value="VIP" justify="space-between">
-                      VIP
+                      VIP — $20.000
                     </IonRadio>
                   </IonItem>
                 </IonRadioGroup>
@@ -233,12 +252,12 @@ const ComprarEntradas: React.FC = () => {
                 >
                   <IonItem>
                     <IonRadio value="EFECTIVO" justify="space-between">
-                      Efectivo
+                      Efectivo (en boletería)
                     </IonRadio>
                   </IonItem>
                   <IonItem>
                     <IonRadio value="TARJETA" justify="space-between">
-                      Tarjeta
+                      Tarjeta de crédito (Mercado Pago)
                     </IonRadio>
                   </IonItem>
                 </IonRadioGroup>

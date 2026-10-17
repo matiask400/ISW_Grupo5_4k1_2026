@@ -23,7 +23,7 @@ export default defineConfig({
         display: 'standalone',
         orientation: 'portrait-primary',
         background_color: '#ffffff',
-        theme_color: '#2e7d32',
+        theme_color: '#386641',
         icons: [
           { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
           { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },
@@ -45,8 +45,15 @@ export default defineConfig({
       },
     }),
   ],
+  // El backend espera el front en el puerto 5173: es el origen permitido por
+  // CORS y el que usa la URL de Mercado Pago simulado (/mercado-pago-simulado).
+  preview: {
+    port: 5173,
+    strictPort: true,
+  },
   server: {
-    port: 8100,
+    port: 5173,
+    strictPort: true,
     // En desarrollo, todo lo que empiece con /api se reenvía al backend.
     // Así no hace falta configurar CORS en FastAPI mientras desarrollás.
     proxy: {
