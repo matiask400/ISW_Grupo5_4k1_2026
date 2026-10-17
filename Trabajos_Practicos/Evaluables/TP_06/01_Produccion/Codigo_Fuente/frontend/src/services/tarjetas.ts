@@ -22,3 +22,33 @@ export function detectarMarcaTarjeta(numero: string): MarcaTarjeta {
 
   return 'DESCONOCIDA';
 }
+
+
+export function validarNumeroTarjeta(numero: string): boolean {
+  const normalizado = numero.replace(/[\s-]/g, '');
+
+  // Solo dígitos y una longitud habitual de tarjeta.
+  if (!/^\d{13,19}$/.test(normalizado)) {
+    return false;
+  }
+
+  let suma = 0;
+  let duplicar = false;
+
+  for (let i = normalizado.length - 1; i >= 0; i--) {
+    let digito = Number(normalizado[i]);
+
+    if (duplicar) {
+      digito *= 2;
+
+      if (digito > 9) {
+        digito -= 9;
+      }
+    }
+
+    suma += digito;
+    duplicar = !duplicar;
+  }
+
+  return suma % 10 === 0;
+}
