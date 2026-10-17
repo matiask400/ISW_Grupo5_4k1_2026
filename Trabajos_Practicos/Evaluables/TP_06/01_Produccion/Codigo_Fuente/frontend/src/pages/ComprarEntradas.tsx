@@ -296,19 +296,11 @@ const ComprarEntradas: React.FC = () => {
                   </IonText>
                 )}
 
-                {formaPago === 'TARJETA' ? (
+                {formaPago === 'TARJETA' && tipoPase && edadesCompletas ? (
                   <MercadoPagoFormulario
-                    monto={
-                      tipoPase
-                        ? calcularTotalEntradas(tipoPase, edades.map(Number))
-                        : 0
-                    }
+                    monto={calcularTotalEntradas(tipoPase, edades.map(Number))}
                     procesando={enviando}
-                    onConfirmar={() => {
-                      setError(
-                        'Formulario válido. El procesamiento simulado se implementará en el siguiente ciclo.',
-                      );
-                    }}
+                    onConfirmar={comprar}
                   />
                 ) : (
                   <IonButton

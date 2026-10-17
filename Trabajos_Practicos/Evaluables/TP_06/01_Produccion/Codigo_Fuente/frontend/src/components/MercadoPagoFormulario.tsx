@@ -53,7 +53,7 @@ const MercadoPagoFormulario: React.FC<MercadoPagoFormularioProps> = ({
   return (
     <IonCard>
       <IonCardHeader>
-        <IonCardTitle>Mercado Pago (simulado)</IonCardTitle>
+        <IonCardTitle>Mercado Pago</IonCardTitle>
       </IonCardHeader>
 
       <IonCardContent>
@@ -108,13 +108,6 @@ const MercadoPagoFormulario: React.FC<MercadoPagoFormularioProps> = ({
           />
         </IonItem>
 
-        <IonText color="medium">
-          <p>
-            Simulación educativa: no se realiza ningún cobro real.
-            Usá únicamente números de prueba ficticios.
-          </p>
-        </IonText>
-
         {error && (
           <IonText color="danger" role="alert">
             <p>{error}</p>
@@ -126,7 +119,7 @@ const MercadoPagoFormulario: React.FC<MercadoPagoFormularioProps> = ({
           onClick={confirmar}
           disabled={!datosValidos || procesando}
         >
-          {procesando ? 'Procesando...' : 'Pagar (simulación)'}
+          {procesando ? 'Procesando...' : 'Pagar'}
         </IonButton>
       </IonCardContent>
     </IonCard>
