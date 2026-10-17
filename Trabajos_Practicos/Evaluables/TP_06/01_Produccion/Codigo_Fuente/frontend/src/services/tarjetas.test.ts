@@ -30,4 +30,7 @@ describe('detectarMarcaTarjeta', () => {
   it('devuelve DESCONOCIDA si el campo está vacío', () => {
     expect(detectarMarcaTarjeta('')).toBe('DESCONOCIDA');
   });
+  it('ignora guiones y otros caracteres que no son dígitos', () => {
+  expect(detectarMarcaTarjeta('4111-1111-1111-1111')).toBe('VISA');
+});
 });
