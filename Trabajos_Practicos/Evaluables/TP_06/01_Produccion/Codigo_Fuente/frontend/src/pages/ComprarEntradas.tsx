@@ -13,15 +13,16 @@ import {
   IonList,
   IonListHeader,
   IonNote,
+  IonModal,
   IonPage,
   IonRadio,
   IonRadioGroup,
   IonSpinner,
   IonText,
-  useIonAlert,
 } from '@ionic/react';
 import { addOutline, removeOutline } from 'ionicons/icons';
 import { useMemo, useState } from 'react';
+import CorreoSimulado from '../components/CorreoSimulado';
 import Encabezado from '../components/Encabezado';
 import { useOnline } from '../hooks/useOnline';
 import { comprarEntradas } from '../services/api';
@@ -30,11 +31,13 @@ import {
   EDAD_MINIMA,
   MAXIMO_ENTRADAS_POR_COMPRA,
   MINIMO_ENTRADAS_POR_COMPRA,
+  calcularPrecioEntrada,
+  calcularTotalEntradas,
   fechaSeleccionable,
   rangoFechasPermitidas,
   validarSolicitud,
 } from '../services/reglasCompra';
-import type { FormaPago, SolicitudCompra, TipoPase } from '../services/tipos';
+import type { FormaPago, ResultadoCompra, SolicitudCompra, TipoPase } from '../services/tipos';
 import { guardarUltimaCompra } from '../services/ultimaCompra';
 
 /** Único usuario registrado en el backend (USUARIO_DEMO en api/dependencias.py). */
@@ -42,7 +45,6 @@ const USUARIO_DEMO = 'prueba@gmail.com';
 
 const ComprarEntradas: React.FC = () => {
   const online = useOnline();
-  const [mostrarAlerta] = useIonAlert();
 
   // Sesión simulada (FAQ 19): arranca con el usuario registrado de prueba.
   const [email, setEmail] = useState(USUARIO_DEMO);
@@ -52,8 +54,12 @@ const ComprarEntradas: React.FC = () => {
   const [formaPago, setFormaPago] = useState<FormaPago | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [enviando, setEnviando] = useState(false);
+  const [correoCompra, setCorreoCompra] = useState<ResultadoCompra | null>(null);
 
   const cantidad = edades.length;
+  const edadesCompletas = edades.every(
+    (edad) => edad.trim() !== '' && Number.isInteger(Number(edad)) && Number(edad) >= EDAD_MINIMA && Number(edad) <= EDAD_MAXIMA,
+  );
   const { min, max } = useMemo(() => rangoFechasPermitidas(), []);
 
   const cambiarCantidad = (nueva: number) => {
@@ -106,13 +112,8 @@ const ComprarEntradas: React.FC = () => {
         return;
       }
       limpiarFormulario();
-      // En efectivo: se informa cantidad, fecha y total (CA8) y el mail enviado (FAQ 5).
-      await mostrarAlerta({
-        header: '¡Compra realizada!',
-        subHeader: `Mail enviado a ${resultado.mail_enviado_a}`,
-        message: `${resultado.mensaje ?? ''}. Pagás en boletería al llegar al parque.`,
-        buttons: ['Aceptar'],
-      });
+      // Se representa el correo y su adjunto en pantalla; no se envía un email real.
+      setCorreoCompra(resultado);
     } else {
       setError(resultado.error ?? 'No se pudo completar la compra.');
     }
@@ -241,6 +242,23 @@ const ComprarEntradas: React.FC = () => {
                 </IonRadioGroup>
               </IonList>
 
+              {/* Resumen de precio actualizado según las edades ingresadas */}
+              {tipoPase && (
+                <IonCard className="resumen-precio">
+                  <IonCardHeader><IonCardTitle>Resumen de compra</IonCardTitle></IonCardHeader>
+                  <IonCardContent>
+                    {edades.map((edad, i) => (
+                      <p key={i}>Visitante {i + 1}: {edad.trim() === '' ? 'Ingresá una edad' : new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 0 }).format(calcularPrecioEntrada(tipoPase, Number(edad)))}</p>
+                    ))}
+                    {edadesCompletas ? (
+                      <p><strong>Total estimado: {new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 0 }).format(calcularTotalEntradas(tipoPase, edades.map(Number)))}</strong></p>
+                    ) : (
+                      <p className="nota">Completá una edad válida para cada visitante para calcular el total.</p>
+                    )}
+                  </IonCardContent>
+                </IonCard>
+              )}
+
               {/* Forma de pago */}
               <IonListHeader>
                 <IonLabel>Forma de pago</IonLabel>
@@ -282,6 +300,13 @@ const ComprarEntradas: React.FC = () => {
           </IonCard>
         </div>
       </IonContent>
+      <IonModal isOpen={correoCompra !== null} onDidDismiss={() => setCorreoCompra(null)}>
+        {correoCompra && (
+          <div className="contenedor correo-modal">
+            <CorreoSimulado compra={correoCompra} onCerrar={() => setCorreoCompra(null)} />
+          </div>
+        )}
+      </IonModal>
     </IonPage>
   );
 };

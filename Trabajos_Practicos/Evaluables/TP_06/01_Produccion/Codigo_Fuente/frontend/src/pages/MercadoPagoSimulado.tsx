@@ -12,11 +12,12 @@ import {
 import { checkmarkCircleOutline, mailOutline } from 'ionicons/icons';
 import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
+import CorreoSimulado from '../components/CorreoSimulado';
 import Encabezado from '../components/Encabezado';
 import { leerUltimaCompra } from '../services/ultimaCompra';
 
 /**
- * Simula Mercado Pago (FAQ 4). El backend redirige acá (PasarelaMercadoPagoSimulada)
+ * Simula Mercado Pago (FAQ 4). El la compra simulada redirige a esta ruta
  * con el monto a pagar: ?monto=20000
  */
 const MercadoPagoSimulado: React.FC = () => {
@@ -47,6 +48,7 @@ const MercadoPagoSimulado: React.FC = () => {
                   <IonIcon icon={mailOutline} /> Mail enviado a <strong>{compra.mail_enviado_a}</strong>
                 </p>
               )}
+              {compra && <CorreoSimulado compra={compra} />}
               <IonButton routerLink="/inicio" routerDirection="root">
                 Volver al inicio
               </IonButton>
