@@ -1,6 +1,9 @@
 // Mismos casos que backend/tests, para asegurar que el front valide igual.
 import { describe, expect, it } from 'vitest';
 import {
+  calcularPrecioEntrada,
+  calcularTotalEntradas,
+  validarLimiteAcumuladoEntradas,
   fechaSeleccionable,
   rangoFechasPermitidas,
   sumarUnMes,
@@ -114,5 +117,35 @@ describe('calendario', () => {
     expect(fechaSeleccionable('2026-10-26', AHORA)).toBe(false);
     expect(fechaSeleccionable('2026-10-27', AHORA)).toBe(true);
     expect(fechaSeleccionable('2026-10-22', new Date(2026, 9, 22, 18, 0))).toBe(false);
+  });
+});
+
+describe('cálculo de precios según FAQ del PO', () => {
+  it('calcula entradas regulares con descuento por edad', () => {
+    expect(calcularPrecioEntrada('REGULAR', 3)).toBe(0);
+    expect(calcularPrecioEntrada('REGULAR', 15)).toBe(5000);
+    expect(calcularPrecioEntrada('REGULAR', 16)).toBe(10000);
+    expect(calcularPrecioEntrada('REGULAR', 59)).toBe(10000);
+    expect(calcularPrecioEntrada('REGULAR', 60)).toBe(5000);
+  });
+
+  it('calcula entradas VIP con el precio base y descuentos del PO', () => {
+    expect(calcularPrecioEntrada('VIP', 3)).toBe(0);
+    expect(calcularPrecioEntrada('VIP', 4)).toBe(10000);
+    expect(calcularPrecioEntrada('VIP', 60)).toBe(10000);
+    expect(calcularTotalEntradas('VIP', [3, 10, 30, 60])).toBe(40000);
+  });
+});
+
+describe('límite acumulado de entradas por usuario y fecha', () => {
+  it('permite compras que no superan las 10 entradas acumuladas', () => {
+    expect(validarLimiteAcumuladoEntradas(0, 10)).toBeNull();
+    expect(validarLimiteAcumuladoEntradas(6, 4)).toBeNull();
+  });
+
+  it('rechaza una compra que supera las 10 entradas acumuladas', () => {
+    expect(validarLimiteAcumuladoEntradas(8, 3)).toBe(
+      'Solo podés comprar hasta 10 entradas para una misma fecha',
+    );
   });
 });
