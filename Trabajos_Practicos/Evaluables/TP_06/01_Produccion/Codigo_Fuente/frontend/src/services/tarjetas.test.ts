@@ -121,7 +121,7 @@ describe('validarDatosTarjeta', () => {
 
   it('acepta American Express con CVV de cuatro dígitos', () => {
     expect(
-      validarDatosTarjeta('371111111111111', '1234')
+      validarDatosTarjeta('378282246310005', '1234')
     ).toBe(true);
   });
 

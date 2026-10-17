@@ -68,3 +68,16 @@ export function validarCVV(
 
   return false;
 }
+
+export function validarDatosTarjeta(
+  numero: string,
+  cvv: string,
+): boolean {
+  const marca = detectarMarcaTarjeta(numero);
+
+  return (
+    marca !== 'DESCONOCIDA' &&
+    validarNumeroTarjeta(numero) &&
+    validarCVV(cvv, marca)
+  );
+}
