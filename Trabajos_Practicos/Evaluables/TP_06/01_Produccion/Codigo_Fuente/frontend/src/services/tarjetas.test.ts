@@ -1,6 +1,8 @@
 
 import { describe, expect, it } from 'vitest';
 import { detectarMarcaTarjeta } from './tarjetas';
+import { validarNumeroTarjeta } from './tarjetas';
+
 
 describe('detectarMarcaTarjeta', () => {
   it('detecta Visa cuando el número comienza con 4', () => {
@@ -34,3 +36,35 @@ describe('detectarMarcaTarjeta', () => {
   expect(detectarMarcaTarjeta('4111-1111-1111-1111')).toBe('VISA');
 });
 });
+
+
+describe('validarNumeroTarjeta', () => {
+  it('acepta un número Visa de prueba válido', () => {
+    expect(validarNumeroTarjeta('4111111111111111')).toBe(true);
+  });
+
+  it('acepta espacios entre los dígitos', () => {
+    expect(validarNumeroTarjeta('4111 1111 1111 1111')).toBe(true);
+  });
+
+  it('rechaza un número que no supera Luhn', () => {
+    expect(validarNumeroTarjeta('4111111111111112')).toBe(false);
+  });
+
+  it('rechaza un número demasiado corto', () => {
+    expect(validarNumeroTarjeta('411111')).toBe(false);
+  });
+
+  it('rechaza un campo vacío', () => {
+    expect(validarNumeroTarjeta('')).toBe(false);
+  });
+
+  it('rechaza letras', () => {
+    expect(validarNumeroTarjeta('abcd')).toBe(false);
+  });
+
+  it('rechaza una longitud no admitida', () => {
+    expect(validarNumeroTarjeta('41111111111111111111')).toBe(false);
+  });
+});
+
