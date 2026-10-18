@@ -7,9 +7,9 @@ from app.repositorios.repositorio_compras import RepositorioComprasEnMemoria
 from app.repositorios.repositorio_usuarios import RepositorioUsuariosEnMemoria
 from app.servicios.validador_compra import MAXIMO_ENTRADAS_POR_COMPRA, ValidadorCompra
 from app.servicios.tarifario import Tarifario
-from app.integraciones.mercado_pago import PasarelaMercadoPagoSimulada
-from app.integraciones.mercado_pago import PasarelaPagoError
-from app.integraciones.email import ServicioEmailSimulado
+from app.integraciones.errores import PasarelaPagoError
+from app.integraciones.mercado_pago_simulado import PasarelaMercadoPagoSimulada
+from app.integraciones.email_simulado import ServicioEmailSimulado
 
 ASUNTO_MAIL_CONFIRMACION = "Confirmación de compra - EcoHarmony Park"
 

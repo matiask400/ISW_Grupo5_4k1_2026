@@ -1,19 +1,8 @@
 import httpx
 
+from app.integraciones.errores import PasarelaPagoError
+
 URL_PREFERENCIAS = "https://api.mercadopago.com/checkout/preferences"
-URL_MERCADO_PAGO_SIMULADO = "http://localhost:5173/mercado-pago-simulado"
-
-
-class PasarelaMercadoPagoSimulada:
-    """Pasarela sin red: la usan la app (por ahora) y los tests del servicio."""
-
-    def __init__(self, url_base: str = URL_MERCADO_PAGO_SIMULADO) -> None:
-        self._url_base = url_base
-        self.pagos_creados: list[int] = []
-
-    def crear_link_de_pago(self, monto: int) -> str:
-        self.pagos_creados.append(monto)
-        return f"{self._url_base}?monto={monto}"
 
 
 class PasarelaMercadoPago:
@@ -51,6 +40,3 @@ class PasarelaMercadoPago:
         if respuesta.is_error:
             raise PasarelaPagoError(f"Mercado Pago respondió {respuesta.status_code}")
         return respuesta.json()["init_point"]
-
-class PasarelaPagoError(Exception):
-    """No se pudo iniciar el pago en la pasarela externa."""

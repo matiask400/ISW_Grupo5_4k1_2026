@@ -1,7 +1,8 @@
 import json
 import httpx
 import pytest
-from app.integraciones.mercado_pago import PasarelaMercadoPago, PasarelaPagoError
+from app.integraciones.errores import PasarelaPagoError
+from app.integraciones.mercado_pago import PasarelaMercadoPago
 
 URL_CHECKOUT = "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=123"
 

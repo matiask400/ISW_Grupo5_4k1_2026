@@ -6,8 +6,8 @@ from app.modelos.modelos import FormaPago, SolicitudCompra, TipoPase
 from app.servicios.servicio_compra import ServicioCompra
 from app.repositorios.repositorio_usuarios import RepositorioUsuariosEnMemoria
 from app.repositorios.repositorio_compras import RepositorioComprasEnMemoria
-from app.integraciones.mercado_pago import PasarelaMercadoPagoSimulada
-from app.integraciones.email import ServicioEmailSimulado
+from app.integraciones.mercado_pago_simulado import PasarelaMercadoPagoSimulada
+from app.integraciones.email_simulado import ServicioEmailSimulado
 from app.integraciones.mercado_pago import PasarelaMercadoPago
 
 AHORA = datetime(2026, 10, 22, 10, 0)

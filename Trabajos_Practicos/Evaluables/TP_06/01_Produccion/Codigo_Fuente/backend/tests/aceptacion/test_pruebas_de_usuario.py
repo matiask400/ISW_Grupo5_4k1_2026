@@ -4,7 +4,7 @@ Cada test corresponde a una prueba de usuario definida por el PO y se ejecuta
 sobre la API HTTP, de punta a punta.
 """
 
-from app.integraciones.email import ServicioEmailSimulado
+from app.integraciones.email_simulado import ServicioEmailSimulado
 from tests.integracion.test_comprar_entrada import USUARIO_REGISTRADO, crear_servicio
 from tests.sistema.test_api_compras import (
     CABECERAS,
