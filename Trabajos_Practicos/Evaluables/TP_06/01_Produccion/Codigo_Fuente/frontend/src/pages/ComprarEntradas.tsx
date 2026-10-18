@@ -34,13 +34,14 @@ import {
   calcularTotalEntradas,
   fechaSeleccionable,
   rangoFechasPermitidas,
+  soloDigitosEdad,
   validarSolicitud,
 } from '../services/reglasCompra';
 import type { FormaPago, SolicitudCompra, TipoPase } from '../services/tipos';
 import { guardarUltimaCompra } from '../services/ultimaCompra';
 
 /** Único usuario registrado en el backend (USUARIO_DEMO en api/dependencias.py). */
-const USUARIO_DEMO = 'prueba@gmail.com';
+const USUARIO_DEMO = 'tinchoimo@gmail.com';
 
 const ComprarEntradas: React.FC = () => {
   const online = useOnline();
@@ -107,7 +108,7 @@ const ComprarEntradas: React.FC = () => {
 
     if (resultado.exitosa) {
       setPasoActivo(4);
-      guardarUltimaCompra(resultado);
+      guardarUltimaCompra(solicitud.usuario_email, resultado);
       // Con tarjeta el backend devuelve el checkout de Mercado Pago; al terminar,
       // Mercado Pago vuelve a /compra-finalizada.
       if (resultado.url_pago) {
@@ -215,13 +216,18 @@ const ComprarEntradas: React.FC = () => {
                     <IonInput
                       label={`Edad del visitante ${i + 1}`}
                       labelPlacement="fixed"
-                      type="number"
+                      type="text"
                       inputmode="numeric"
-                      min={EDAD_MINIMA}
-                      max={EDAD_MAXIMA}
+                      pattern="[0-9]*"
+                      maxlength={String(EDAD_MAXIMA).length}
                       placeholder="Ej: 30"
                       value={edad}
-                      onIonInput={(e) => cambiarEdad(i, String(e.detail.value ?? ''))}
+                      onIonInput={(e) => {
+                        // Solo números: se borra lo que no sea dígito apenas se escribe.
+                        const limpio = soloDigitosEdad(e.detail.value ?? '');
+                        e.target.value = limpio;
+                        cambiarEdad(i, limpio);
+                      }}
                     />
                   </IonItem>
                 ))}

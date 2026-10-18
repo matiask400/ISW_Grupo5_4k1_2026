@@ -1,9 +1,10 @@
 from collections.abc import Callable
 from datetime import datetime
+from uuid import uuid4
 
 from app.modelos.modelos import ResultadoCompra, SolicitudCompra, FormaPago
 from app.servicios.calendario_parque import CalendarioParque
-from app.repositorios.repositorio_compras import RepositorioComprasEnMemoria
+from app.repositorios.repositorio_compras import CompraRegistrada, RepositorioComprasEnMemoria
 from app.repositorios.repositorio_usuarios import RepositorioUsuariosEnMemoria
 from app.servicios.validador_compra import MAXIMO_ENTRADAS_POR_COMPRA, ValidadorCompra
 from app.servicios.tarifario import Tarifario
@@ -39,29 +40,59 @@ class ServicioCompra:
         if error:
             return ResultadoCompra.fallida(error)
 
-        monto_total = self._calcular_monto_total(solicitud)
+        compra = CompraRegistrada(
+            id=uuid4().hex,
+            solicitud=solicitud,
+            monto_total=self._calcular_monto_total(solicitud),
+        )
         try:
-            url_pago = self._iniciar_pago(solicitud, monto_total)
+            url_pago = self._iniciar_pago(compra)
         except PasarelaPagoError:
             return ResultadoCompra.fallida("No se pudo iniciar el pago. Intente nuevamente")
 
-        self._compras.guardar(solicitud)
-        resultado = ResultadoCompra.ok(
-            cantidad=solicitud.cantidad,
-            fecha_visita=solicitud.fecha_visita,
-            monto_total=monto_total,
-            url_pago=url_pago,
-            mail_enviado_a=solicitud.usuario_email,
-        )
-        self._notificar(resultado)
-        return resultado
+        self._compras.guardar(compra)
+        if url_pago:
+            # Con tarjeta el mail se envía cuando Mercado Pago aprueba el pago.
+            return self._resultado(compra, url_pago=url_pago)
+        self._notificar(compra)
+        return self._resultado(compra)
 
-    def _notificar(self, resultado: ResultadoCompra) -> None:
-            self._email.enviar(
-                destinatario=resultado.mail_enviado_a,
-                asunto=ASUNTO_MAIL_CONFIRMACION,
-                cuerpo=resultado.mensaje,
-            )
+    def confirmar_pago(self, payment_id: str, usuario_email: str) -> ResultadoCompra:
+        """Verifica el pago con Mercado Pago y, si está aprobado, envía el mail (una sola vez)."""
+        try:
+            pago = self._pasarela.consultar_pago(payment_id)
+        except PasarelaPagoError:
+            return ResultadoCompra.fallida("No se pudo verificar el pago con Mercado Pago")
+
+        compra = self._compras.obtener(pago.referencia) if pago.referencia else None
+        if compra is None:
+            return ResultadoCompra.fallida("No se encontró la compra de este pago")
+        if compra.solicitud.usuario_email != usuario_email:
+            return ResultadoCompra.denegada("La compra pertenece a otro usuario")
+        if not pago.aprobado:
+            return ResultadoCompra.fallida("El pago no fue aprobado por Mercado Pago")
+
+        if not compra.mail_enviado:
+            self._notificar(compra)
+        return self._resultado(compra)
+
+    def _notificar(self, compra: CompraRegistrada) -> None:
+        self._email.enviar(
+            destinatario=compra.solicitud.usuario_email,
+            asunto=ASUNTO_MAIL_CONFIRMACION,
+            cuerpo=self._resultado(compra).mensaje,
+        )
+        compra.mail_enviado = True
+
+    @staticmethod
+    def _resultado(compra: CompraRegistrada, url_pago: str | None = None) -> ResultadoCompra:
+        return ResultadoCompra.ok(
+            cantidad=compra.solicitud.cantidad,
+            fecha_visita=compra.solicitud.fecha_visita,
+            monto_total=compra.monto_total,
+            url_pago=url_pago,
+            mail_enviado_a=compra.solicitud.usuario_email if compra.mail_enviado else None,
+        )
 
     def _verificar_limite_por_fecha(self, solicitud: SolicitudCompra) -> str | None:
         ya_compradas = self._compras.entradas_compradas(
@@ -79,8 +110,8 @@ class ServicioCompra:
             self._tarifario.precio(solicitud.tipo_pase, edad) for edad in solicitud.edades
         )
 
-    def _iniciar_pago(self, solicitud: SolicitudCompra, monto: int) -> str | None:
+    def _iniciar_pago(self, compra: CompraRegistrada) -> str | None:
         """Con tarjeta devuelve la URL de Mercado Pago; en efectivo se paga en boletería."""
-        if solicitud.forma_pago != FormaPago.TARJETA:
+        if compra.solicitud.forma_pago != FormaPago.TARJETA:
             return None
-        return self._pasarela.crear_link_de_pago(monto)
+        return self._pasarela.crear_link_de_pago(compra.monto_total, referencia=compra.id)

@@ -7,6 +7,7 @@ sobre la API HTTP, de punta a punta.
 from tests.integracion.test_comprar_entrada import (
     URL_CHECKOUT,
     USUARIO_REGISTRADO,
+    MercadoPagoFalso,
     ServidorSMTPFalso,
     crear_servicio,
 )
@@ -14,6 +15,7 @@ from tests.sistema.test_api_compras import (
     CABECERAS,
     CUERPO_VALIDO,
     ENDPOINT,
+    ENDPOINT_CONFIRMAR_PAGO,
     crear_cliente,
 )
 
@@ -22,14 +24,23 @@ class TestPruebasDeUsuarioComprarEntradas:
 
     def test_pu1_compra_con_tarjeta_redirige_a_mercado_pago_y_envia_mail(self):
         """PU1: fecha disponible, menos de 10 entradas, edades, pase y tarjeta (pasa)."""
+        mercado_pago = MercadoPagoFalso()
         smtp = ServidorSMTPFalso()
-        cliente = crear_cliente(crear_servicio(email=smtp.servicio))
+        cliente = crear_cliente(crear_servicio(pasarela=mercado_pago.pasarela, email=smtp.servicio))
 
-        respuesta = cliente.post(ENDPOINT, json=CUERPO_VALIDO, headers=CABECERAS)
+        compra = cliente.post(ENDPOINT, json=CUERPO_VALIDO, headers=CABECERAS)
 
-        assert respuesta.status_code == 201
-        datos = respuesta.json()
-        assert datos["url_pago"] == URL_CHECKOUT
+        assert compra.status_code == 201
+        assert compra.json()["url_pago"] == URL_CHECKOUT
+        assert smtp.enviados == []  # todavía no pagó
+
+        payment_id = mercado_pago.pagar("approved")
+        confirmacion = cliente.post(
+            ENDPOINT_CONFIRMAR_PAGO, json={"payment_id": payment_id}, headers=CABECERAS
+        )
+
+        assert confirmacion.status_code == 200
+        datos = confirmacion.json()
         assert datos["mensaje"] == "Compraste 2 entradas para el 29/10/2026. Total: $20.000"
         assert datos["mail_enviado_a"] == USUARIO_REGISTRADO
         assert len(smtp.enviados) == 1

@@ -4,9 +4,15 @@ from fastapi.testclient import TestClient
 from app.api.dependencias import ConfiguracionFaltanteError, obtener_servicio_compra
 from app.main import app
 from app.servicios.servicio_compra import ServicioCompra
-from tests.integracion.test_comprar_entrada import USUARIO_REGISTRADO, crear_servicio
+from tests.integracion.test_comprar_entrada import (
+    OTRO_USUARIO_REGISTRADO,
+    USUARIO_REGISTRADO,
+    MercadoPagoFalso,
+    crear_servicio,
+)
 
 ENDPOINT = "/api/compras"
+ENDPOINT_CONFIRMAR_PAGO = "/api/compras/confirmar-pago"
 CABECERAS = {"X-Usuario-Email": USUARIO_REGISTRADO}
 CUERPO_VALIDO = {
     "fecha_visita": "2026-10-29",
@@ -41,6 +47,40 @@ class TestApiComprarEntradas:
         respuesta = cliente.post(ENDPOINT, json=CUERPO_VALIDO)
 
         assert respuesta.status_code == 401
+
+    def test_confirmar_pago_sin_identificar_al_usuario_recibe_401(self):
+        cliente = crear_cliente()
+
+        respuesta = cliente.post(ENDPOINT_CONFIRMAR_PAGO, json={"payment_id": "1"})
+
+        assert respuesta.status_code == 401
+
+    def test_confirmar_un_pago_no_aprobado_recibe_422(self):
+        mercado_pago = MercadoPagoFalso()
+        cliente = crear_cliente(crear_servicio(pasarela=mercado_pago.pasarela))
+        cliente.post(ENDPOINT, json=CUERPO_VALIDO, headers=CABECERAS)
+        payment_id = mercado_pago.pagar("rejected")
+
+        respuesta = cliente.post(
+            ENDPOINT_CONFIRMAR_PAGO, json={"payment_id": payment_id}, headers=CABECERAS
+        )
+
+        assert respuesta.status_code == 422
+        assert respuesta.json()["detail"] == "El pago no fue aprobado por Mercado Pago"
+
+    def test_confirmar_el_pago_de_otro_usuario_recibe_403(self):
+        mercado_pago = MercadoPagoFalso()
+        cliente = crear_cliente(crear_servicio(pasarela=mercado_pago.pasarela))
+        cliente.post(ENDPOINT, json=CUERPO_VALIDO, headers=CABECERAS)
+        payment_id = mercado_pago.pagar("approved")
+
+        respuesta = cliente.post(
+            ENDPOINT_CONFIRMAR_PAGO,
+            json={"payment_id": payment_id},
+            headers={"X-Usuario-Email": OTRO_USUARIO_REGISTRADO},
+        )
+
+        assert respuesta.status_code == 403
 
 
 def test_salud_responde_ok():

@@ -13,6 +13,10 @@ class PedidoCompra(BaseModel):
     forma_pago: FormaPago | None = None
 
 
+class PedidoConfirmarPago(BaseModel):
+    payment_id: str
+
+
 class RespuestaCompra(BaseModel):
     exitosa: bool
     error: str | None = None

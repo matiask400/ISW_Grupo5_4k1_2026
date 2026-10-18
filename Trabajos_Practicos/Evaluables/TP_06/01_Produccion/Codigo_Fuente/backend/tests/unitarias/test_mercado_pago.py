@@ -38,3 +38,39 @@ class TestPasarelaMercadoPago:
 
         with pytest.raises(PasarelaPagoError):
             crear_pasarela(responder).crear_link_de_pago(20000)
+
+    def test_la_preferencia_lleva_la_referencia_de_la_compra(self):
+        pedidos = []
+
+        def responder(pedido: httpx.Request) -> httpx.Response:
+            pedidos.append(pedido)
+            return httpx.Response(201, json={"id": "123", "init_point": URL_CHECKOUT})
+
+        crear_pasarela(responder).crear_link_de_pago(20000, referencia="compra-1")
+
+        assert json.loads(pedidos[0].content)["external_reference"] == "compra-1"
+
+    def test_consulta_el_estado_y_la_referencia_de_un_pago(self):
+        pedidos = []
+
+        def responder(pedido: httpx.Request) -> httpx.Response:
+            pedidos.append(pedido)
+            return httpx.Response(
+                200, json={"id": 987, "status": "approved", "external_reference": "compra-1"}
+            )
+
+        pago = crear_pasarela(responder).consultar_pago("987")
+
+        assert pago.estado == "approved"
+        assert pago.referencia == "compra-1"
+        assert pago.aprobado is True
+        assert pedidos[0].method == "GET"
+        assert pedidos[0].url == "https://api.mercadopago.com/v1/payments/987"
+        assert pedidos[0].headers["Authorization"] == "Bearer TEST-token"
+
+    def test_si_no_puede_consultar_el_pago_lanza_pasarela_pago_error(self):
+        def responder(pedido: httpx.Request) -> httpx.Response:
+            return httpx.Response(404, json={"message": "Payment not found"})
+
+        with pytest.raises(PasarelaPagoError):
+            crear_pasarela(responder).consultar_pago("no-existe")

@@ -24,19 +24,34 @@ URL_CHECKOUT = "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=TEST
 # no salir a la red, ni crear pagos ni mandar mails de verdad.
 
 class MercadoPagoFalso:
-    """API de Mercado Pago falsa: registra las preferencias que recibe."""
+    """API de Mercado Pago falsa: registra las preferencias y simula los pagos."""
 
     def __init__(self, status: int = 201) -> None:
         self._status = status
         self.preferencias: list[dict] = []
+        self._pagos: dict[str, dict] = {}
         cliente = httpx.Client(transport=httpx.MockTransport(self._responder))
         self.pasarela = PasarelaMercadoPago(access_token="TEST-token", cliente_http=cliente)
 
     def _responder(self, pedido: httpx.Request) -> httpx.Response:
+        if pedido.method == "GET":
+            pago = self._pagos.get(pedido.url.path.rsplit("/", 1)[-1])
+            return httpx.Response(200, json=pago) if pago else httpx.Response(404)
         self.preferencias.append(json.loads(pedido.content))
         if self._status >= 400:
             return httpx.Response(self._status)
         return httpx.Response(self._status, json={"id": "TEST-123", "init_point": URL_CHECKOUT})
+
+    def pagar(self, estado: str = "approved", referencia: str | None = None) -> str:
+        """El comprador paga la última preferencia creada; devuelve el payment_id."""
+        payment_id = str(len(self._pagos) + 1)
+        referencia = referencia or self.preferencias[-1]["external_reference"]
+        self._pagos[payment_id] = {
+            "id": payment_id,
+            "status": estado,
+            "external_reference": referencia,
+        }
+        return payment_id
 
     @property
     def montos(self) -> list[int]:
@@ -744,7 +759,7 @@ class TestComprarEntrada:
 
         assert mercado_pago.preferencias == []
 
-    def test_una_compra_valida_envia_mail_de_confirmacion(self):
+    def test_una_compra_en_efectivo_envia_mail_de_confirmacion_al_registrarse(self):
         smtp = ServidorSMTPFalso()
         servicio = crear_servicio(email=smtp.servicio)
         solicitud = SolicitudCompra(
@@ -753,7 +768,7 @@ class TestComprarEntrada:
             cantidad=2,
             edades=[30, 28],
             tipo_pase=TipoPase.REGULAR,
-            forma_pago=FormaPago.TARJETA,
+            forma_pago=FormaPago.EFECTIVO,
         )
 
         resultado = servicio.comprar(solicitud)
@@ -836,3 +851,94 @@ class TestComprarEntrada:
             assert resultado.exitosa is False
             assert resultado.error == "No se pudo iniciar el pago. Intente nuevamente"
             assert servicio.comprar(compra_en_efectivo).exitosa is True
+
+
+def compra_con_tarjeta(usuario_email: str = USUARIO_REGISTRADO) -> SolicitudCompra:
+    return SolicitudCompra(
+        usuario_email=usuario_email,
+        fecha_visita=FECHA_VALIDA,
+        cantidad=2,
+        edades=[30, 28],
+        tipo_pase=TipoPase.REGULAR,
+        forma_pago=FormaPago.TARJETA,
+    )
+
+
+class TestConfirmarPagoConTarjeta:
+    """Con tarjeta, el mail se envía recién cuando Mercado Pago aprueba el pago."""
+
+    def setup_method(self):
+        self.mercado_pago = MercadoPagoFalso()
+        self.smtp = ServidorSMTPFalso()
+        self.servicio = crear_servicio(
+            pasarela=self.mercado_pago.pasarela, email=self.smtp.servicio
+        )
+
+    def test_al_registrar_la_compra_con_tarjeta_todavia_no_envia_mail(self):
+        resultado = self.servicio.comprar(compra_con_tarjeta())
+
+        assert resultado.exitosa is True
+        assert resultado.mail_enviado_a is None
+        assert self.smtp.enviados == []
+
+    def test_cuando_mercado_pago_aprueba_el_pago_envia_el_mail(self):
+        self.servicio.comprar(compra_con_tarjeta())
+        payment_id = self.mercado_pago.pagar("approved")
+
+        resultado = self.servicio.confirmar_pago(payment_id, USUARIO_REGISTRADO)
+
+        assert resultado.exitosa is True
+        assert resultado.mensaje == "Compraste 2 entradas para el 29/10/2026. Total: $20.000"
+        assert resultado.mail_enviado_a == USUARIO_REGISTRADO
+        assert len(self.smtp.enviados) == 1
+        mail = self.smtp.enviados[0]
+        assert mail["To"] == USUARIO_REGISTRADO
+        assert mail["Subject"] == "Confirmación de compra - EcoHarmony Park"
+        assert mail.get_content().strip() == resultado.mensaje
+
+    @pytest.mark.parametrize("estado", ["rejected", "pending", "in_process", "cancelled"])
+    def test_si_el_pago_no_esta_aprobado_no_envia_mail(self, estado):
+        self.servicio.comprar(compra_con_tarjeta())
+        payment_id = self.mercado_pago.pagar(estado)
+
+        resultado = self.servicio.confirmar_pago(payment_id, USUARIO_REGISTRADO)
+
+        assert resultado.exitosa is False
+        assert resultado.error == "El pago no fue aprobado por Mercado Pago"
+        assert self.smtp.enviados == []
+
+    def test_confirmar_dos_veces_el_mismo_pago_no_reenvia_el_mail(self):
+        self.servicio.comprar(compra_con_tarjeta())
+        payment_id = self.mercado_pago.pagar("approved")
+
+        self.servicio.confirmar_pago(payment_id, USUARIO_REGISTRADO)
+        segunda = self.servicio.confirmar_pago(payment_id, USUARIO_REGISTRADO)
+
+        assert segunda.exitosa is True
+        assert segunda.mail_enviado_a == USUARIO_REGISTRADO
+        assert len(self.smtp.enviados) == 1
+
+    def test_un_pago_que_mercado_pago_no_conoce_no_se_confirma(self):
+        resultado = self.servicio.confirmar_pago("no-existe", USUARIO_REGISTRADO)
+
+        assert resultado.exitosa is False
+        assert resultado.error == "No se pudo verificar el pago con Mercado Pago"
+        assert self.smtp.enviados == []
+
+    def test_un_pago_de_otra_compra_no_se_confirma(self):
+        payment_id = self.mercado_pago.pagar("approved", referencia="compra-desconocida")
+
+        resultado = self.servicio.confirmar_pago(payment_id, USUARIO_REGISTRADO)
+
+        assert resultado.exitosa is False
+        assert resultado.error == "No se encontró la compra de este pago"
+        assert self.smtp.enviados == []
+
+    def test_otro_usuario_no_puede_confirmar_la_compra(self):
+        self.servicio.comprar(compra_con_tarjeta())
+        payment_id = self.mercado_pago.pagar("approved")
+
+        resultado = self.servicio.confirmar_pago(payment_id, OTRO_USUARIO_REGISTRADO)
+
+        assert resultado.acceso_denegado is True
+        assert self.smtp.enviados == []

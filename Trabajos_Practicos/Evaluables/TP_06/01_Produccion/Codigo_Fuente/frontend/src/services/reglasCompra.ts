@@ -13,6 +13,13 @@ export const EDAD_MINIMA = 0;
 export const EDAD_MAXIMA = 120;
 export const HORA_LIMITE_COMPRA_MISMO_DIA = { horas: 17, minutos: 30 };
 
+const MAXIMO_DIGITOS_EDAD = String(EDAD_MAXIMA).length;
+
+/** Lo que el usuario escribe en el campo edad, dejando solo números. */
+export function soloDigitosEdad(texto: string): string {
+  return texto.replace(/\D/g, '').slice(0, MAXIMO_DIGITOS_EDAD);
+}
+
 /** Precios base definidos por el PO. */
 export const PRECIOS_PASE: Record<TipoPase, number> = {
   REGULAR: 10_000,

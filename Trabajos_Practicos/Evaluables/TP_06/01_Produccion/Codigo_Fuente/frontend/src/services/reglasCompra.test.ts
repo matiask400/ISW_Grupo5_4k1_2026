@@ -6,6 +6,7 @@ import {
   validarLimiteAcumuladoEntradas,
   fechaSeleccionable,
   rangoFechasPermitidas,
+  soloDigitosEdad,
   sumarUnMes,
   validarSolicitud,
 } from './reglasCompra';
@@ -147,5 +148,23 @@ describe('límite acumulado de entradas por usuario y fecha', () => {
     expect(validarLimiteAcumuladoEntradas(8, 3)).toBe(
       'Solo podés comprar hasta 10 entradas para una misma fecha',
     );
+  });
+});
+
+describe('soloDigitosEdad', () => {
+  it('deja pasar números', () => {
+    expect(soloDigitosEdad('30')).toBe('30');
+  });
+
+  it('descarta letras y otros símbolos', () => {
+    expect(soloDigitosEdad('abc')).toBe('');
+    expect(soloDigitosEdad('2a5')).toBe('25');
+    expect(soloDigitosEdad('-5')).toBe('5');
+    expect(soloDigitosEdad('1e2')).toBe('12');
+    expect(soloDigitosEdad(' 4 0 ')).toBe('40');
+  });
+
+  it('admite como máximo 3 dígitos (edad máxima 120)', () => {
+    expect(soloDigitosEdad('1234')).toBe('123');
   });
 });

@@ -11,17 +11,36 @@ const API_URL = (import.meta.env.VITE_API_URL ?? '').replace(/\/$/, '');
 /** Endpoint acordado con backend para registrar la compra. */
 export const ENDPOINT_COMPRAS = '/api/compras';
 
+/** Endpoint para confirmar el pago al volver de Mercado Pago (envía el mail). */
+export const ENDPOINT_CONFIRMAR_PAGO = '/api/compras/confirmar-pago';
+
 /** Header con el que el backend identifica al usuario (sesión simulada). */
 export const HEADER_USUARIO = 'X-Usuario-Email';
 
 export async function comprarEntradas(solicitud: SolicitudCompra): Promise<ResultadoCompra> {
   const { usuario_email, ...pedido } = solicitud;
+  return enviar(ENDPOINT_COMPRAS, usuario_email, pedido);
+}
+
+/** El backend verifica el pago con Mercado Pago y, si está aprobado, envía el mail. */
+export async function confirmarPago(
+  paymentId: string,
+  usuarioEmail: string,
+): Promise<ResultadoCompra> {
+  return enviar(ENDPOINT_CONFIRMAR_PAGO, usuarioEmail, { payment_id: paymentId });
+}
+
+async function enviar(
+  endpoint: string,
+  usuarioEmail: string,
+  cuerpo: unknown,
+): Promise<ResultadoCompra> {
   let respuesta: Response;
   try {
-    respuesta = await fetch(`${API_URL}${ENDPOINT_COMPRAS}`, {
+    respuesta = await fetch(`${API_URL}${endpoint}`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', [HEADER_USUARIO]: usuario_email },
-      body: JSON.stringify(pedido),
+      headers: { 'Content-Type': 'application/json', [HEADER_USUARIO]: usuarioEmail },
+      body: JSON.stringify(cuerpo),
     });
   } catch {
     return {
@@ -32,7 +51,7 @@ export async function comprarEntradas(solicitud: SolicitudCompra): Promise<Resul
 
   const datos: unknown = await respuesta.json().catch(() => null);
 
-  // Compra exitosa (201): RespuestaCompra con mensaje, monto, url_pago, etc.
+  // Éxito (200/201): RespuestaCompra con mensaje, monto, url_pago, etc.
   if (respuesta.ok && datos && typeof datos === 'object' && 'exitosa' in datos) {
     return datos as ResultadoCompra;
   }
