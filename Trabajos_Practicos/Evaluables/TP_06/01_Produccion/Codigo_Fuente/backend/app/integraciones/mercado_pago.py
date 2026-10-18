@@ -48,4 +48,9 @@ class PasarelaMercadoPago:
             json=preferencia,
             headers={"Authorization": f"Bearer {self._access_token}"},
         )
+        if respuesta.is_error:
+            raise PasarelaPagoError(f"Mercado Pago respondió {respuesta.status_code}")
         return respuesta.json()["init_point"]
+
+class PasarelaPagoError(Exception):
+    """No se pudo iniciar el pago en la pasarela externa."""
