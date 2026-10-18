@@ -19,3 +19,18 @@ Missing	Números de las líneas sin cubrir
 
 Libreria: pip install pytest-cov
 ******************************************************************************************
+
+
+MERCADOPAGO
+
+# Comprador
+# Usuario: TESTUSER318763784195556614
+# Password: 7tZOR6nt9l
+# Codigo: 233718
+
+# Tarjeta: Mastercard
+# Numero: 5031 7557 3453 0604
+# Codigo de seguridad: 123
+# Fecha de caducidad: 11/30
+# Nombre y apellido: APRO
+# DNI: 12345678
