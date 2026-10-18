@@ -8,6 +8,7 @@ from app.repositorios.repositorio_usuarios import RepositorioUsuariosEnMemoria
 from app.servicios.validador_compra import MAXIMO_ENTRADAS_POR_COMPRA, ValidadorCompra
 from app.servicios.tarifario import Tarifario
 from app.integraciones.mercado_pago import PasarelaMercadoPagoSimulada
+from app.integraciones.mercado_pago import PasarelaPagoError
 from app.integraciones.email import ServicioEmailSimulado
 
 ASUNTO_MAIL_CONFIRMACION = "Confirmación de compra - EcoHarmony Park"
@@ -39,12 +40,17 @@ class ServicioCompra:
             return ResultadoCompra.fallida(error)
 
         monto_total = self._calcular_monto_total(solicitud)
+        try:
+            url_pago = self._iniciar_pago(solicitud, monto_total)
+        except PasarelaPagoError:
+            return ResultadoCompra.fallida("No se pudo iniciar el pago. Intente nuevamente")
+
         self._compras.guardar(solicitud)
         resultado = ResultadoCompra.ok(
             cantidad=solicitud.cantidad,
             fecha_visita=solicitud.fecha_visita,
             monto_total=monto_total,
-            url_pago=self._iniciar_pago(solicitud, monto_total),
+            url_pago=url_pago,
             mail_enviado_a=solicitud.usuario_email,
         )
         self._notificar(resultado)
