@@ -26,6 +26,5 @@ npm run build
 
 ## Datos y demostración
 
-La ubicación exacta del parque todavía no está configurada en la interfaz. Las fotografías externas son ilustrativas y los testimonios están identificados como ejemplos, no como opiniones reales. La integración de pago y correo sigue el comportamiento simulado/implementado por el proyecto.
+La ubicación exacta del parque todavía no está configurada en la interfaz. Las fotografías externas son ilustrativas y los testimonios están identificados como ejemplos, no como opiniones reales. El pago se hace con Mercado Pago (Checkout Pro) y el mail de confirmación lo envía el backend por SMTP; ambos se configuran en `backend/.env`.
 
-Para habilitar el modo mock local, revisar la variable `VITE_API_MOCK` en `.env.local` según el entorno de desarrollo.

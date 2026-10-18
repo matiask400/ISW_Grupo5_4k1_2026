@@ -13,16 +13,15 @@ import {
   IonList,
   IonListHeader,
   IonNote,
-  IonModal,
   IonPage,
   IonRadio,
   IonRadioGroup,
   IonSpinner,
   IonText,
+  useIonAlert,
 } from '@ionic/react';
 import { addOutline, removeOutline } from 'ionicons/icons';
 import { useMemo, useState } from 'react';
-import CorreoSimulado from '../components/CorreoSimulado';
 import Encabezado from '../components/Encabezado';
 import { useOnline } from '../hooks/useOnline';
 import { comprarEntradas } from '../services/api';
@@ -37,15 +36,15 @@ import {
   rangoFechasPermitidas,
   validarSolicitud,
 } from '../services/reglasCompra';
-import type { FormaPago, ResultadoCompra, SolicitudCompra, TipoPase } from '../services/tipos';
+import type { FormaPago, SolicitudCompra, TipoPase } from '../services/tipos';
 import { guardarUltimaCompra } from '../services/ultimaCompra';
-import MercadoPagoFormulario from '../components/MercadoPagoFormulario';
 
 /** Único usuario registrado en el backend (USUARIO_DEMO en api/dependencias.py). */
 const USUARIO_DEMO = 'prueba@gmail.com';
 
 const ComprarEntradas: React.FC = () => {
   const online = useOnline();
+  const [mostrarAlerta] = useIonAlert();
 
   // Sesión simulada (FAQ 19): arranca con el usuario registrado de prueba.
   const [email, setEmail] = useState(USUARIO_DEMO);
@@ -55,7 +54,6 @@ const ComprarEntradas: React.FC = () => {
   const [formaPago, setFormaPago] = useState<FormaPago | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [enviando, setEnviando] = useState(false);
-  const [correoCompra, setCorreoCompra] = useState<ResultadoCompra | null>(null);
 
   const [pasoActivo, setPasoActivo] = useState(1);
   const cantidad = edades.length;
@@ -110,14 +108,20 @@ const ComprarEntradas: React.FC = () => {
     if (resultado.exitosa) {
       setPasoActivo(4);
       guardarUltimaCompra(resultado);
-      // Con tarjeta el backend devuelve el link de Mercado Pago para pagar (FAQ 4).
+      // Con tarjeta el backend devuelve el checkout de Mercado Pago; al terminar,
+      // Mercado Pago vuelve a /compra-finalizada.
       if (resultado.url_pago) {
         window.location.assign(resultado.url_pago);
         return;
       }
       limpiarFormulario();
-      // Se representa el correo y su adjunto en pantalla; no se envía un email real.
-      setCorreoCompra(resultado);
+      // En efectivo: se informa cantidad, fecha y total (CA8) y a dónde se mandó el mail.
+      await mostrarAlerta({
+        header: '¡Compra realizada!',
+        subHeader: `Te enviamos la confirmación a ${resultado.mail_enviado_a}`,
+        message: `${resultado.mensaje ?? ''}. Pagás en boletería al llegar al parque.`,
+        buttons: ['Aceptar'],
+      });
     } else {
       setError(resultado.error ?? 'No se pudo completar la compra.');
     }
@@ -303,34 +307,21 @@ const ComprarEntradas: React.FC = () => {
                   </IonText>
                 )}
 
-                {formaPago === 'TARJETA' && tipoPase && edadesCompletas ? (
-                  <MercadoPagoFormulario
-                    monto={calcularTotalEntradas(tipoPase, edades.map(Number))}
-                    procesando={enviando}
-                    onConfirmar={comprar}
-                  />
-                ) : (
-                  <IonButton
-                    expand="block"
-                    onClick={comprar}
-                    disabled={enviando || !online}
-                  >
-                    {enviando ? <IonSpinner name="crescent" /> : 'Comprar'}
-                  </IonButton>
-                )}
+                <IonButton expand="block" onClick={comprar} disabled={enviando || !online}>
+                  {enviando ? (
+                    <IonSpinner name="crescent" />
+                  ) : formaPago === 'TARJETA' ? (
+                    'Pagar con Mercado Pago'
+                  ) : (
+                    'Comprar'
+                  )}
+                </IonButton>
               </div>
 
             </IonCardContent>
           </IonCard></div><aside className="compra-resumen-lateral" id="resumen-compra"><span className="sobrelinea">TU RESUMEN</span><h2>Tu visita</h2><div className="resumen-lateral-linea"><span>Fecha</span><strong>{fecha ? new Intl.DateTimeFormat('es-AR',{dateStyle:'medium'}).format(new Date(`${fecha.slice(0,10)}T12:00:00`)) : 'A elegir'}</strong></div><div className="resumen-lateral-linea"><span>Visitantes</span><strong>{cantidad} {cantidad === 1 ? 'persona' : 'personas'}</strong></div><div className="resumen-lateral-linea"><span>Tipo de pase</span><strong>{tipoPase === 'VIP' ? 'VIP' : tipoPase === 'REGULAR' ? 'Regular' : 'A elegir'}</strong></div><div className="resumen-lateral-linea"><span>Forma de pago</span><strong>{formaPago === 'TARJETA' ? 'Tarjeta' : formaPago === 'EFECTIVO' ? 'Efectivo' : 'A elegir'}</strong></div><div className="resumen-lateral-total"><span>Total estimado</span><strong>{tipoPase && edadesCompletas ? new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',maximumFractionDigits:0}).format(calcularTotalEntradas(tipoPase,edades.map(Number))) : '—'}</strong></div><p>El total se calcula según el tipo de pase y la edad de cada visitante.</p><div className="resumen-descuentos"><strong>Tarifas y descuentos</strong><span>Regular: $10.000</span><span>VIP: $20.000</span><span>Hasta 3 años: gratis</span><span>4 a 15 años: 50%</span><span>Desde 60 años: 50%</span></div><div className="resumen-descuentos"><strong>Descuentos aplicados automáticamente</strong><span>Hasta 3 años: gratis</span><span>4 a 15 años: 50%</span><span>Desde 60 años: 50%</span></div></aside></div>
         </div>
       </IonContent>
-      <IonModal isOpen={correoCompra !== null} onDidDismiss={() => setCorreoCompra(null)}>
-        {correoCompra && (
-          <div className="contenedor correo-modal">
-            <CorreoSimulado compra={correoCompra} onCerrar={() => setCorreoCompra(null)} />
-          </div>
-        )}
-      </IonModal>
     </IonPage>
   );
 };

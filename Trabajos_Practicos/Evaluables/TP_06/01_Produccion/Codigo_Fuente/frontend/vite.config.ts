@@ -46,7 +46,7 @@ export default defineConfig({
     }),
   ],
   // El backend espera el front en el puerto 5173: es el origen permitido por
-  // CORS y el que usa la URL de Mercado Pago simulado (/mercado-pago-simulado).
+  // CORS y el que usa la URL de retorno de Mercado Pago (/compra-finalizada).
   preview: {
     port: 5173,
     strictPort: true,

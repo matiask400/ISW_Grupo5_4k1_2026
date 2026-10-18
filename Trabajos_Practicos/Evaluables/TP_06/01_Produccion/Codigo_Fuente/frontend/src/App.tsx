@@ -7,7 +7,7 @@ import Actividades from './pages/Actividades';
 import ComprarEntradas from './pages/ComprarEntradas';
 import Inicio from './pages/Inicio';
 import Mapa from './pages/Mapa';
-import MercadoPagoSimulado from './pages/MercadoPagoSimulado';
+import CompraFinalizada from './pages/CompraFinalizada';
 
 /* CSS base que necesitan los componentes de Ionic */
 import '@ionic/react/css/core.css';
@@ -44,7 +44,7 @@ const App: React.FC = () => (
           <Route exact path="/actividades" component={Actividades} />
           <Route exact path="/entradas" component={ComprarEntradas} />
           <Route exact path="/mapa" component={Mapa} />
-          <Route exact path="/mercado-pago-simulado" component={MercadoPagoSimulado} />
+          <Route exact path="/compra-finalizada" component={CompraFinalizada} />
           <Route>
             <Redirect to="/inicio" />
           </Route>

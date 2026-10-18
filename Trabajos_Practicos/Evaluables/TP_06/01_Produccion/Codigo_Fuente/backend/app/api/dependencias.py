@@ -15,7 +15,7 @@ from app.servicios.servicio_compra import ServicioCompra
 load_dotenv()
 
 ZONA_HORARIA_PARQUE = ZoneInfo("America/Argentina/Cordoba")
-USUARIO_DEMO = os.getenv("USUARIO_DEMO", "visitante@ecoharmony.com")
+USUARIO_DEMO = os.getenv("USUARIO_DEMO", "prueba@gmail.com")
 
 
 class ConfiguracionFaltanteError(RuntimeError):

@@ -21,9 +21,6 @@ export interface ResultadoCompra {
   fecha_visita?: string | null;
   monto_total?: number | null;
   mensaje?: string | null;
-  url_pago?: string | null; // solo con TARJETA: link a Mercado Pago
+  url_pago?: string | null; // solo con TARJETA: checkout de Mercado Pago
   mail_enviado_a?: string | null;
-  numero_orden?: string | null;
-  detalle_visitantes?: Array<{ edad: number; subtotal: number }>;
-  adjunto_nombre?: string | null;
 }
