@@ -8,8 +8,8 @@ from app.repositorios.repositorio_usuarios import RepositorioUsuariosEnMemoria
 from app.servicios.validador_compra import MAXIMO_ENTRADAS_POR_COMPRA, ValidadorCompra
 from app.servicios.tarifario import Tarifario
 from app.integraciones.errores import PasarelaPagoError
-from app.integraciones.mercado_pago_simulado import PasarelaMercadoPagoSimulada
-from app.integraciones.email_simulado import ServicioEmailSimulado
+from app.integraciones.mercado_pago import PasarelaMercadoPago
+from app.integraciones.email_smtp import ServicioEmailSMTP
 
 ASUNTO_MAIL_CONFIRMACION = "Confirmación de compra - EcoHarmony Park"
 
@@ -18,8 +18,8 @@ class ServicioCompra:
         self,
         usuarios: RepositorioUsuariosEnMemoria,
         compras: RepositorioComprasEnMemoria,
-        pasarela: PasarelaMercadoPagoSimulada,
-        email: ServicioEmailSimulado,
+        pasarela: PasarelaMercadoPago,
+        email: ServicioEmailSMTP,
         ahora: Callable[[], datetime] = datetime.now,
         calendario: CalendarioParque | None = None,
         tarifario: Tarifario | None = None,

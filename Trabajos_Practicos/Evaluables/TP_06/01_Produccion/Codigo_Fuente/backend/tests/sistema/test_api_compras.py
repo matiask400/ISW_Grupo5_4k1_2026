@@ -1,6 +1,7 @@
+import pytest
 from fastapi.testclient import TestClient
 
-from app.api.dependencias import obtener_servicio_compra
+from app.api.dependencias import ConfiguracionFaltanteError, obtener_servicio_compra
 from app.main import app
 from app.servicios.servicio_compra import ServicioCompra
 from tests.integracion.test_comprar_entrada import USUARIO_REGISTRADO, crear_servicio
@@ -49,9 +50,34 @@ def test_salud_responde_ok():
     assert respuesta.json() == {"estado": "ok"}
 
 
-def test_la_app_usa_un_unico_servicio_para_conservar_las_compras_entre_requests():
+CONFIGURACION_COMPLETA = {
+    "MP_ACCESS_TOKEN": "TEST-token",
+    "SMTP_USUARIO": "entradas@ecoharmony.test",
+    "SMTP_CONTRASENA": "clave-de-prueba",
+}
+
+
+@pytest.fixture
+def entorno(monkeypatch):
+    """Variables de entorno controladas y servicio sin cachear entre tests."""
+    for nombre, valor in CONFIGURACION_COMPLETA.items():
+        monkeypatch.setenv(nombre, valor)
+    obtener_servicio_compra.cache_clear()
+    yield monkeypatch
+    obtener_servicio_compra.cache_clear()
+
+
+def test_la_app_usa_un_unico_servicio_para_conservar_las_compras_entre_requests(entorno):
     primero = obtener_servicio_compra()
     segundo = obtener_servicio_compra()
 
     assert isinstance(primero, ServicioCompra)
     assert primero is segundo
+
+
+@pytest.mark.parametrize("variable", sorted(CONFIGURACION_COMPLETA))
+def test_sin_configurar_mercado_pago_o_smtp_la_app_no_arranca(entorno, variable):
+    entorno.delenv(variable)
+
+    with pytest.raises(ConfiguracionFaltanteError, match=variable):
+        obtener_servicio_compra()

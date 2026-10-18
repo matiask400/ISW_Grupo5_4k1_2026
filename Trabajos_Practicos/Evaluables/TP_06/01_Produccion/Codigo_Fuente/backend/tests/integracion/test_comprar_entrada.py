@@ -1,13 +1,14 @@
+import json
 import pytest
 import httpx
 
 from datetime import date, datetime, timedelta
+from email.message import EmailMessage
 from app.modelos.modelos import FormaPago, SolicitudCompra, TipoPase
 from app.servicios.servicio_compra import ServicioCompra
 from app.repositorios.repositorio_usuarios import RepositorioUsuariosEnMemoria
 from app.repositorios.repositorio_compras import RepositorioComprasEnMemoria
-from app.integraciones.mercado_pago_simulado import PasarelaMercadoPagoSimulada
-from app.integraciones.email_simulado import ServicioEmailSimulado
+from app.integraciones.email_smtp import ServicioEmailSMTP
 from app.integraciones.mercado_pago import PasarelaMercadoPago
 
 AHORA = datetime(2026, 10, 22, 10, 0)
@@ -15,22 +16,76 @@ HOY = AHORA.date()
 FECHA_VALIDA = date(2026, 10, 29)
 USUARIO_REGISTRADO = "ana@mail.com"
 OTRO_USUARIO_REGISTRADO = "juan@mail.com"
+URL_CHECKOUT = "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=TEST-123"
 
 
+# Los tests usan PasarelaMercadoPago y ServicioEmailSMTP reales; solo se
+# reemplaza el otro extremo (la API de Mercado Pago y el servidor SMTP) para
+# no salir a la red, ni crear pagos ni mandar mails de verdad.
 
+class MercadoPagoFalso:
+    """API de Mercado Pago falsa: registra las preferencias que recibe."""
+
+    def __init__(self, status: int = 201) -> None:
+        self._status = status
+        self.preferencias: list[dict] = []
+        cliente = httpx.Client(transport=httpx.MockTransport(self._responder))
+        self.pasarela = PasarelaMercadoPago(access_token="TEST-token", cliente_http=cliente)
+
+    def _responder(self, pedido: httpx.Request) -> httpx.Response:
+        self.preferencias.append(json.loads(pedido.content))
+        if self._status >= 400:
+            return httpx.Response(self._status)
+        return httpx.Response(self._status, json={"id": "TEST-123", "init_point": URL_CHECKOUT})
+
+    @property
+    def montos(self) -> list[int]:
+        return [p["items"][0]["unit_price"] for p in self.preferencias]
+
+
+class ServidorSMTPFalso:
+    """Servidor SMTP falso: guarda los mails en vez de enviarlos."""
+
+    def __init__(self) -> None:
+        self.enviados: list[EmailMessage] = []
+        self.servicio = ServicioEmailSMTP(
+            host="smtp.test",
+            puerto=587,
+            usuario="entradas@ecoharmony.test",
+            contrasena="clave-de-prueba",
+            smtp=self._conectar,
+        )
+
+    def _conectar(self, host: str, puerto: int) -> "ServidorSMTPFalso":
+        return self
+
+    def __enter__(self) -> "ServidorSMTPFalso":
+        return self
+
+    def __exit__(self, *excepcion) -> None:
+        return None
+
+    def starttls(self) -> None:
+        pass
+
+    def login(self, usuario: str, contrasena: str) -> None:
+        pass
+
+    def send_message(self, mail: EmailMessage) -> None:
+        self.enviados.append(mail)
 
 
 def crear_servicio(
     ahora: datetime = AHORA,
-    pasarela: PasarelaMercadoPagoSimulada | None = None,
-    email: ServicioEmailSimulado | None = None,
+    pasarela: PasarelaMercadoPago | None = None,
+    email: ServicioEmailSMTP | None = None,
 ) -> ServicioCompra:
     return ServicioCompra(
         ahora=lambda: ahora,
         usuarios=RepositorioUsuariosEnMemoria({USUARIO_REGISTRADO, OTRO_USUARIO_REGISTRADO}),
         compras=RepositorioComprasEnMemoria(),
-        pasarela=pasarela or PasarelaMercadoPagoSimulada(),
-        email=email or ServicioEmailSimulado(),
+        pasarela=pasarela or MercadoPagoFalso().pasarela,
+        email=email or ServidorSMTPFalso().servicio,
     )
 class TestComprarEntrada:
 
@@ -640,7 +695,7 @@ class TestComprarEntrada:
 
         resultado = servicio.comprar(solicitud)
 
-        assert resultado.url_pago == "http://localhost:5173/mercado-pago-simulado?monto=20000"
+        assert resultado.url_pago == URL_CHECKOUT
 
     def test_pago_en_efectivo_no_redirige_a_mercado_pago(self):
         servicio = crear_servicio()
@@ -657,8 +712,9 @@ class TestComprarEntrada:
 
         assert resultado.url_pago is None
 
-    def test_la_url_de_pago_lleva_el_monto_de_la_compra(self):
-        servicio = crear_servicio()
+    def test_el_pago_se_crea_por_el_monto_de_la_compra(self):
+        mercado_pago = MercadoPagoFalso()
+        servicio = crear_servicio(pasarela=mercado_pago.pasarela)
         solicitud = SolicitudCompra(
             usuario_email="ana@mail.com",
             fecha_visita=FECHA_VALIDA,
@@ -668,13 +724,13 @@ class TestComprarEntrada:
             forma_pago=FormaPago.TARJETA,
         )
 
-        resultado = servicio.comprar(solicitud)
+        servicio.comprar(solicitud)
 
-        assert resultado.url_pago == "http://localhost:5173/mercado-pago-simulado?monto=25000"
+        assert mercado_pago.montos == [25000]
 
     def test_una_compra_invalida_no_genera_ningun_pago(self):
-        pasarela = PasarelaMercadoPagoSimulada()
-        servicio = crear_servicio(pasarela=pasarela)
+        mercado_pago = MercadoPagoFalso()
+        servicio = crear_servicio(pasarela=mercado_pago.pasarela)
         solicitud = SolicitudCompra(
             usuario_email="ana@mail.com",
             fecha_visita=FECHA_VALIDA,
@@ -686,11 +742,11 @@ class TestComprarEntrada:
 
         servicio.comprar(solicitud)
 
-        assert pasarela.pagos_creados == []
+        assert mercado_pago.preferencias == []
 
     def test_una_compra_valida_envia_mail_de_confirmacion(self):
-        email = ServicioEmailSimulado()
-        servicio = crear_servicio(email=email)
+        smtp = ServidorSMTPFalso()
+        servicio = crear_servicio(email=smtp.servicio)
         solicitud = SolicitudCompra(
             usuario_email="ana@mail.com",
             fecha_visita=FECHA_VALIDA,
@@ -702,15 +758,15 @@ class TestComprarEntrada:
 
         resultado = servicio.comprar(solicitud)
 
-        assert len(email.enviados) == 1
-        mail = email.enviados[0]
-        assert mail.destinatario == "ana@mail.com"
-        assert mail.asunto == "Confirmación de compra - EcoHarmony Park"
-        assert mail.cuerpo == resultado.mensaje
+        assert len(smtp.enviados) == 1
+        mail = smtp.enviados[0]
+        assert mail["To"] == "ana@mail.com"
+        assert mail["Subject"] == "Confirmación de compra - EcoHarmony Park"
+        assert mail.get_content().strip() == resultado.mensaje
 
     def test_una_compra_invalida_no_envia_mail(self):
-        email = ServicioEmailSimulado()
-        servicio = crear_servicio(email=email)
+        smtp = ServidorSMTPFalso()
+        servicio = crear_servicio(email=smtp.servicio)
         solicitud = SolicitudCompra(
             usuario_email="ana@mail.com",
             fecha_visita=FECHA_VALIDA,
@@ -722,7 +778,7 @@ class TestComprarEntrada:
 
         servicio.comprar(solicitud)
 
-        assert email.enviados == []
+        assert smtp.enviados == []
 
     def test_informa_a_que_direccion_se_envio_el_mail(self):
         servicio = crear_servicio()
