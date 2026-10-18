@@ -1,8 +1,7 @@
 import json
-
 import httpx
-
-from app.integraciones.mercado_pago import PasarelaMercadoPago
+import pytest
+from app.integraciones.mercado_pago import PasarelaMercadoPago, PasarelaPagoError
 
 URL_CHECKOUT = "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=123"
 
@@ -31,3 +30,10 @@ class TestPasarelaMercadoPago:
         item = json.loads(pedido.content)["items"][0]
         assert item["unit_price"] == 20000
         assert item["currency_id"] == "ARS"
+
+    def test_si_mercado_pago_responde_error_lanza_pasarela_pago_error(self):
+        def responder(pedido: httpx.Request) -> httpx.Response:
+            return httpx.Response(401, json={"message": "invalid access token"})
+
+        with pytest.raises(PasarelaPagoError):
+            crear_pasarela(responder).crear_link_de_pago(20000)
