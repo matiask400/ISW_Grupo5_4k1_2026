@@ -1,11 +1,14 @@
-from datetime import date, datetime, timedelta
 import pytest
+import httpx
+
+from datetime import date, datetime, timedelta
 from app.modelos.modelos import FormaPago, SolicitudCompra, TipoPase
 from app.servicios.servicio_compra import ServicioCompra
 from app.repositorios.repositorio_usuarios import RepositorioUsuariosEnMemoria
 from app.repositorios.repositorio_compras import RepositorioComprasEnMemoria
 from app.integraciones.mercado_pago import PasarelaMercadoPagoSimulada
 from app.integraciones.email import ServicioEmailSimulado
+from app.integraciones.mercado_pago import PasarelaMercadoPago
 
 AHORA = datetime(2026, 10, 22, 10, 0)
 HOY = AHORA.date()
@@ -750,3 +753,30 @@ class TestComprarEntrada:
         resultado = servicio.comprar(solicitud)
 
         assert resultado.acceso_denegado is True
+
+    def test_si_no_se_puede_iniciar_el_pago_la_compra_falla_y_no_se_registra(self):
+            red_caida = httpx.MockTransport(lambda pedido: httpx.Response(503))
+            pasarela = PasarelaMercadoPago("TEST-token", cliente_http=httpx.Client(transport=red_caida))
+            servicio = crear_servicio(pasarela=pasarela)
+            compra_con_tarjeta = SolicitudCompra(
+                usuario_email="ana@mail.com",
+                fecha_visita=FECHA_VALIDA,
+                cantidad=10,
+                edades=[30] * 10,
+                tipo_pase=TipoPase.REGULAR,
+                forma_pago=FormaPago.TARJETA,
+            )
+            compra_en_efectivo = SolicitudCompra(
+                usuario_email="ana@mail.com",
+                fecha_visita=FECHA_VALIDA,
+                cantidad=10,
+                edades=[30] * 10,
+                tipo_pase=TipoPase.REGULAR,
+                forma_pago=FormaPago.EFECTIVO,
+            )
+
+            resultado = servicio.comprar(compra_con_tarjeta)
+
+            assert resultado.exitosa is False
+            assert resultado.error == "No se pudo iniciar el pago. Intente nuevamente"
+            assert servicio.comprar(compra_en_efectivo).exitosa is True
