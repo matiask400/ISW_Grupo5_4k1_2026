@@ -14,7 +14,6 @@ def crear_pasarela(responder, **opciones) -> PasarelaMercadoPago:
 
 
 def preferencia_enviada(**opciones) -> dict:
-    """Crea un link de pago y devuelve la preferencia que recibió Mercado Pago."""
     pedidos = []
 
     def responder(pedido: httpx.Request) -> httpx.Response:

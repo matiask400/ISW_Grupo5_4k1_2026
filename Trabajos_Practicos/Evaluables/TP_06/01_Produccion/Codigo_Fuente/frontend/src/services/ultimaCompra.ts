@@ -1,6 +1,3 @@
-// Guarda la última compra registrada para confirmarla después de pasar por
-// Mercado Pago (la redirección recarga la app y se pierde el estado de React).
-
 import type { ResultadoCompra } from './tipos';
 
 const CLAVE = 'ecoharmony:ultima-compra';

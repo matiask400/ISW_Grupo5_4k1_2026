@@ -19,19 +19,14 @@ OTRO_USUARIO_REGISTRADO = "juan@mail.com"
 URL_CHECKOUT = "https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=TEST-123"
 
 
-# Los tests usan PasarelaMercadoPago y ServicioEmailSMTP reales; solo se
-# reemplaza el otro extremo (la API de Mercado Pago y el servidor SMTP) para
-# no salir a la red, ni crear pagos ni mandar mails de verdad.
-
-class MercadoPagoFalso:
-    """API de Mercado Pago falsa: registra las preferencias y simula los pagos."""
+class ApiMercadoPagoEnMemoria:
+    """Atiende en memoria los pedidos HTTP que hace PasarelaMercadoPago a la API de Mercado Pago."""
 
     def __init__(self, status: int = 201) -> None:
         self._status = status
         self.preferencias: list[dict] = []
         self._pagos: dict[str, dict] = {}
-        cliente = httpx.Client(transport=httpx.MockTransport(self._responder))
-        self.pasarela = PasarelaMercadoPago(access_token="TEST-token", cliente_http=cliente)
+        self.cliente_http = httpx.Client(transport=httpx.MockTransport(self._responder))
 
     def _responder(self, pedido: httpx.Request) -> httpx.Response:
         if pedido.method == "GET":
@@ -58,23 +53,15 @@ class MercadoPagoFalso:
         return [p["items"][0]["unit_price"] for p in self.preferencias]
 
 
-class ServidorSMTPFalso:
-    """Servidor SMTP falso: guarda los mails en vez de enviarlos."""
+class ServidorSMTPEnMemoria:
 
     def __init__(self) -> None:
         self.enviados: list[EmailMessage] = []
-        self.servicio = ServicioEmailSMTP(
-            host="smtp.test",
-            puerto=587,
-            usuario="entradas@ecoharmony.test",
-            contrasena="clave-de-prueba",
-            smtp=self._conectar,
-        )
 
-    def _conectar(self, host: str, puerto: int) -> "ServidorSMTPFalso":
+    def conectar(self, host: str, puerto: int) -> "ServidorSMTPEnMemoria":
         return self
 
-    def __enter__(self) -> "ServidorSMTPFalso":
+    def __enter__(self) -> "ServidorSMTPEnMemoria":
         return self
 
     def __exit__(self, *excepcion) -> None:
@@ -91,7 +78,6 @@ class ServidorSMTPFalso:
 
 
 def assert_mail_con_qr(mail: EmailMessage, mensaje: str) -> None:
-    """El mail trae texto, HTML y el QR de la entrada incrustado."""
     assert mensaje in mail.get_body(("plain",)).get_content()
     html = mail.get_body(("html",)).get_content()
     assert mensaje in html
@@ -102,16 +88,29 @@ def assert_mail_con_qr(mail: EmailMessage, mensaje: str) -> None:
 
 def crear_servicio(
     ahora: datetime = AHORA,
-    pasarela: PasarelaMercadoPago | None = None,
-    email: ServicioEmailSMTP | None = None,
+    api_mercado_pago: ApiMercadoPagoEnMemoria | None = None,
+    servidor_smtp: ServidorSMTPEnMemoria | None = None,
 ) -> ServicioCompra:
+    api_mercado_pago = api_mercado_pago or ApiMercadoPagoEnMemoria()
+    servidor_smtp = servidor_smtp or ServidorSMTPEnMemoria()
     return ServicioCompra(
         ahora=lambda: ahora,
         usuarios=RepositorioUsuariosEnMemoria({USUARIO_REGISTRADO, OTRO_USUARIO_REGISTRADO}),
         compras=RepositorioComprasEnMemoria(),
-        pasarela=pasarela or MercadoPagoFalso().pasarela,
-        email=email or ServidorSMTPFalso().servicio,
+        pasarela=PasarelaMercadoPago(
+            access_token="TEST-token",
+            cliente_http=api_mercado_pago.cliente_http,
+        ),
+        email=ServicioEmailSMTP(
+            host="smtp.test",
+            puerto=587,
+            usuario="entradas@ecoharmony.test",
+            contrasena="clave-de-prueba",
+            smtp=servidor_smtp.conectar,
+        ),
     )
+
+
 class TestComprarEntrada:
 
     def test_no_deberia_comprar_mas_10_entradas(self):
@@ -550,7 +549,7 @@ class TestComprarEntrada:
         )
         compra_del_viernes = SolicitudCompra(
             usuario_email="ana@mail.com",
-            fecha_visita=date(2026, 10, 30),  # Fecha posterior
+            fecha_visita=date(2026, 10, 30),
             cantidad=2,
             edades=[30, 28],
             tipo_pase=TipoPase.REGULAR,
@@ -738,8 +737,8 @@ class TestComprarEntrada:
         assert resultado.url_pago is None
 
     def test_el_pago_se_crea_por_el_monto_de_la_compra(self):
-        mercado_pago = MercadoPagoFalso()
-        servicio = crear_servicio(pasarela=mercado_pago.pasarela)
+        mercado_pago = ApiMercadoPagoEnMemoria()
+        servicio = crear_servicio(api_mercado_pago=mercado_pago)
         solicitud = SolicitudCompra(
             usuario_email="ana@mail.com",
             fecha_visita=FECHA_VALIDA,
@@ -754,8 +753,8 @@ class TestComprarEntrada:
         assert mercado_pago.montos == [25000]
 
     def test_una_compra_invalida_no_genera_ningun_pago(self):
-        mercado_pago = MercadoPagoFalso()
-        servicio = crear_servicio(pasarela=mercado_pago.pasarela)
+        mercado_pago = ApiMercadoPagoEnMemoria()
+        servicio = crear_servicio(api_mercado_pago=mercado_pago)
         solicitud = SolicitudCompra(
             usuario_email="ana@mail.com",
             fecha_visita=FECHA_VALIDA,
@@ -770,8 +769,8 @@ class TestComprarEntrada:
         assert mercado_pago.preferencias == []
 
     def test_una_compra_en_efectivo_envia_mail_de_confirmacion_al_registrarse(self):
-        smtp = ServidorSMTPFalso()
-        servicio = crear_servicio(email=smtp.servicio)
+        smtp = ServidorSMTPEnMemoria()
+        servicio = crear_servicio(servidor_smtp=smtp)
         solicitud = SolicitudCompra(
             usuario_email="ana@mail.com",
             fecha_visita=FECHA_VALIDA,
@@ -790,8 +789,8 @@ class TestComprarEntrada:
         assert_mail_con_qr(mail, resultado.mensaje)
 
     def test_una_compra_invalida_no_envia_mail(self):
-        smtp = ServidorSMTPFalso()
-        servicio = crear_servicio(email=smtp.servicio)
+        smtp = ServidorSMTPEnMemoria()
+        servicio = crear_servicio(servidor_smtp=smtp)
         solicitud = SolicitudCompra(
             usuario_email="ana@mail.com",
             fecha_visita=FECHA_VALIDA,
@@ -836,9 +835,8 @@ class TestComprarEntrada:
         assert resultado.acceso_denegado is True
 
     def test_si_no_se_puede_iniciar_el_pago_la_compra_falla_y_no_se_registra(self):
-            red_caida = httpx.MockTransport(lambda pedido: httpx.Response(503))
-            pasarela = PasarelaMercadoPago("TEST-token", cliente_http=httpx.Client(transport=red_caida))
-            servicio = crear_servicio(pasarela=pasarela)
+            mercado_pago_caido = ApiMercadoPagoEnMemoria(status=503)
+            servicio = crear_servicio(api_mercado_pago=mercado_pago_caido)
             compra_con_tarjeta = SolicitudCompra(
                 usuario_email="ana@mail.com",
                 fecha_visita=FECHA_VALIDA,
@@ -878,11 +876,9 @@ class TestConfirmarPagoConTarjeta:
     """Con tarjeta, el mail se envía recién cuando Mercado Pago aprueba el pago."""
 
     def setup_method(self):
-        self.mercado_pago = MercadoPagoFalso()
-        self.smtp = ServidorSMTPFalso()
-        self.servicio = crear_servicio(
-            pasarela=self.mercado_pago.pasarela, email=self.smtp.servicio
-        )
+        self.mercado_pago = ApiMercadoPagoEnMemoria()
+        self.smtp = ServidorSMTPEnMemoria()
+        self.servicio = crear_servicio(api_mercado_pago=self.mercado_pago, servidor_smtp=self.smtp)
 
     def test_al_registrar_la_compra_con_tarjeta_todavia_no_envia_mail(self):
         resultado = self.servicio.comprar(compra_con_tarjeta())

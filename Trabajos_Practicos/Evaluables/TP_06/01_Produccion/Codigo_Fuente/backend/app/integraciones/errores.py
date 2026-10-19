@@ -1,2 +1,2 @@
 class PasarelaPagoError(Exception):
-    """No se pudo iniciar el pago en la pasarela externa."""
+    """La Mercado Pago no respondió o rechazó el pedido"""

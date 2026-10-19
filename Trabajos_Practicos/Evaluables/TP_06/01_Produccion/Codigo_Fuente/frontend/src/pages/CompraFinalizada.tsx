@@ -18,11 +18,6 @@ import { confirmarPago } from '../services/api';
 import type { ResultadoCompra } from '../services/tipos';
 import { leerUltimaCompra } from '../services/ultimaCompra';
 
-/**
- * Página de retorno de Mercado Pago (URL_RETORNO_PAGO en backend/.env).
- * Si el pago volvió aprobado, le pide al backend que lo verifique con Mercado
- * Pago; recién ahí se envía el mail de confirmación.
- */
 const CompraFinalizada: React.FC = () => {
   const { search } = useLocation();
   const parametros = new URLSearchParams(search);

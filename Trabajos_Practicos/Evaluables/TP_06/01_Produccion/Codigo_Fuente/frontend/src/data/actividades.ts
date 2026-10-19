@@ -1,8 +1,5 @@
 import { bicycleOutline, flowerOutline, pawOutline, trailSignOutline } from 'ionicons/icons';
 
-// Datos de ejemplo para la pantalla de Actividades.
-// Reemplazalos por los reales (o por una llamada al backend cuando exista).
-
 export interface Actividad {
   nombre: string;
   descripcion: string;

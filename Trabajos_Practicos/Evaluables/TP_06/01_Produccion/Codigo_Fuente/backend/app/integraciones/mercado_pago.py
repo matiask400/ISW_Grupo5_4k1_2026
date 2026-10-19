@@ -46,13 +46,10 @@ class PasarelaMercadoPago:
                 "pending": self._url_retorno,
             },
         }
-        # Mercado Pago vuelve automáticamente a la app solo si la URL de retorno es
-        # pública (https); con localhost no acepta auto_return y el comprador tiene
-        # que tocar "Volver al sitio".
+
         if self._url_retorno.startswith("https://"):
             preferencia["auto_return"] = "approved"
         if referencia:
-            # Permite saber a qué compra corresponde el pago cuando se confirma.
             preferencia["external_reference"] = referencia
         respuesta = self._cliente.post(URL_PREFERENCIAS, json=preferencia, headers=self._cabeceras())
         self._verificar(respuesta)

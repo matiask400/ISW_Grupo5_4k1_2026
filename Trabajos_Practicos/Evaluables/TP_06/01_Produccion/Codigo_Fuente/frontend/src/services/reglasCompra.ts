@@ -1,9 +1,3 @@
-// Validaciones de la compra de entradas del lado del cliente.
-//
-// Son una COPIA de las reglas de backend/app/servicios/validador_compra.py y
-// calendario_parque.py, con los mismos mensajes y en el mismo orden. Sirven
-// para avisarle al usuario antes de enviar; el backend sigue siendo quien
-// decide. Si cambian las reglas en el backend, hay que actualizarlas acá.
 
 import type { SolicitudCompra, TipoPase } from './tipos';
 
@@ -15,45 +9,43 @@ export const HORA_LIMITE_COMPRA_MISMO_DIA = { horas: 17, minutos: 30 };
 
 const MAXIMO_DIGITOS_EDAD = String(EDAD_MAXIMA).length;
 
-/** Lo que el usuario escribe en el campo edad, dejando solo números. */
+
 export function soloDigitosEdad(texto: string): string {
   return texto.replace(/\D/g, '').slice(0, MAXIMO_DIGITOS_EDAD);
 }
 
-/** Precios base definidos por el PO. */
+
 export const PRECIOS_PASE: Record<TipoPase, number> = {
   REGULAR: 10_000,
   VIP: 20_000,
 };
 
-/** Calcula el precio individual aplicando los descuentos por edad del FAQ. */
+
 export function calcularPrecioEntrada(tipoPase: TipoPase, edad: number): number {
   if (edad <= 3) return 0;
   if (edad <= 15 || edad >= 60) return PRECIOS_PASE[tipoPase] * 0.5;
   return PRECIOS_PASE[tipoPase];
 }
 
-/** Suma el precio de todas las entradas, con descuento individual por visitante. */
+
 export function calcularTotalEntradas(tipoPase: TipoPase, edades: number[]): number {
   return edades.reduce((total, edad) => total + calcularPrecioEntrada(tipoPase, edad), 0);
 }
 
-/** Valida el límite acumulado del usuario para una fecha de visita. */
+
 export function validarLimiteAcumuladoEntradas(compradas: number, nuevas: number): string | null {
   return compradas + nuevas > MAXIMO_ENTRADAS_POR_COMPRA
     ? `Solo podés comprar hasta ${MAXIMO_ENTRADAS_POR_COMPRA} entradas para una misma fecha`
     : null;
 }
 
-/** Feriados en que el parque cierra, como [mes, día]. */
+
 const FERIADOS_CERRADO: Array<[number, number]> = [
   [12, 25],
   [1, 1],
 ];
 
-// ---------- Fechas (siempre en hora local, sin zonas horarias) ----------
 
-/** Fecha simple año/mes/día (mes de 1 a 12, como en Python). */
 export interface Fecha {
   anio: number;
   mes: number;
@@ -82,14 +74,13 @@ function diasDelMes(anio: number, mes: number): number {
   return new Date(anio, mes, 0).getDate();
 }
 
-/** Misma fecha del mes siguiente; si ese día no existe, el último del mes. */
+
 export function sumarUnMes(f: Fecha): Fecha {
   const anio = f.mes === 12 ? f.anio + 1 : f.anio;
   const mes = f.mes === 12 ? 1 : f.mes + 1;
   return { anio, mes, dia: Math.min(f.dia, diasDelMes(anio, mes)) };
 }
 
-// ---------- Calendario del parque ----------
 
 export function parqueAbierto(f: Fecha): boolean {
   const esLunes = new Date(f.anio, f.mes - 1, f.dia).getDay() === 1;
@@ -103,13 +94,12 @@ function pasoHoraLimite(ahora: Date): boolean {
   return segundos > horas * 3600 + minutos * 60;
 }
 
-/** Rango de fechas que se pueden elegir en el calendario. */
+
 export function rangoFechasPermitidas(ahora: Date = new Date()) {
   const hoy = fechaDesdeDate(ahora);
   return { min: fechaAIso(hoy), max: fechaAIso(sumarUnMes(hoy)) };
 }
 
-/** Para deshabilitar días en el calendario (no valida el rango min/max). */
 export function fechaSeleccionable(iso: string, ahora: Date = new Date()): boolean {
   const fecha = fechaDesdeIso(iso);
   const esHoy = compararFechas(fecha, fechaDesdeDate(ahora)) === 0;
@@ -117,7 +107,6 @@ export function fechaSeleccionable(iso: string, ahora: Date = new Date()): boole
   return parqueAbierto(fecha);
 }
 
-// ---------- Validaciones (mismo orden que ServicioCompra.comprar) ----------
 
 function validarFecha(s: SolicitudCompra, ahora: Date): string | null {
   if (!s.fecha_visita) return 'Debe seleccionar una fecha de visita';
@@ -169,12 +158,11 @@ function validarFormaPago(s: SolicitudCompra): string | null {
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/** Validación propia del front: el backend no revisa el formato del email. */
+
 function validarEmail(s: SolicitudCompra): string | null {
   return EMAIL_REGEX.test(s.usuario_email.trim()) ? null : 'Ingresá un email válido';
 }
 
-/** Devuelve el primer error encontrado, o null si la solicitud es válida. */
 export function validarSolicitud(s: SolicitudCompra, ahora: Date = new Date()): string | null {
   return (
     validarEmail(s) ??

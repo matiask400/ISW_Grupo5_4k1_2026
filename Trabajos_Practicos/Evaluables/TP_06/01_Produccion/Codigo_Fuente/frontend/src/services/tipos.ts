@@ -1,11 +1,8 @@
-// Tipos que reflejan los modelos del backend (backend/app/modelos/modelos.py).
-// Los nombres de campos están en snake_case para que el JSON coincida 1 a 1.
-
 export type TipoPase = 'REGULAR' | 'VIP';
 export type FormaPago = 'EFECTIVO' | 'TARJETA';
 
 export interface SolicitudCompra {
-  usuario_email: string; // viaja en el header X-Usuario-Email, no en el cuerpo
+  usuario_email: string;
   fecha_visita: string; // formato ISO "YYYY-MM-DD"
   cantidad: number;
   edades: number[];
@@ -13,7 +10,6 @@ export interface SolicitudCompra {
   forma_pago: FormaPago | null;
 }
 
-/** Refleja RespuestaCompra de backend/app/api/esquemas.py. */
 export interface ResultadoCompra {
   exitosa: boolean;
   error?: string | null;
@@ -21,6 +17,6 @@ export interface ResultadoCompra {
   fecha_visita?: string | null;
   monto_total?: number | null;
   mensaje?: string | null;
-  url_pago?: string | null; // solo con TARJETA: checkout de Mercado Pago
+  url_pago?: string | null;
   mail_enviado_a?: string | null;
 }

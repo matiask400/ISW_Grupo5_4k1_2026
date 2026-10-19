@@ -26,7 +26,6 @@ def confirmar_pago(
     usuario_email: str = Depends(obtener_usuario_actual),
     servicio: ServicioCompra = Depends(obtener_servicio_compra),
 ) -> RespuestaCompra:
-    """Lo llama el frontend al volver de Mercado Pago (?payment_id=...)."""
     resultado = servicio.confirmar_pago(pedido.payment_id, usuario_email)
     _rechazar_si_fallo(resultado)
     return RespuestaCompra.desde_resultado(resultado)

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-/** Indica si el dispositivo tiene conexión a internet. */
 export function useOnline(): boolean {
   const [online, setOnline] = useState(navigator.onLine);
 

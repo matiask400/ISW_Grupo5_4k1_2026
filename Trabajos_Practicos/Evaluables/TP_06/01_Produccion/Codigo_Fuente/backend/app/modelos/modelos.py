@@ -37,7 +37,6 @@ class ResultadoCompra:
 
     @property
     def mensaje(self) -> str | None:
-        """Texto para informar al visitante al finalizar la compra (CA8)."""
         if not self.exitosa:
             return None
         palabra = "entrada" if self.cantidad == 1 else "entradas"

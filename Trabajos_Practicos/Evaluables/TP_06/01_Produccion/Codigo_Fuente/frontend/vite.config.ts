@@ -2,13 +2,11 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
-// URL donde corre el backend (uvicorn) en tu máquina.
 const BACKEND_DEV_URL = 'http://localhost:8000';
 
 export default defineConfig({
   plugins: [
     react(),
-    // Genera el manifest y el service worker de la PWA automáticamente.
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'auto',

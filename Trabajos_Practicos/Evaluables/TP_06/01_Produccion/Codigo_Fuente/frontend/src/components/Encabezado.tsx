@@ -5,7 +5,6 @@ interface Props {
   titulo: string;
 }
 
-/** Barra superior común a todas las pantallas (logo, título y menú). */
 const Encabezado: React.FC<Props> = ({ titulo }) => (
   <IonHeader>
     <IonToolbar>

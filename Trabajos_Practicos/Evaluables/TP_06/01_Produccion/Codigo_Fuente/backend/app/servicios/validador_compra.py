@@ -13,7 +13,6 @@ HORA_LIMITE_COMPRA_MISMO_DIA = time(17, 30)
 
 
 def sumar_un_mes(fecha: date) -> date:
-    """Misma fecha del mes siguiente; si ese día no existe, el último del mes."""
     anio = fecha.year + fecha.month // 12
     mes = fecha.month % 12 + 1
     ultimo_dia_del_mes = calendar.monthrange(anio, mes)[1]
@@ -28,7 +27,6 @@ class ValidadorCompra:
         self._calendario = calendario
 
     def validar(self, solicitud: SolicitudCompra) -> str | None:
-        """Devuelve el primer error encontrado, o None si la solicitud es válida."""
         return (
             self._validar_fecha(solicitud)
             or self._validar_cantidad(solicitud)

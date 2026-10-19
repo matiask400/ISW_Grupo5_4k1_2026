@@ -41,7 +41,6 @@ import {
 import type { FormaPago, SolicitudCompra, TipoPase } from '../services/tipos';
 import { guardarUltimaCompra } from '../services/ultimaCompra';
 
-/** Único usuario registrado en el backend (USUARIO_DEMO en api/dependencias.py). */
 const USUARIO_DEMO = 'tinchoimo@gmail.com';
 
 const ComprarEntradas: React.FC = () => {
@@ -49,7 +48,7 @@ const ComprarEntradas: React.FC = () => {
   const [mostrarAlerta] = useIonAlert();
   const router = useIonRouter();
 
-  // Sesión simulada (FAQ 19): arranca con el usuario registrado de prueba.
+
   const [email, setEmail] = useState(USUARIO_DEMO);
   const [fecha, setFecha] = useState<string | undefined>(undefined);
   const [edades, setEdades] = useState<string[]>(['']); // una por visitante
@@ -112,20 +111,16 @@ const ComprarEntradas: React.FC = () => {
     if (resultado.exitosa) {
       setPasoActivo(4);
       guardarUltimaCompra(solicitud.usuario_email, resultado);
-      // Con tarjeta el backend devuelve el checkout de Mercado Pago; al terminar,
-      // Mercado Pago vuelve a /compra-finalizada.
       if (resultado.url_pago) {
         window.location.assign(resultado.url_pago);
         return;
       }
       limpiarFormulario();
-      // En efectivo: se informa cantidad, fecha y total (CA8) y a dónde se mandó el mail.
       await mostrarAlerta({
         header: '¡Compra realizada!',
         subHeader: `Te enviamos la confirmación a ${resultado.mail_enviado_a}`,
         message: `${resultado.mensaje ?? ''}. Pagás en boletería al llegar al parque.`,
         buttons: ['Aceptar'],
-        // Al cerrar el aviso (con "Aceptar" o tocando afuera) se vuelve al inicio.
         onDidDismiss: () => router.push('/inicio', 'root', 'replace'),
       });
     } else {
@@ -145,7 +140,6 @@ const ComprarEntradas: React.FC = () => {
               <IonCardTitle>Comprar entradas</IonCardTitle>
             </IonCardHeader>
             <IonCardContent className="ion-no-padding">
-              {/* Datos del comprador */}
               <IonList>
                 <IonItem>
                   <IonInput
@@ -165,7 +159,6 @@ const ComprarEntradas: React.FC = () => {
                 email para probar con un usuario no registrado.
               </IonNote>
 
-              {/* Fecha de visita */}
               <div id="paso-fecha" className="ancla-compra"><IonListHeader>
                 <IonLabel>Fecha de visita</IonLabel>
               </IonListHeader>
@@ -189,7 +182,6 @@ const ComprarEntradas: React.FC = () => {
                 />
               </div></div>
 
-              {/* Cantidad y edades */}
               <div id="paso-entradas" className="ancla-compra"><IonListHeader>
                 <IonLabel>Visitantes</IonLabel>
               </IonListHeader>
@@ -228,7 +220,6 @@ const ComprarEntradas: React.FC = () => {
                       placeholder="Ej: 30"
                       value={edad}
                       onIonInput={(e) => {
-                        // Solo números: se borra lo que no sea dígito apenas se escribe.
                         const limpio = soloDigitosEdad(e.detail.value ?? '');
                         e.target.value = limpio;
                         cambiarEdad(i, limpio);
@@ -240,7 +231,6 @@ const ComprarEntradas: React.FC = () => {
 
               </div>
 
-              {/* Tipo de pase */}
               <IonListHeader>
                 <IonLabel>Tipo de pase</IonLabel>
               </IonListHeader>
@@ -265,7 +255,6 @@ const ComprarEntradas: React.FC = () => {
                 </IonRadioGroup>
               </IonList>
 
-              {/* Resumen de precio actualizado según las edades ingresadas */}
               {tipoPase && (
                 <IonCard className="resumen-precio">
                   <IonCardHeader><IonCardTitle>Resumen de compra</IonCardTitle></IonCardHeader>
@@ -282,7 +271,6 @@ const ComprarEntradas: React.FC = () => {
                 </IonCard>
               )}
 
-              {/* Forma de pago */}
               <div id="paso-pago" className="ancla-compra"><IonListHeader>
                 <IonLabel>Forma de pago</IonLabel>
               </IonListHeader>
@@ -304,7 +292,7 @@ const ComprarEntradas: React.FC = () => {
                 </IonRadioGroup>
               </IonList></div>
 
-              
+
               <div className="ion-padding">
                 {error && (
                   <IonText color="danger" role="alert">

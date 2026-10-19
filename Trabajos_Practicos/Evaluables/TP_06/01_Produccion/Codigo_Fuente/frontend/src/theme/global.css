@@ -1,5 +1,3 @@
-/* EcoHarmony Park — capa visual, compatible con Ionic y con movimiento reducido. */
-
 :root {
   --eh-cream: #f2e8cf;
   --eh-forest: #386641;
@@ -142,7 +140,6 @@ ion-datetime { border: 1px solid rgba(56,102,65,.10); border-radius: 20px; backg
 .pago-exitoso-card { border-top: 5px solid var(--eh-lime); }
 .pago-exitoso-card .icono-grande { filter: drop-shadow(0 8px 12px rgba(106,153,78,.22)); }
 
-/* Segunda iteración visual: landing editorial y compra guiada. */
 .hero-inicio { min-height: min(72vh, 650px); align-items: center; padding: clamp(28px, 6vw, 76px); border-radius: 30px; }
 .hero-inicio::before { animation-duration: 42s; }
 .hero-inicio::after { background: linear-gradient(90deg, rgba(13,37,21,.88) 0%, rgba(24,54,31,.61) 48%, rgba(24,54,31,.05) 100%), linear-gradient(0deg, rgba(13,37,21,.48), transparent 55%); }

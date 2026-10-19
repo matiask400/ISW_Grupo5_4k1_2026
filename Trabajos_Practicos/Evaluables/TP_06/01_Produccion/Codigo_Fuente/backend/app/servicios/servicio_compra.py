@@ -51,7 +51,6 @@ class ServicioCompra:
 
         self._compras.guardar(compra)
         if url_pago:
-            # Con tarjeta el mail se envía cuando Mercado Pago aprueba el pago.
             return self._resultado(compra, url_pago=url_pago)
         self._notificar(compra)
         return self._resultado(compra)
@@ -113,7 +112,6 @@ class ServicioCompra:
         )
 
     def _iniciar_pago(self, compra: CompraRegistrada) -> str | None:
-        """Con tarjeta devuelve la URL de Mercado Pago; en efectivo se paga en boletería."""
         if compra.solicitud.forma_pago != FormaPago.TARJETA:
             return None
         return self._pasarela.crear_link_de_pago(compra.monto_total, referencia=compra.id)

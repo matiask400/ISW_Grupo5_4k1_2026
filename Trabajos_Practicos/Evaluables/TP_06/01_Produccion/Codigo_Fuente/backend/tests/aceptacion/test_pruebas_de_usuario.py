@@ -1,14 +1,8 @@
-"""Pruebas de aceptación: las 4 pruebas de usuario de la US "Comprar entradas".
-
-Cada test corresponde a una prueba de usuario definida por el PO y se ejecuta
-sobre la API HTTP, de punta a punta.
-"""
-
 from tests.integracion.test_comprar_entrada import (
     URL_CHECKOUT,
     USUARIO_REGISTRADO,
-    MercadoPagoFalso,
-    ServidorSMTPFalso,
+    ApiMercadoPagoEnMemoria,
+    ServidorSMTPEnMemoria,
     crear_servicio,
 )
 from tests.sistema.test_api_compras import (
@@ -24,9 +18,9 @@ class TestPruebasDeUsuarioComprarEntradas:
 
     def test_pu1_compra_con_tarjeta_redirige_a_mercado_pago_y_envia_mail(self):
         """PU1: fecha disponible, menos de 10 entradas, edades, pase y tarjeta (pasa)."""
-        mercado_pago = MercadoPagoFalso()
-        smtp = ServidorSMTPFalso()
-        cliente = crear_cliente(crear_servicio(pasarela=mercado_pago.pasarela, email=smtp.servicio))
+        mercado_pago = ApiMercadoPagoEnMemoria()
+        smtp = ServidorSMTPEnMemoria()
+        cliente = crear_cliente(crear_servicio(api_mercado_pago=mercado_pago, servidor_smtp=smtp))
 
         compra = cliente.post(ENDPOINT, json=CUERPO_VALIDO, headers=CABECERAS)
 

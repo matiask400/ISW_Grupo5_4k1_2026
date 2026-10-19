@@ -8,7 +8,6 @@ FRONTEND_LOCAL = "http://localhost:5173"
 
 
 def origenes_permitidos(configurados: str | None) -> list[str]:
-    """El frontend local más los de ORIGENES_PERMITIDOS (separados por coma)."""
     extras = [origen.strip().rstrip("/") for origen in (configurados or "").split(",")]
     return [FRONTEND_LOCAL, *(origen for origen in extras if origen)]
 

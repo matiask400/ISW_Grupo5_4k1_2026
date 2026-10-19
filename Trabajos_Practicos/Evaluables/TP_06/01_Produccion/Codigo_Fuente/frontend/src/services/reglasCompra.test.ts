@@ -1,4 +1,3 @@
-// Mismos casos que backend/tests, para asegurar que el front valide igual.
 import { describe, expect, it } from 'vitest';
 import {
   calcularPrecioEntrada,

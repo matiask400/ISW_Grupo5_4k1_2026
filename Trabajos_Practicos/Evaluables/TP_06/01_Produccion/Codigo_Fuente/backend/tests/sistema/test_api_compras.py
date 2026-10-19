@@ -7,7 +7,7 @@ from app.servicios.servicio_compra import ServicioCompra
 from tests.integracion.test_comprar_entrada import (
     OTRO_USUARIO_REGISTRADO,
     USUARIO_REGISTRADO,
-    MercadoPagoFalso,
+    ApiMercadoPagoEnMemoria,
     crear_servicio,
 )
 
@@ -24,7 +24,6 @@ CUERPO_VALIDO = {
 
 
 def crear_cliente(servicio: ServicioCompra | None = None) -> TestClient:
-    """Cliente HTTP de prueba que usa un servicio con datos y reloj controlados."""
     servicio = servicio or crear_servicio()
     app.dependency_overrides[obtener_servicio_compra] = lambda: servicio
     return TestClient(app)
@@ -56,8 +55,8 @@ class TestApiComprarEntradas:
         assert respuesta.status_code == 401
 
     def test_confirmar_un_pago_no_aprobado_recibe_422(self):
-        mercado_pago = MercadoPagoFalso()
-        cliente = crear_cliente(crear_servicio(pasarela=mercado_pago.pasarela))
+        mercado_pago = ApiMercadoPagoEnMemoria()
+        cliente = crear_cliente(crear_servicio(api_mercado_pago=mercado_pago))
         cliente.post(ENDPOINT, json=CUERPO_VALIDO, headers=CABECERAS)
         payment_id = mercado_pago.pagar("rejected")
 
@@ -69,8 +68,8 @@ class TestApiComprarEntradas:
         assert respuesta.json()["detail"] == "El pago no fue aprobado por Mercado Pago"
 
     def test_confirmar_el_pago_de_otro_usuario_recibe_403(self):
-        mercado_pago = MercadoPagoFalso()
-        cliente = crear_cliente(crear_servicio(pasarela=mercado_pago.pasarela))
+        mercado_pago = ApiMercadoPagoEnMemoria()
+        cliente = crear_cliente(crear_servicio(api_mercado_pago=mercado_pago))
         cliente.post(ENDPOINT, json=CUERPO_VALIDO, headers=CABECERAS)
         payment_id = mercado_pago.pagar("approved")
 

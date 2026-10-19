@@ -1,7 +1,7 @@
 import { IonBadge } from '@ionic/react';
 import { useOnline } from '../hooks/useOnline';
 
-/** Cartel "En línea" / "Sin conexión". */
+
 const EstadoConexion: React.FC = () => {
   const online = useOnline();
   return (

@@ -9,7 +9,6 @@ CARACTERES_CODIGO = string.ascii_uppercase + string.digits
 
 
 def generar_codigo_entrada() -> str:
-    """Código aleatorio que va en el QR del mail, p. ej. EHP-7K2Q9XMA."""
     return "EHP-" + "".join(secrets.choice(CARACTERES_CODIGO) for _ in range(8))
 
 
@@ -23,8 +22,6 @@ class CompraRegistrada:
 
 
 class RepositorioComprasEnMemoria:
-    """Compras registradas, guardadas en memoria."""
-
     def __init__(self) -> None:
         self._compras: dict[str, CompraRegistrada] = {}
 

@@ -19,7 +19,7 @@ USUARIO_DEMO = os.getenv("USUARIO_DEMO", "tinchoimo@gmail.com")
 
 
 class ConfiguracionFaltanteError(RuntimeError):
-    """Falta una variable de entorno obligatoria (ver backend/.env)."""
+    pass
 
 
 def _variable_obligatoria(nombre: str) -> str:
@@ -58,7 +58,6 @@ def obtener_servicio_compra() -> ServicioCompra:
 def obtener_usuario_actual(
     usuario_email: str | None = Header(default=None, alias="X-Usuario-Email"),
 ) -> str:
-    """Sesión simulada (FAQ 19). Con un login real, acá se validaría un token."""
     if not usuario_email:
         raise HTTPException(status_code=401, detail="Debe iniciar sesión")
     return usuario_email

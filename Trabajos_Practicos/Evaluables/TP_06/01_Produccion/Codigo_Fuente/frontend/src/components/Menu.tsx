@@ -26,7 +26,6 @@ const opciones: Opcion[] = [
   { titulo: 'Mapa del Parque', url: '/mapa', icono: mapOutline },
 ];
 
-/** Menú lateral desplegable (reemplaza al menú hamburguesa hecho a mano). */
 const Menu: React.FC = () => {
   const location = useLocation();
 
