@@ -19,6 +19,7 @@ import {
   IonSpinner,
   IonText,
   useIonAlert,
+  useIonRouter,
 } from '@ionic/react';
 import { addOutline, removeOutline } from 'ionicons/icons';
 import { useMemo, useState } from 'react';
@@ -46,6 +47,7 @@ const USUARIO_DEMO = 'tinchoimo@gmail.com';
 const ComprarEntradas: React.FC = () => {
   const online = useOnline();
   const [mostrarAlerta] = useIonAlert();
+  const router = useIonRouter();
 
   // Sesión simulada (FAQ 19): arranca con el usuario registrado de prueba.
   const [email, setEmail] = useState(USUARIO_DEMO);
@@ -82,6 +84,7 @@ const ComprarEntradas: React.FC = () => {
     setTipoPase(null);
     setFormaPago(null);
     setError(null);
+    setPasoActivo(1);
   };
 
   const comprar = async () => {
@@ -122,6 +125,8 @@ const ComprarEntradas: React.FC = () => {
         subHeader: `Te enviamos la confirmación a ${resultado.mail_enviado_a}`,
         message: `${resultado.mensaje ?? ''}. Pagás en boletería al llegar al parque.`,
         buttons: ['Aceptar'],
+        // Al cerrar el aviso (con "Aceptar" o tocando afuera) se vuelve al inicio.
+        onDidDismiss: () => router.push('/inicio', 'root', 'replace'),
       });
     } else {
       setError(resultado.error ?? 'No se pudo completar la compra.');
