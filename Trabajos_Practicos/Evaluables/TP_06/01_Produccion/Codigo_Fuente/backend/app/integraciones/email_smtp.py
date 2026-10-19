@@ -17,12 +17,25 @@ class ServicioEmailSMTP:
         self._contrasena = contrasena
         self._smtp = smtp
 
-    def enviar(self, destinatario: str, asunto: str, cuerpo: str) -> None:
+    def enviar(
+        self,
+        destinatario: str,
+        asunto: str,
+        cuerpo: str,
+        html: str | None = None,
+        imagenes: dict[str, bytes] | None = None,
+    ) -> None:
+        """'imagenes' son PNG incrustados en el HTML: {"qr": png} se usa como <img src="cid:qr">."""
         mail = EmailMessage()
         mail["From"] = self._usuario
         mail["To"] = destinatario
         mail["Subject"] = asunto
         mail.set_content(cuerpo)
+        if html:
+            mail.add_alternative(html, subtype="html")
+            parte_html = mail.get_payload()[-1]
+            for cid, png in (imagenes or {}).items():
+                parte_html.add_related(png, "image", "png", cid=f"<{cid}>")
 
         with self._smtp(self._host, self._puerto) as servidor:
             servidor.starttls()

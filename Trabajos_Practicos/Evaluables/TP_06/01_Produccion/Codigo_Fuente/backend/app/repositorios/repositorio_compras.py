@@ -1,7 +1,16 @@
-from dataclasses import dataclass
+import secrets
+import string
+from dataclasses import dataclass, field
 from datetime import date
 
 from app.modelos.modelos import SolicitudCompra
+
+CARACTERES_CODIGO = string.ascii_uppercase + string.digits
+
+
+def generar_codigo_entrada() -> str:
+    """Código aleatorio que va en el QR del mail, p. ej. EHP-7K2Q9XMA."""
+    return "EHP-" + "".join(secrets.choice(CARACTERES_CODIGO) for _ in range(8))
 
 
 @dataclass
@@ -10,6 +19,7 @@ class CompraRegistrada:
     solicitud: SolicitudCompra
     monto_total: int
     mail_enviado: bool = False
+    codigo_entrada: str = field(default_factory=generar_codigo_entrada)
 
 
 class RepositorioComprasEnMemoria:

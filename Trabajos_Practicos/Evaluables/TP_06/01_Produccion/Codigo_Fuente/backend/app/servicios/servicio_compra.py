@@ -11,8 +11,7 @@ from app.servicios.tarifario import Tarifario
 from app.integraciones.errores import PasarelaPagoError
 from app.integraciones.mercado_pago import PasarelaMercadoPago
 from app.integraciones.email_smtp import ServicioEmailSMTP
-
-ASUNTO_MAIL_CONFIRMACION = "Confirmación de compra - EcoHarmony Park"
+from app.servicios.mail_confirmacion import armar_mail_confirmacion
 
 class ServicioCompra:
     def __init__(
@@ -77,10 +76,13 @@ class ServicioCompra:
         return self._resultado(compra)
 
     def _notificar(self, compra: CompraRegistrada) -> None:
+        mail = armar_mail_confirmacion(compra, self._tarifario)
         self._email.enviar(
             destinatario=compra.solicitud.usuario_email,
-            asunto=ASUNTO_MAIL_CONFIRMACION,
-            cuerpo=self._resultado(compra).mensaje,
+            asunto=mail.asunto,
+            cuerpo=mail.texto,
+            html=mail.html,
+            imagenes={mail.qr_cid: mail.qr_png},
         )
         compra.mail_enviado = True
 

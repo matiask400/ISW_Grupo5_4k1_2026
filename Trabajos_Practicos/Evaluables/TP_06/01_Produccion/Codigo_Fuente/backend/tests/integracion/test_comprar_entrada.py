@@ -90,6 +90,16 @@ class ServidorSMTPFalso:
         self.enviados.append(mail)
 
 
+def assert_mail_con_qr(mail: EmailMessage, mensaje: str) -> None:
+    """El mail trae texto, HTML y el QR de la entrada incrustado."""
+    assert mensaje in mail.get_body(("plain",)).get_content()
+    html = mail.get_body(("html",)).get_content()
+    assert mensaje in html
+    assert 'src="cid:qr-entrada"' in html
+    qr = next(parte for parte in mail.walk() if parte["Content-ID"] == "<qr-entrada>")
+    assert qr.get_content_type() == "image/png"
+
+
 def crear_servicio(
     ahora: datetime = AHORA,
     pasarela: PasarelaMercadoPago | None = None,
@@ -777,7 +787,7 @@ class TestComprarEntrada:
         mail = smtp.enviados[0]
         assert mail["To"] == "ana@mail.com"
         assert mail["Subject"] == "Confirmación de compra - EcoHarmony Park"
-        assert mail.get_content().strip() == resultado.mensaje
+        assert_mail_con_qr(mail, resultado.mensaje)
 
     def test_una_compra_invalida_no_envia_mail(self):
         smtp = ServidorSMTPFalso()
@@ -894,7 +904,7 @@ class TestConfirmarPagoConTarjeta:
         mail = self.smtp.enviados[0]
         assert mail["To"] == USUARIO_REGISTRADO
         assert mail["Subject"] == "Confirmación de compra - EcoHarmony Park"
-        assert mail.get_content().strip() == resultado.mensaje
+        assert_mail_con_qr(mail, resultado.mensaje)
 
     @pytest.mark.parametrize("estado", ["rejected", "pending", "in_process", "cancelled"])
     def test_si_el_pago_no_esta_aprobado_no_envia_mail(self, estado):
