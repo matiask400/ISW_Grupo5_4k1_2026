@@ -7,3 +7,5 @@ dev-dist/
 .vscode/*
 !.vscode/extensions.json
 .DS_Store
+.vercel
+.env*
