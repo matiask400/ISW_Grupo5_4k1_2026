@@ -2,7 +2,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app.api.dependencias import ConfiguracionFaltanteError, obtener_servicio_compra
-from app.main import app
+from app.main import app, origenes_permitidos
 from app.servicios.servicio_compra import ServicioCompra
 from tests.integracion.test_comprar_entrada import (
     OTRO_USUARIO_REGISTRADO,
@@ -81,6 +81,34 @@ class TestApiComprarEntradas:
         )
 
         assert respuesta.status_code == 403
+
+
+class TestCors:
+
+    def test_sin_configurar_solo_permite_el_frontend_local(self):
+        assert origenes_permitidos(None) == ["http://localhost:5173"]
+
+    def test_suma_los_origenes_configurados_sin_barra_final(self):
+        valor = "https://ecoharmony.vercel.app/, https://otro.vercel.app"
+
+        assert origenes_permitidos(valor) == [
+            "http://localhost:5173",
+            "https://ecoharmony.vercel.app",
+            "https://otro.vercel.app",
+        ]
+
+    def test_el_frontend_local_puede_llamar_a_la_api(self):
+        respuesta = TestClient(app).options(
+            ENDPOINT,
+            headers={
+                "Origin": "http://localhost:5173",
+                "Access-Control-Request-Method": "POST",
+                "Access-Control-Request-Headers": "content-type,x-usuario-email",
+            },
+        )
+
+        assert respuesta.status_code == 200
+        assert respuesta.headers["access-control-allow-origin"] == "http://localhost:5173"
 
 
 def test_salud_responde_ok():
