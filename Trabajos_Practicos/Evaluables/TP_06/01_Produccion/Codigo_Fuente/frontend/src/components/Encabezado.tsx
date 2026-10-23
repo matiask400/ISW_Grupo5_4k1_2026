@@ -11,7 +11,7 @@ const Encabezado: React.FC<Props> = ({ titulo }) => (
       <IonButtons slot="start">
         <IonMenuButton aria-label="Abrir menú" />
       </IonButtons>
-      <img src="/icons/icono.jpg" alt="" className="logo-encabezado" slot="start" />
+      <img src="/icons/icon-192.png" alt="" className="logo-encabezado" slot="start" />
       <IonTitle>{titulo}</IonTitle>
       <div slot="end" className="ion-padding-end">
         <EstadoConexion />

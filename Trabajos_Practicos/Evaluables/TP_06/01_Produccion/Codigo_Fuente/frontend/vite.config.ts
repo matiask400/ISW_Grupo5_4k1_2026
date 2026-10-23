@@ -10,7 +10,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
-      includeAssets: ['icons/apple-touch-icon.png', 'icons/icono.jpg'],
+      includeAssets: ['icons/apple-touch-icon.png'],
       manifest: {
         name: 'EcoHarmony Park',
         short_name: 'EcoHarmony',
