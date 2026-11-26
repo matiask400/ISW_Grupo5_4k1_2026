@@ -1,6 +1,6 @@
 # Trabajos prácticos
 
-Cada trabajo práctico evaluable se registra en un directorio `TP_<NN>_<Tema>/` y conserva esta estructura interna:
+Cada trabajo práctico evaluable se registra en un directorio `TP_<NN>` y conserva esta estructura interna:
 
 | Directorio | Contenido | Rol |
 | :--- | :--- | :--- |
